@@ -1,0 +1,9 @@
+# Line endings: LF everywhere, so a Windows checkout (core.autocrlf=true) cannot change bytes.
+* text=auto eol=lf
+
+# Crawled snapshots are hashed byte for byte (`currant verify`). Git must never touch them:
+# no EOL conversion, no text normalisation.
+snapshots/** -text
+
+# The demo claim store is a SQLite file: git must not touch its bytes.
+*.db binary

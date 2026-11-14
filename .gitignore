@@ -1,0 +1,53 @@
+# secrets: keys come from environment variables only
+.env
+.env.*
+!.env.example
+
+# python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# editors / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Note: snapshots/ and results/ are committed on purpose (corpus manifest, raw run logs).
+
+# local-only Claude Code settings
+.claude/settings.local.json
+
+# Local state: the claim store, the sealed-label database and the model cache. Not committed.
+# Rebuilding the store needs a SERV key and is not deterministic; examples/demo/ is the
+# committed, reproducible path.
+data/
+
+# Receipts built from real sponsor docs can contain documentation conflicts. Sponsor drift
+# stays private until a second source confirms it and the maintainers have been told.
+results/receipts/
+docs/private/
+
+# Trial run on unrelated third-party docs: raw replies contain their text, and redistribution is unchecked.
+# Trial crawl configs (corpora-<name>.toml) stay local; only corpora.toml is committed.
+results/external/
+corpora-*.toml
+
+# The landing page build (site/): installed packages and build output
+site/node_modules/
+site/dist/
+
+# Raw logs of the relation step on the real corpora: they record findings that are not public
+# yet (sponsor drift stays private until two sources confirm it and the maintainers are told).
+results/relate/
+
+# Internal working notes, not part of the submission
+Currant plan.md
+docs/DEMO_SCRIPT.md

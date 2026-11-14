@@ -1,0 +1,39 @@
+# Crawl seeds. Each corpus lists index files (llms.txt style) to discover pages from,
+# an allow-list of URL prefixes (nothing outside it is fetched, including redirect targets),
+# and pages to fetch directly whether or not an index links to them.
+
+[[corpus]]
+name = "openserv"
+enabled = true
+indexes = ["https://docs.openserv.ai/llms.txt"]
+allow = ["https://docs.openserv.ai/"]
+pages = [
+    "https://docs.openserv.ai/changelog/overview.md",
+    "https://docs.openserv.ai/serv-reasoning/introduction.md",
+    "https://docs.openserv.ai/serv-reasoning/models.md",
+]
+max_pages = 500
+
+[[corpus]]
+name = "reppo"
+enabled = true
+indexes = ["https://docs.reppo.ai/llms.txt"]
+allow = [
+    "https://docs.reppo.ai/",
+    "https://eval.reppo.xyz/agents.md",
+]
+pages = [
+    "https://docs.reppo.ai/concepts/evaluation-api.md",
+    "https://docs.reppo.ai/api/eval/overview.md",
+    "https://eval.reppo.xyz/agents.md",
+]
+max_pages = 500
+
+# Optional third corpus. Its index file is unverified (see the plan), so it is off by default.
+[[corpus]]
+name = "kite"
+enabled = false
+indexes = ["https://docs.gokite.ai/llms.txt"]
+allow = ["https://docs.gokite.ai/"]
+pages = []
+max_pages = 500
