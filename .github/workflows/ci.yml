@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+# A new push cancels the older run of the same ref instead of running both.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_VERSION: "0.13.7"
+  # Fail if uv.lock and pyproject.toml disagree, in every uv command (sync, run, build).
+  UV_LOCKED: "1"
+
+# Each check is its own job so a lint failure cannot hide a test failure behind it.
+# No job needs a secret or the network: a fresh clone passes with zero API keys.
+# Actions are pinned to full commit SHAs (the tag is in the comment); Dependabot bumps them.
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run mypy
+
+  test:
+    # Windows too: development happens there, and path or line-ending bugs only show up there.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run pytest
+      # A broken argparse wiring in a subcommand the tests do not reach would otherwise ship.
+      - run: uv run currant --help
+      # The committed demo needs no key and no network: a stranger can do exactly this.
+      - run: uv run currant replay examples/demo/receipt.json --db examples/demo/store.db
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv build
+      - name: The wheel carries the receipt viewer
+        run: |
+          python -c "import zipfile,glob; names=zipfile.ZipFile(glob.glob('dist/*.whl')[0]).namelist(); need={'currant/web/index.html','currant/web/viewer.js','currant/web/viewer.css'}; missing=need-set(names); assert not missing, missing"
+
+  guardrails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      # Env reads only in config.py, no secret-shaped strings, .env ignored, HTTP clients only
+      # in cli.py / live_* scripts, no skipped tests or suppressed type/lint failures.
+      - run: uv run python -m currant.guardrails
+
+  snapshots:
+    # Re-hash every committed snapshot against its manifest. On Windows as well, which proves
+    # .gitattributes keeps the crawled bytes intact through a CRLF-converting checkout.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - shell: bash
+        run: |
+          shopt -s nullglob
+          for dir in snapshots/*/; do
+            uv run currant verify "$dir"
+          done

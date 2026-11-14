@@ -1,0 +1,47 @@
+[project]
+name = "currant"
+version = "0.1.0"
+description = "Stale-truth firewall: detect superseded claims in docs, pull in the newer evidence, and return a receipt anyone can replay."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+    "httpx>=0.27,<1",
+]
+
+[project.scripts]
+currant = "currant.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/currant"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+# Crawled third-party docs are data; never lint or reformat them.
+extend-exclude = ["snapshots"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "C4", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests", "scripts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
