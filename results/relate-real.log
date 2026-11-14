@@ -1,0 +1,9 @@
+started 14:52:56Z
+relate run:   3  (from extract run 1)
+pairs:        416 asked about
+result:       0 supersedes, 7 contradicts, 404 unrelated, 0 rejected by the database
+downgraded:   1 (claimed more than the evidence verified)
+failed:       3, blocked by the guard: 2
+model calls:  363 new, 50 from the cache
+exit=1
+finished 15:24:54Z

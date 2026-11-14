@@ -1,0 +1,37 @@
+{
+  "mode": "proxy-live",
+  "proxy_mode": "annotate",
+  "extract_run": 1,
+  "relate_run": 4,
+  "saved_at": "2026-11-11T11:33:52+00:00",
+  "calls": [
+    {
+      "question": "How much does gpt-6-luna cost per million input tokens and per million output tokens?",
+      "http_status": 503,
+      "latency_ms": 16,
+      "content_type": "application/json",
+      "currant_headers": {},
+      "finish_reason": null,
+      "usage": null,
+      "answer": "",
+      "error": {
+        "type": "grounding_failed",
+        "message": "SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 23084 and this is thread id 16392.; the question was not sent upstream"
+      }
+    },
+    {
+      "question": "Which tool turns on the SERV prompt injection guard?",
+      "http_status": 503,
+      "latency_ms": 0,
+      "content_type": "application/json",
+      "currant_headers": {},
+      "finish_reason": null,
+      "usage": null,
+      "answer": "",
+      "error": {
+        "type": "grounding_failed",
+        "message": "SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 23084 and this is thread id 16392.; the question was not sent upstream"
+      }
+    }
+  ]
+}

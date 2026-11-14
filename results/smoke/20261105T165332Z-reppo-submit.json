@@ -1,0 +1,49 @@
+{
+  "mode": "reppo-submit",
+  "prompt_version": "smoke-v1",
+  "model": null,
+  "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c",
+  "saved_at": "2026-11-05T16:53:32+00:00",
+  "calls": [
+    {
+      "name": "standard_submit",
+      "request": {
+        "method": "POST",
+        "url": "https://eval.reppo.xyz/api/v1/agents/eval-requests/submit",
+        "body": {
+          "type": "answer",
+          "payload": "The SERV Reasoning models page lists gpt-6-luna at $0.13 per million input tokens and $0.65 per million output tokens.",
+          "criteria": [
+            "Does the answer state both the input and output price of gpt-6-luna?"
+          ],
+          "settlementMinutes": 10
+        }
+      },
+      "started_at": "2026-11-05T16:53:29+00:00",
+      "outcome": "confirmed",
+      "http_status": 201,
+      "latency_ms": 2265,
+      "response_headers": {
+        "access-control-allow-headers": "Content-Type, Authorization, PAYMENT-SIGNATURE",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-expose-headers": "PAYMENT-REQUIRED, PAYMENT-RESPONSE",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/json",
+        "date": "Thu, 05 Nov 2026 16:53:32 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "x-matched-path": "/api/v1/agents/eval-requests/submit",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "cpt1::iad1::xgfzd-1793897611103-820bec0b4b01",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "cmw3sbk82000i08l25jvumol9",
+        "evalId": "eval_f52b60bd-290d-448f-94d8-35262ea8ef1b",
+        "status": "PENDING"
+      },
+      "response_text": null
+    }
+  ]
+}

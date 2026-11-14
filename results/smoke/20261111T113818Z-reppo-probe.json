@@ -1,0 +1,41 @@
+{
+  "mode": "reppo-probe",
+  "probes": [
+    {
+      "method": "GET",
+      "path": "/agents/eval-requests/eval_f52b60bd-290d-448f-94d8-35262ea8ef1b",
+      "http_status": 404,
+      "body": "<!DOCTYPE html><!--7Qf_0SC_DWm_W9fuZ6MZp--><html lang=\"en\" class=\"__variable_4eeef7\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/26d4368bf94c0ec4-s.p.woff2\" as=\"font\" crossorigin=\"\" type=\"font/woff2\"/"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/evals/eval_f52b60bd-290d-448f-94d8-35262ea8ef1b",
+      "http_status": 404,
+      "body": "{\"error\":\"Not found\"}"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/evals/does-not-exist",
+      "http_status": 404,
+      "body": "{\"error\":\"Not found\"}"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/eval-requests/submit",
+      "http_status": 404,
+      "body": "<!DOCTYPE html><!--7Qf_0SC_DWm_W9fuZ6MZp--><html lang=\"en\" class=\"__variable_4eeef7\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/26d4368bf94c0ec4-s.p.woff2\" as=\"font\" crossorigin=\"\" type=\"font/woff2\"/"
+    },
+    {
+      "method": "POST",
+      "path": "/agents/evals",
+      "http_status": 400,
+      "body": "{\"error\":\"taskType: Required, input: Required\"}"
+    },
+    {
+      "method": "GET",
+      "path": "/agents/eval-requests/pending",
+      "http_status": 404,
+      "body": "(19013 characters)"
+    }
+  ]
+}

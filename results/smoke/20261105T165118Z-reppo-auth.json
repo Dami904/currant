@@ -1,0 +1,39 @@
+{
+  "mode": "reppo-auth",
+  "prompt_version": "smoke-v1",
+  "model": null,
+  "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c",
+  "saved_at": "2026-11-05T16:51:18+00:00",
+  "calls": [
+    {
+      "name": "pending_list_auth_check",
+      "request": {
+        "method": "GET",
+        "url": "https://eval.reppo.xyz/api/v1/agents/eval-requests/pending?page=1&pageSize=1",
+        "body": null
+      },
+      "started_at": "2026-11-05T16:51:16+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 1297,
+      "response_headers": {
+        "access-control-allow-headers": "Content-Type, Authorization, PAYMENT-SIGNATURE",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-expose-headers": "PAYMENT-REQUIRED, PAYMENT-RESPONSE",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-encoding": "gzip",
+        "content-type": "application/json",
+        "date": "Thu, 05 Nov 2026 16:51:18 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "x-matched-path": "/api/v1/agents/eval-requests/pending",
+        "x-vercel-cache": "BYPASS",
+        "x-vercel-id": "cpt1::iad1::gjpr9-1793897477703-642fd1c0bded",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": "<omitted: contains other accounts' data>",
+      "response_text": null
+    }
+  ]
+}
