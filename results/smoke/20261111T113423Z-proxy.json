@@ -1,0 +1,71 @@
+{
+  "mode": "proxy-live",
+  "proxy_mode": "annotate",
+  "extract_run": 1,
+  "relate_run": 4,
+  "saved_at": "2026-11-11T11:34:23+00:00",
+  "calls": [
+    {
+      "question": "How much does gpt-6-luna cost per million input tokens and per million output tokens?",
+      "http_status": 200,
+      "latency_ms": 9516,
+      "content_type": "application/json",
+      "currant_headers": {
+        "x-currant-receipt": "492dceb9fe4eefd0d846918b399da30ef8a64920ca23a65fc6d5fc17bdd69258",
+        "x-currant-context-sha256": "12a7e8e47d8c9c0f8dc8bd6c16959e93dd5cdb0a0a0cbd9591ae8df637625144",
+        "x-currant-mode": "annotate",
+        "x-currant-actions": "0"
+      },
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 9759,
+        "completion_tokens": 31,
+        "total_tokens": 9790,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 9756,
+          "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "audio_tokens": 0,
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "answer": "GPT-6-Luna costs **$0.130 per million input tokens** and **$0.650 per million output tokens**.",
+      "error": null
+    },
+    {
+      "question": "Which tool turns on the SERV prompt injection guard?",
+      "http_status": 200,
+      "latency_ms": 3375,
+      "content_type": "application/json",
+      "currant_headers": {
+        "x-currant-receipt": "b8bf229d14800d8cd9d240ea4b02c1408ec3d0820223e1c7af590a560fbffa0c",
+        "x-currant-context-sha256": "650b9c62f3d646fbc18b1938b1792e5f8784c9eb7c5b31f739405c5d4e4a329c",
+        "x-currant-mode": "annotate",
+        "x-currant-actions": "1"
+      },
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 6444,
+        "completion_tokens": 57,
+        "total_tokens": 6501,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 6441,
+          "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 26,
+          "audio_tokens": 0,
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "answer": "Add the `serv_prompt_guard` tool to the request\u2019s `tools` array. It\u2019s opt-in.",
+      "error": null
+    }
+  ]
+}

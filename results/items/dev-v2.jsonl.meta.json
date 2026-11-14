@@ -1,0 +1,6 @@
+{
+  "extract_prompt": "extract-v1",
+  "model": "gpt-6-luna",
+  "relate_prompt": "relate-v1",
+  "split": "dev"
+}

@@ -1,0 +1,91 @@
+{
+  "mode": "reppo-sandbox",
+  "prompt_version": "smoke-v1",
+  "model": null,
+  "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c",
+  "saved_at": "2026-11-05T16:51:15+00:00",
+  "calls": [
+    {
+      "name": "lite_sandbox",
+      "request": {
+        "method": "POST",
+        "url": "https://eval.reppo.xyz/api/v1/x402/evals/lite",
+        "body": {
+          "type": "answer",
+          "payload": "The SERV Reasoning models page lists gpt-6-luna at $0.13 per million input tokens and $0.65 per million output tokens.",
+          "criteria": [
+            "Does the answer state both the input and output price of gpt-6-luna?"
+          ]
+        }
+      },
+      "started_at": "2026-11-05T16:51:13+00:00",
+      "outcome": "confirmed",
+      "http_status": 201,
+      "latency_ms": 2469,
+      "response_headers": {
+        "access-control-allow-headers": "Content-Type, Authorization, PAYMENT-SIGNATURE",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-expose-headers": "PAYMENT-REQUIRED, PAYMENT-RESPONSE",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/json",
+        "date": "Thu, 05 Nov 2026 16:51:15 GMT",
+        "server": "Vercel",
+        "strict-transport-security": "max-age=63072000",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "x-matched-path": "/api/v1/x402/evals/lite",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "cpt1::iad1::xgfzd-1793897474842-ee04d6558aed",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "sandbox_c8fe59d8-887f-4d2e-88c1-c97a6f66073d",
+        "evalId": "eval_sandbox_003e1c9b-89a8-43e7-8c77-b895ed32c4da",
+        "type": "answer",
+        "status": "SETTLED",
+        "mode": "LITE",
+        "source": "X402",
+        "creditsCharged": 0,
+        "createdAt": "2026-11-05T16:51:15.326Z",
+        "minSettleAt": "2026-11-05T16:51:15.326Z",
+        "settledAt": "2026-11-05T16:51:15.326Z",
+        "peerAssessmentCount": 0,
+        "peerAssessmentContributors": [],
+        "humanContributors": 0,
+        "payload": "The SERV Reasoning models page lists gpt-6-luna at $0.13 per million input tokens and $0.65 per million output tokens.",
+        "criteria": [
+          "Does the answer state both the input and output price of gpt-6-luna?"
+        ],
+        "context": null,
+        "attachments": [],
+        "result": {
+          "verdict": {
+            "score": 0,
+            "scale": "0-100",
+            "decision": "revise",
+            "confidence": "low"
+          },
+          "verdicts": [
+            {
+              "criterion": "Does the answer state both the input and output price of gpt-6-luna?",
+              "score": 0,
+              "critique": "Sandbox enabled - this is a placeholder verdict. No AI judge ran and nothing was charged."
+            }
+          ],
+          "action": {
+            "route": "review"
+          },
+          "evidence": {
+            "evidenceBasis": "model-judgment",
+            "pods": [],
+            "peerAssessmentCount": 0
+          }
+        },
+        "peerAssessments": [],
+        "humanContributions": [],
+        "readToken": "x402rt_sandbox",
+        "sandbox": true
+      },
+      "response_text": null
+    }
+  ]
+}
