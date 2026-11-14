@@ -1,0 +1,96 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.reppo.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Stake-Assured Curation with veREPPO
+
+> Reppo's curation model ties voting authority to locked capital, creating economically-grounded quality signals suitable for RLHF and DPO training.
+
+Reppo's curation mechanism is **stake-assured human feedback (SAHF)**. Rather than granting curation influence based on time spent or engagement metrics, Reppo requires voters to lock REPPO tokens to obtain veREPPO — their voting authority — and then allocate that authority across datanets and pods each epoch. Economic risk backs every quality signal the network produces.
+
+## Voting power formula
+
+Your voting power is determined by two factors:
+
+* **Amount locked** — more REPPO locked yields more veREPPO
+* **Lock duration** — longer commitments yield more voting power per token
+
+```
+REPPO locked × lock duration → veREPPO (voting power)
+```
+
+Splitting tokens across multiple wallets does not multiply voting power. Because voting weight scales with capital locked, Sybil attacks — creating many accounts to dilute or manipulate curation — are economically self-defeating.
+
+## How votes work each epoch
+
+Each epoch runs for **48 hours**. During that window:
+
+**1. Distribute voting power across datanets**
+
+veREPPO holders allocate their total voting power across the datanets they want to participate in. You can split across multiple datanets in any proportion.
+
+**2. Allocate within datanets to specific pods**
+
+Within each datanet, you allocate your share of voting power toward specific pods — casting votes for or against based on your quality assessment.
+
+**3. Time decay applies**
+
+Voting power decays linearly throughout the epoch. A vote cast at the start of the epoch carries more weight than the same vote cast near the end.
+
+**4. Two-sided voting creates adversarial pressure**
+
+Any participant can vote against a pod. This means artificial support for low-quality content can be directly challenged, and bribery schemes become ongoing capital contests rather than one-time payments.
+
+**5. Epoch closes and tallies determine rewards**
+
+At epoch end, net vote tallies across all pods determine how emissions are distributed to publishers and how curation accuracy scores are calculated for voters.
+
+## Time decay
+
+Earlier votes carry more weight. A voter who identifies a high-quality submission early in the epoch earns more than one who casts the same vote near the close. This design discourages **vote sniping** — waiting to see which way consensus is forming before piling on — and rewards genuine conviction.
+
+## Two-sided voting
+
+Votes can be cast **for** or **against** any pod. This means:
+
+* Artificial inflation of a low-quality pod's score can be directly countered
+* Supporting a pod through bribery requires maintaining that capital commitment every epoch as opponents can challenge it
+* Markets self-correct through continuous adversarial pressure rather than relying on manual moderation
+
+## Adversarial robustness
+
+The voting design addresses common manipulation vectors systematically:
+
+| Attack vector | Defense mechanism |
+| - | - |
+| **Spam submissions** | Pay-to-publish requires upfront REPPO capital per pod |
+| **Sybil voting** | Stake-weighted: splitting capital across accounts reduces total influence |
+| **Artificial support** | Two-sided voting: any participant can challenge any position directly |
+| **Vote sniping** | Time decay: earlier signals receive higher weight |
+| **Coordination attacks** | Continuous repricing: positions respond in real time as capital moves |
+
+## Where expertise enters
+
+Locking REPPO creates voting power and economic accountability. It does not create domain knowledge. Expertise enters at the datanet level, not from stake alone: each datanet owner chooses the task, access rules, incentive design, and acceptance standards. A datanet can be open, curated, or restricted to a narrower expert set. In specialized markets, stake backs judgment among eligible participants rather than manufacturing expertise where none exists.
+
+## How feedback is collected
+
+Datanets capture human feedback in several forms, depending on the task:
+
+* **Rating outputs:** people rate AI-generated content (good or bad, helpful or harmful, preferred or less preferred).
+* **Pairwise comparisons:** given two outputs, people pick which is better.
+* **Direct edits or suggestions:** annotators or users improve the output, such as rewriting text or correcting errors.
+* **Specialized feedback:** domain experts (for example lawyers, doctors, or teachers) review content for accuracy in their field.
+
+This feedback is turned into training signal for techniques like Reinforcement Learning from Human Feedback (RLHF) and Direct Preference Optimization (DPO).
+
+## Curation signals as training data
+
+Every action on Reppo — submissions, votes, rankings, and written feedback — produces structured preference signals. These signals are the network's primary output. AI teams access not just curated content but the **preference signal itself**: ordered comparisons, for/against labels, and written rationales suitable for RLHF (reinforcement learning from human feedback) and DPO (direct preference optimization) training pipelines.
+
+> [!NOTE]
+>
+> Vote feedback submitted via `POST /feedback/pods/{id}` attaches structured written rationale to a vote. This adds qualitative signal on top of the quantitative veREPPO weight, enriching the training data that flows downstream.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

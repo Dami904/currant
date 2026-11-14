@@ -1,0 +1,194 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.reppo.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Create and Publish a Reppo Datanet
+
+> Step-by-step guide to configuring, minting on-chain, and publishing a Reppo datanet backed by your own ERC-20 token on Base (chain ID 8453).
+
+A **datanet** is the core organizational primitive of the Reppo protocol — a domain-specific market that defines who can publish data, how quality is assessed, and how rewards are distributed. This guide walks you through every step of creating and publishing one, from preparing your token to configuring post-launch fees.
+
+> [!NOTE]
+>
+> All `/me/*` endpoints require a valid `privy-token` session cookie. Authenticate through the Reppo web app to obtain one before proceeding.
+
+**1. Prepare your ERC-20 token on Base**
+
+Every datanet is anchored to an ERC-20 token deployed on Base (chain ID 8453). Before calling any API, collect the following details for your token:
+
+| Field | Description |
+| - | - |
+| `nativeTokenAddress` | Contract address (0x-prefixed) |
+| `nativeTokenSymbol` | Ticker symbol, max 5 characters (e.g. `MYTKN`) |
+| `nativeTokenDecimals` | Integer between 1 and 18 (typically `18`) |
+
+If you have not deployed a token yet, use a tool such as the Base token deployer or OpenZeppelin Contracts Wizard before continuing.
+
+**2. Create the datanet draft**
+
+Submit your datanet configuration to `POST /api/v1/me/subnets`. This creates the draft record on the Reppo platform before the on-chain transaction.
+
+**Request body schema**
+
+| Field | Type | Constraints | Required |
+| - | - | - | - |
+| `subnetCreatorType` | string | `individual` or `team` | Yes |
+| `subnetName` | string | Max 100 characters | Yes |
+| `imageURL` | string (URI) | — | No |
+| `subnetDescription` | string | 10–500 characters | Yes |
+| `onboardingPublishers` | string | 10–1000 characters | Yes |
+| `onboardingVoters` | string | 10–1000 characters | Yes |
+| `subnetGoal` | string | Max 100 characters | Yes |
+| `nativeTokenAddress` | string | 0x-prefixed contract address | Yes |
+| `nativeTokenSymbol` | string | Max 5 characters | Yes |
+| `nativeTokenDecimals` | integer | 1–18 | Yes |
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetCreatorType": "individual",
+    "subnetName": "Base DeFi Research",
+    "imageURL": "https://example.com/datanet-cover.png",
+    "subnetDescription": "A curated datanet for high-signal DeFi research, analysis, and on-chain data commentary from Base ecosystem contributors.",
+    "onboardingPublishers": "Submit original DeFi analysis, protocol breakdowns, or on-chain data insights. Posts must be your own work and include verifiable on-chain references where applicable.",
+    "onboardingVoters": "Vote on the quality and accuracy of DeFi research submissions. Voters should have working knowledge of Base DeFi protocols and on-chain data interpretation.",
+    "subnetGoal": "Curate the highest-quality DeFi research dataset on Base",
+    "nativeTokenAddress": "0x1234567890abcdef1234567890abcdef12345678",
+    "nativeTokenSymbol": "DEFI",
+    "nativeTokenDecimals": 18
+  }'
+```
+
+**Response**
+
+```json theme={null}
+{
+  "data": {
+    "id": "subnet_01hw9k2mxvfg3q4r5t6y7u8i"
+  }
+}
+```
+
+Save the returned `id` — you will use it in every subsequent step.
+
+**3. Execute the on-chain mint transaction**
+
+With your draft created, you now mint the datanet on Base. This transaction registers your datanet on the `SubnetManager` contract (`0x2629A8083065938B533b117704935D727270eE7A`) and assigns it an on-chain token ID.
+
+Use your preferred Web3 tool (wagmi, ethers.js, cast, or the Reppo web app) to submit the transaction. Once confirmed, copy the transaction hash — you need it in the next step.
+
+> [!TIP]
+>
+> You can use the Reppo web app's guided flow to perform this transaction through a wallet UI without writing contract calls directly.
+
+**4. Publish the datanet**
+
+After the on-chain transaction confirms, record it on the Reppo platform by calling `POST /api/v1/me/subnets/{id}/publish`. Replace `{id}` with the draft ID from step 2.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets/subnet_01hw9k2mxvfg3q4r5t6y7u8i/publish \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "txHash": "0xabc123def456abc123def456abc123def456abc123def456abc123def456abc1"
+  }'
+```
+
+**Response**
+
+```json theme={null}
+{
+  "data": {
+    "success": true
+  }
+}
+```
+
+Your datanet is now live and visible to publishers and voters on the Reppo platform.
+
+**5. Configure fees (optional)**
+
+After publishing, you can configure the economic parameters of your datanet. Each fee update requires a corresponding on-chain transaction — submit the transaction first, then record the result via the API.
+
+**Access fee (REPPO)**
+
+Controls the cost for data consumers to access your datanet's curated dataset.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets/subnet_01hw9k2mxvfg3q4r5t6y7u8i/access-fee/reppo \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "accessFeeREPPO": 10,
+    "txHash": "0xabc123..."
+  }'
+```
+
+**Pod publishing fee (REPPO)**
+
+Sets the cost for publishers to submit a pod to your datanet.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets/subnet_01hw9k2mxvfg3q4r5t6y7u8i/pod-publishing-fee/reppo \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "publishingFeeREPPO": 5,
+    "txHash": "0xabc123..."
+  }'
+```
+
+**Pod republishing fee (REPPO)**
+
+Sets the cost for republishing an existing pod into your datanet.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets/subnet_01hw9k2mxvfg3q4r5t6y7u8i/pod-republishing-fee/reppo \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "republishingFeeREPPO": 2,
+    "txHash": "0xabc123..."
+  }'
+```
+
+**REPPO emissions per epoch**
+
+Sets how many REPPO tokens flow to top-performing pods each epoch.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets/subnet_01hw9k2mxvfg3q4r5t6y7u8i/emissions-per-epoch/reppo \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "emissionsPerEpochREPPO": 100,
+    "txHash": "0xabc123..."
+  }'
+```
+
+**Primary token emissions per epoch**
+
+Sets how many of your datanet's native token flow to pods each epoch.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/subnets/subnet_01hw9k2mxvfg3q4r5t6y7u8i/emissions-per-epoch/primary-token \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "emissionsPerEpochPrimaryToken": 500,
+    "txHash": "0xabc123..."
+  }'
+```
+
+All fee update endpoints return the same `{"data": {"success": true}}` response on success.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
