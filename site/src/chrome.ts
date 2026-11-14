@@ -57,6 +57,8 @@ export function startChrome(): void {
         return r.top <= y && r.bottom > y;
       });
       head.classList.toggle("on-dark", under?.dataset.tone === "dark");
+      // Past the hero, the header gets a frosted bar so its links never sit on top of body text.
+      head.classList.toggle("solid", window.scrollY > 40 && under?.id !== "stage");
     };
     window.addEventListener(
       "scroll",

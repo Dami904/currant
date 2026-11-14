@@ -22,11 +22,13 @@
     <nav class="menu" id="menu" aria-label="Sections" hidden>
       <a href="#how">The three steps</a>
       <a href="#demo">Live demo</a>
+      <a href="#guarantees">Guarantees</a>
       <a href="#evidence">Evidence</a>
       <a href="#results">Results</a>
-      <a href="#replay">Replay a receipt</a>
+      <a href="#integrate">Integrate</a>
+      <a href="#start">Replay a receipt</a>
       <a href="how.html">How it works, in full</a>
-      <a href="how.html#faq">Questions</a>
+      <a href="#faq">Questions</a>
       <a href="https://github.com/Dami904/currant" rel="noopener">Repository</a>
     </nav>
   </div>
@@ -34,6 +36,7 @@
     <a href="#demo">Live demo</a>
     <a href="#evidence">Evidence</a>
     <a href="#results">Results</a>
+    <a href="#integrate">Integrate</a>
     <a href="how.html">How it works</a>
   </nav>
 </header>
@@ -53,6 +56,7 @@
   </section>
 </div>
 
+
 <section class="talk" id="why" data-reveal data-tone="dark">
   <div class="wrap">
     <h2><span class="w" style="--i:0">Every</span> <span class="w" style="--i:1">page</span> <span class="w" style="--i:2">says</span> <span class="w" style="--i:3">it</span> <span class="w" style="--i:4">is</span> <span class="w" style="--i:5">current.</span><br><span class="w" style="--i:6">Currant</span> <span class="w" style="--i:7">checks</span> <span class="w" style="--i:8">which</span> <span class="w" style="--i:9">one</span> <span class="w" style="--i:10">is.</span></h2>
@@ -67,99 +71,184 @@
   </div>
 </section>
 
-<section class="steps" id="how" data-reveal>
+<section class="sec" id="how" data-reveal>
   <div class="wrap">
-    <p class="eyebrow">How a question moves</p>
-    <h2>Three hand-offs between a question and a checked answer.</h2>
-    <p class="sub">One rule runs through all of it: nothing is cut, annotated or pulled unless our own code found a verbatim quote supporting it in the source text. The model proposes. Our code checks.</p>
-    <ol class="nodes">
-      <li class="node"><span class="num">01</span><h3>Find what replaced what</h3><p>A model reads the pages and proposes which claim superseded which. Every quote it cites is searched for, word for word, in the stored page. Quotes that don&rsquo;t verify are thrown away.</p></li>
-      <li class="node"><span class="num">02</span><h3>Put the winner in front of the model</h3><p>Spans are cut, not documents: a page that says &ldquo;previously X, now Y&rdquo; survives. When two pages disagree and nothing orders them, the answer is CONTESTED. Currant never guesses a winner.</p></li>
-      <li class="node"><span class="num">03</span><h3>Return a receipt anyone can replay</h3><p>The receipt hashes the exact text the model saw. Replaying recomputes that hash, with no key and no network, and it matches or it fails.</p></li>
-    </ol>
-    <div class="built-on">
-      <p class="eyebrow">Built on</p>
-      <div class="built-row">
-        <p><b>SERV Reasoning, by OpenServ</b> does every model call: proposing claims, proposing which replaced which, and answering, with one model, <code>gpt-6-luna</code>.</p>
-        <p><b>Reppo</b> gave independent verdicts: its judges scored our answers against a baseline in 21 public evaluations.</p>
-        <a class="btn-start" href="how.html"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>How it works, in full</a>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">How a question moves</p>
+        <h2>Three hand-offs between a question and a checked answer.</h2>
       </div>
+      <p class="sub">One rule runs through all of it: nothing is cut, annotated or pulled unless our own code found a verbatim quote supporting it in the source text. The model proposes. Our code checks.</p>
+    </div>
+    <ol class="steps-grid">
+      <li class="step">
+        <div class="step-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14M13 7l5 5-5 5"/></svg></span><span class="pill pill-model">Model, then our code</span></div>
+        <span class="step-num">01</span>
+        <h3>Find what replaced what</h3>
+        <p>A model reads the pages and proposes which claim superseded which. Every quote it cites is searched for, word for word, in the stored page. Quotes that don&rsquo;t verify are thrown away.</p>
+      </li>
+      <li class="step">
+        <div class="step-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="7" r="2.5"/><circle cx="6.5" cy="17" r="2.5"/><path d="M8.6 8.4 19 17M8.6 15.6 19 7"/></svg></span><span class="pill pill-code">Our code</span></div>
+        <span class="step-num">02</span>
+        <h3>Put the winner in front of the model</h3>
+        <p>Spans are cut, not documents: a page that says &ldquo;previously X, now Y&rdquo; survives. When two pages disagree and nothing orders them, the answer is CONTESTED. Currant never guesses a winner.</p>
+      </li>
+      <li class="step">
+        <div class="step-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.5 13a6.5 6.5 0 1 0 1.9-5.6M6 4v4h4"/></svg></span><span class="pill pill-code">Our code</span></div>
+        <span class="step-num">03</span>
+        <h3>Return a receipt anyone can replay</h3>
+        <p>The receipt hashes the exact text the model saw. Replaying recomputes that hash, with no key and no network, and it matches or it fails.</p>
+      </li>
+    </ol>
+    <div class="stack">
+      <div class="stack-cell">
+        <p class="stack-label">Reasoning</p>
+        <p><b>SERV Reasoning, by OpenServ</b> does every model call: proposing claims, proposing which replaced which, and answering, with one model, <code>gpt-6-luna</code>.</p>
+      </div>
+      <div class="stack-cell">
+        <p class="stack-label">Judging</p>
+        <p><b>Reppo</b> gave independent verdicts: its judges scored our answers against a baseline in 21 public evaluations.</p>
+      </div>
+      <a class="stack-cell stack-link" href="how.html">How it works, in full <span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
 
-<section class="deep" id="demo" data-reveal data-tone="dark">
+<section class="sec sec-dark" id="demo" data-reveal data-tone="dark">
   <div class="wrap">
-    <p class="eyebrow">Live demo</p>
-    <h2>Same pages. Two very different contexts.</h2>
-    <p class="sub">Ask: <em>&ldquo;What are the API rate limit and the maximum upload size?&rdquo;</em> The pages are invented (<code>docs.example.com</code>) and the claims were written by hand so the demo is deterministic. It shows the mechanism, not how well the detector does on real documentation.</p>
-    <div class="demo" id="demo-box">
-      <div class="toolbar">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Live demo</p>
+        <h2>Same pages. Two very different contexts.</h2>
+      </div>
+      <p class="sub">Ask: <em>&ldquo;What are the API rate limit and the maximum upload size?&rdquo;</em> The pages are invented (<code>docs.example.com</code>) and the claims were written by hand so the demo is deterministic. It shows the mechanism, not how well the detector does on real documentation.</p>
+    </div>
+    <div class="window" id="demo-box">
+      <div class="window-bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="window-title">context.txt &middot; the text the model is shown</span>
         <div class="seg" role="group" aria-label="Show the context">
           <button type="button" data-mode="without" aria-pressed="false">Without Currant</button>
           <button type="button" data-mode="with" aria-pressed="true">With Currant</button>
         </div>
-        <p class="cap" id="explain" aria-live="polite"></p>
       </div>
-      <pre class="ctx" id="ctx" tabindex="0" aria-label="The text shown to the model"></pre>
-      <p class="readout" id="readout" aria-live="polite"></p>
-      <div class="receipt">
-        <p class="eyebrow">Receipt</p>
-        <p class="line"><span>context sha256 in the receipt</span><code id="stored"></code></p>
-        <div class="row">
-          <button type="button" class="btn" id="replay">Recompute in this browser</button>
-          <button type="button" class="btn ghost" id="tamper">Change one number</button>
+      <div class="window-body">
+        <div class="window-main">
+          <p class="cap" id="explain" aria-live="polite"></p>
+          <pre class="ctx" id="ctx" tabindex="0" aria-label="The text shown to the model"></pre>
         </div>
-        <p class="result" id="result" aria-live="polite"></p>
-        <p class="fine">This recomputes the SHA-256 of the text above with your browser&rsquo;s own crypto and compares it with the receipt. The command-line <code>currant replay</code> goes further: it rebuilds the context from the claim store and re-checks every quote.</p>
+        <aside class="window-side" aria-label="What changed, and the receipt">
+          <ul class="legend" aria-label="Key">
+            <li><span class="sw sw-cut"></span>Cut: a superseded sentence</li>
+            <li><span class="sw sw-pull"></span>Pulled in: the replacement and its proof</li>
+            <li><span class="sw sw-contest"></span>Contested: both quotes, no winner</li>
+          </ul>
+          <p class="readout" id="readout" aria-live="polite"></p>
+          <div class="receipt">
+            <p class="receipt-label">Receipt &middot; context sha256</p>
+            <code class="hash" id="stored"></code>
+            <div class="row">
+              <button type="button" class="btn" id="replay">Recompute in this browser</button>
+              <button type="button" class="btn ghost" id="tamper">Change one number</button>
+            </div>
+            <p class="result" id="result" aria-live="polite"></p>
+          </div>
+        </aside>
       </div>
+    </div>
+    <p class="fine">The button recomputes the SHA-256 of the text above with your browser&rsquo;s own crypto and compares it with the receipt. The command-line <code>currant replay</code> goes further: it rebuilds the context from the claim store and re-checks every quote.</p>
+  </div>
+</section>
+
+<section class="sec" id="guarantees" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Guarantees</p>
+        <h2>What holds on every call, whatever the model says.</h2>
+      </div>
+      <p class="sub">The model can miss a conflict. It cannot make Currant act on text that isn&rsquo;t in the page. These rules are enforced in our own code, not left to the model.</p>
+    </div>
+    <ul class="rules">
+      <li class="rule"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 7c-2.2 1-3.5 3-3.5 5.5V16h4v-4h-2c.1-1.6.8-2.7 2.3-3.4zM17.5 7c-2.2 1-3.5 3-3.5 5.5V16h4v-4h-2c.1-1.6.8-2.7 2.3-3.4z"/></svg></span><h3>Verbatim or nothing</h3><p>Nothing is cut, annotated or pulled unless our code found the supporting quote word for word in the stored page. The claim store refuses an unverified quote.</p></li>
+      <li class="rule"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="7" r="2.5"/><circle cx="6.5" cy="17" r="2.5"/><path d="M8.6 8.4 19 17M8.6 15.6 19 7"/></svg></span><h3>Spans, not pages</h3><p>Only the superseded sentence is cut. A page that says &ldquo;previously 60, now 120&rdquo; keeps its history.</p></li>
+      <li class="rule"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 9h14M5 15h14M15 5 9 19"/></svg></span><h3>No guessed winners</h3><p>When two pages disagree and nothing in them says which came first, both are marked CONTESTED, with both quotes.</p></li>
+      <li class="rule"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5.5 13a6.5 6.5 0 1 0 1.9-5.6M6 4v4h4"/></svg></span><h3>Receipts that replay</h3><p>Each receipt holds the SHA-256 of the exact text the model saw. Replay recomputes it with no key and no network.</p></li>
+      <li class="rule"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><h3>Fails closed</h3><p>If the proxy cannot ground a question, it answers 503 and sends nothing upstream. A question is never quietly answered ungrounded.</p></li>
+      <li class="rule"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5"/></svg></span><h3>Crawled text is data</h3><p>Pages reach the model only behind SERV&rsquo;s prompt guard and are never followed as instructions. The guard can fail open, so the checks that matter run in our code.</p></li>
+    </ul>
+    <div class="board compare">
+      <table>
+        <caption>Plain retrieval, and the same pages through Currant</caption>
+        <thead><tr><th scope="col">When</th><th scope="col">Plain retrieval</th><th scope="col">With Currant</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">A sentence has been superseded</th><td>It stays in the context</td><td>It is cut; the replacement and the line that proves it are pulled in</td></tr>
+          <tr><th scope="row">Two pages disagree</th><td>The model picks one, silently</td><td>Both are marked CONTESTED, with both quotes</td></tr>
+          <tr><th scope="row">The model cites a source</th><td>Nothing checks it</td><td>Dropped unless the quote is found word for word</td></tr>
+          <tr><th scope="row">Afterwards</th><td>No record of what the model saw</td><td>A receipt that replays to the same hash</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<section class="paper" id="evidence" data-reveal>
+<section class="sec sec-alt" id="evidence" data-reveal>
   <div class="wrap">
-    <p class="eyebrow">Real conflicts, checked by hand</p>
-    <h2>Reppo&rsquo;s own docs disagree with themselves.</h2>
-    <p class="sub">Currant flagged the first two. We found the third by hand because the detector missed it. Every quote below is word for word from a saved copy of the page, checked by code in the repository. We reported all three to the maintainers.</p>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Real conflicts, checked by hand</p>
+        <h2>Reppo&rsquo;s own docs disagree with themselves.</h2>
+      </div>
+      <p class="sub">Currant flagged the first two. We found the third by hand because the detector missed it. Every quote below is word for word from a saved copy of the page, checked by code in the repository. We reported all three to the maintainers.</p>
+    </div>
     <div class="cases">
       <article class="case">
-        <h3>Cost of a text-only evaluation</h3>
-        <div class="q stale"><small>docs.reppo.ai, stale</small><q>An evaluation costs 100 credits.</q></div>
-        <div class="q fresh"><small>eval.reppo.xyz/agents.md, current</small><q>A text-only evaluation costs **440 credits**;</q></div>
+        <header class="case-head"><h3>Cost of a text-only evaluation</h3><span class="badge badge-ok">Flagged</span></header>
+        <div class="diff">
+          <div class="diff-row stale"><small>docs.reppo.ai &middot; stale</small><q>An evaluation costs 100 credits.</q></div>
+          <div class="diff-row fresh"><small>eval.reppo.xyz/agents.md &middot; current</small><q>A text-only evaluation costs **440 credits**;</q></div>
+        </div>
         <p class="note">Measured: evaluations on 2026-11-05 and 2026-11-11 were each charged 440.</p>
       </article>
       <article class="case">
-        <h3>Sign-up bonus</h3>
-        <div class="q stale"><small>docs.reppo.ai, stale</small><q>Sign-up bonus | 1,000 credits (10 evaluations)</q></div>
-        <div class="q fresh"><small>eval.reppo.xyz/agents.md, current</small><q>New accounts start with **22,000 credits** (a one-time sign-up bonus).</q></div>
+        <header class="case-head"><h3>Sign-up bonus</h3><span class="badge badge-ok">Flagged</span></header>
+        <div class="diff">
+          <div class="diff-row stale"><small>docs.reppo.ai &middot; stale</small><q>Sign-up bonus | 1,000 credits (10 evaluations)</q></div>
+          <div class="diff-row fresh"><small>eval.reppo.xyz/agents.md &middot; current</small><q>New accounts start with **22,000 credits** (a one-time sign-up bonus).</q></div>
+        </div>
         <p class="note">The two pages cannot both be current.</p>
       </article>
       <article class="case">
-        <h3>Largest attachment</h3>
-        <div class="q stale"><small>docs.reppo.ai, stale</small><q>Attachments | 1 per evaluation, up to 2 MB: PNG, JPEG, WebP, or PDF</q></div>
-        <div class="q fresh"><small>eval.reppo.xyz/agents.md, current</small><q>Max 1 item, 1.25 MB each</q></div>
+        <header class="case-head"><h3>Largest attachment</h3><span class="badge badge-warn">Missed</span></header>
+        <div class="diff">
+          <div class="diff-row stale"><small>docs.reppo.ai &middot; stale</small><q>Attachments | 1 per evaluation, up to 2 MB: PNG, JPEG, WebP, or PDF</q></div>
+          <div class="diff-row fresh"><small>eval.reppo.xyz/agents.md &middot; current</small><q>Max 1 item, 1.25 MB each</q></div>
+        </div>
         <p class="note">Found by hand. This is the detector&rsquo;s recall limit on real documentation.</p>
       </article>
     </div>
-    <ul class="tags" aria-label="What happened next">
-      <li>Reported: Reppo-Labs/docs issue #11</li>
-      <li>Fix proposed: pull request #12</li>
-      <li>No maintainer reply yet</li>
+    <ul class="status" aria-label="What happened next">
+      <li>Reported: <a href="https://github.com/Reppo-Labs/docs/issues/11" rel="noopener">Reppo-Labs/docs issue #11</a></li>
+      <li>Fix proposed: <a href="https://github.com/Reppo-Labs/docs/pull/12" rel="noopener">pull request #12</a></li>
+      <li class="pending">No maintainer reply yet</li>
     </ul>
   </div>
 </section>
 
-<section class="night" id="results" data-reveal data-tone="dark">
+<section class="sec" id="results" data-reveal>
   <div class="wrap">
-    <p class="eyebrow">What we measured</p>
-    <h2>The numbers, including where we lost.</h2>
-    <p class="sub">The held-out figures come from 93 synthetic test items, scored once after a public freeze. The audit is Reppo&rsquo;s own judges scoring our answers on real conflicts.</p>
-    <div class="kpis">
-      <div class="kpi"><b>0.857</b><span>precision on 28 cuts, held out (dev was 1.000)</span></div>
-      <div class="kpi"><b>0.828</b><span>recall, 24 of 29 held out (dev was 0.892)</span></div>
-      <div class="kpi"><b>84.2%</b><span>answers right with Currant when only the stale page was retrieved, against 0% without</span></div>
-      <div class="kpi warn"><b>&minus;7.7</b><span>Currant against baseline on 3 real conflicts: 59.0 against 66.7. No conclusion from 3 questions</span></div>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">What we measured</p>
+        <h2>The numbers, including where we lost.</h2>
+      </div>
+      <p class="sub">The held-out figures come from 93 synthetic test items, scored once after a public freeze. The audit is Reppo&rsquo;s own judges scoring our answers on real conflicts.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><small>Precision</small><b>0.857</b><span>on 28 cuts, held out (dev was 1.000)</span></div>
+      <div class="stat"><small>Recall</small><b>0.828</b><span>24 of 29 held out (dev was 0.892)</span></div>
+      <div class="stat"><small>Stale page only</small><b>84.2%</b><span>answers right with Currant when only the stale page was retrieved, against 0% without</span></div>
+      <div class="stat warn"><small>Reppo audit</small><b>&minus;7.7</b><span>Currant against baseline on 3 real conflicts: 59.0 against 66.7. No conclusion from 3 questions</span></div>
     </div>
     <div class="board">
       <table>
@@ -173,8 +262,8 @@
         </tbody>
       </table>
     </div>
-    <div class="why">
-      <div class="card">
+    <div class="panels">
+      <div class="panel">
         <h3>Why we lost points</h3>
         <ul>
           <li>When two pages disagree and nothing orders them, our answer says only that the documentation is contested. It does not quote either value.</li>
@@ -182,7 +271,7 @@
           <li>The fix is clear: a contested answer should quote both values. It changes code, so it would break the link to the frozen results, and it has not been made.</li>
         </ul>
       </div>
-      <div class="card">
+      <div class="panel">
         <h3>What this does not show</h3>
         <ul>
           <li>It does not show a lift on real documentation. The lift is measured only on synthetic items, with one model.</li>
@@ -194,32 +283,149 @@
   </div>
 </section>
 
-<section class="final" id="replay" data-reveal data-tone="dark">
+<section class="sec sec-alt" id="integrate" data-reveal>
   <div class="wrap">
-    <h2>Give your agent docs it can stand on.</h2>
-    <p class="sub">Replay a receipt yourself, with no key and no network. The demo store is built from invented pages and hand-written claims, so a stranger can reproduce it end to end.</p>
-    <pre class="cmd"><code>uv sync
-uv run currant replay examples/demo/receipt.json --db examples/demo/store.db
-uv run python scripts/build_drift_page.py --check   # the quotes above are verbatim in the snapshots</code></pre>
-    <div class="links">
-      <a class="btn-solid" href="https://github.com/Dami904/currant" rel="noopener">Open the repository</a>
-      <a class="btn-text" href="how.html#use">Three ways to use it</a>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Integrate</p>
+        <h2>Change one URL. Keep your agent.</h2>
+      </div>
+      <p class="sub"><code>currant serve</code> is an OpenAI-compatible proxy. Point your client&rsquo;s <code>base_url</code> at it: each question is grounded from the claim store first, then forwarded to SERV under your own key.</p>
+    </div>
+    <div class="integrate">
+      <div class="terminal terminal-light">
+        <div class="terminal-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>POST /v1/chat/completions</span></div>
+<pre><code><span class="c"># 1. start the proxy (it listens on 127.0.0.1:8787)</span>
+uv run currant serve --extract-run 1 --relate-run 2
+
+<span class="c"># 2. call it like any OpenAI-compatible endpoint</span>
+curl -i http://127.0.0.1:8787/v1/chat/completions \
+  -H "Authorization: Bearer $SERV_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "gpt-6-luna",
+       "messages": [{"role": "user",
+                     "content": "What is the API rate limit?"}]}'
+
+<span class="c"># the reply carries the receipt id</span>
+X-Currant-Receipt: &lt;64 hex characters&gt;</code></pre>
+      </div>
+      <dl class="contract">
+        <div><dt>Holds no key</dt><dd>Your <code>Authorization</code> header goes to the upstream and nowhere else, and requests are not logged.</dd></div>
+        <div><dt>Fails closed</dt><dd>No store, no matching page or an unfinished run: a 503, and nothing is sent upstream.</dd></div>
+        <div><dt>No silent retry</dt><dd>A timeout is reported as unknown, with a 504. The caller decides whether to ask again.</dd></div>
+        <div><dt>A receipt per answer</dt><dd>Every grounded call writes a receipt and its exact context. The built-in viewer replays them.</dd></div>
+        <div><dt>Not supported yet</dt><dd>Streaming is refused with a 400. Only the last user message is grounded.</dd></div>
+      </dl>
     </div>
   </div>
-  <footer class="foot">
-    <div class="wrap foot-row">
-      <span class="foot-brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>Currant &middot; MIT &middot; 2026</span>
-      <nav class="foot-links" aria-label="Elsewhere">
-        <a href="https://github.com/Dami904/currant/issues/1" rel="noopener">Freeze note</a>
-        <a href="https://github.com/Reppo-Labs/docs/issues/11" rel="noopener">Issue #11</a>
-        <a href="https://github.com/Reppo-Labs/docs/pull/12" rel="noopener">Pull request #12</a>
-        <a href="https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md" rel="noopener">Limitations</a>
-      </nav>
+</section>
+
+<section class="sec" id="faq" data-reveal>
+  <div class="wrap faq-grid">
+    <div class="faq-head">
+      <p class="eyebrow">Questions</p>
+      <h2>What people ask first.</h2>
+      <p class="sub">More answers, and what is not built yet, are on the <a class="inline" href="how.html#faq">how it works</a> page.</p>
     </div>
-    <p class="wrap foot-note">Built from scratch for the OpenServ and Reppo hackathon, with Claude Code. Documentation quoted on this page belongs to its owners.</p>
-  </footer>
+    <div class="qa">
+      <details>
+        <summary>Why not just trust the newest page?</summary>
+        <p>Pages rarely carry a reliable date, and a page that looks newer can still be the stale one: Reppo&rsquo;s main docs site describes an API that its own <code>agents.md</code> has replaced. Currant only orders two claims when the pages themselves say which came first: a line such as &ldquo;this replaces the previous value&rdquo;, or a date printed on each page. Otherwise it says CONTESTED.</p>
+      </details>
+      <details>
+        <summary>Why should I trust what the model proposes?</summary>
+        <p>You don&rsquo;t have to. Nothing is cut, annotated or pulled unless our own code found the supporting quote word for word in the stored page, and the claim store itself refuses an unverified quote. The model can miss things; it cannot make Currant act on text that isn&rsquo;t there.</p>
+      </details>
+      <details>
+        <summary>What happens when it cannot tell which claim is current?</summary>
+        <p>It marks both as CONTESTED in the context, with both quotes, and never guesses a winner. Today the model&rsquo;s answer then says the documentation is contested without naming either value, which Reppo&rsquo;s judges marked as incomplete.</p>
+      </details>
+      <details>
+        <summary>Does it delete whole pages?</summary>
+        <p>No. It cuts the superseded sentence only. A page that says &ldquo;previously 60, now 120&rdquo; keeps its history.</p>
+      </details>
+      <details>
+        <summary>Do I have to change my agent?</summary>
+        <p>Only its <code>base_url</code>. <code>currant serve</code> speaks the OpenAI chat completions format and forwards to SERV under your own key. Streaming is not supported yet.</p>
+      </details>
+      <details>
+        <summary>Where does my data go?</summary>
+        <p>Replaying the demo is entirely offline. Running the pipeline sends pages and questions to SERV under your key. Nothing goes to Reppo unless you submit a file you reviewed, and Reppo evaluations are public.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="sec cta-sec" id="start" data-reveal>
+  <div class="wrap">
+    <div class="cta">
+      <div class="cta-copy">
+        <h2>Give your agent docs it can stand on.</h2>
+        <p class="sub">Replay a receipt yourself, with no key and no network. The demo store is built from invented pages and hand-written claims, so a stranger can reproduce it end to end.</p>
+        <div class="links">
+          <a class="btn-solid" href="https://github.com/Dami904/currant" rel="noopener">Open the repository</a>
+          <a class="btn-text" href="how.html#use">Three ways to use it <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>terminal</span></div>
+<pre><code><span class="c"># no key, no network</span>
+uv sync
+uv run currant replay examples/demo/receipt.json \
+    --db examples/demo/store.db
+<span class="c"># the quotes above are verbatim in the snapshots</span>
+uv run python scripts/build_drift_page.py --check</code></pre>
+      </div>
+    </div>
+  </div>
 </section>
 </main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <span class="foot-mark"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>Currant</span>
+      <p>A stale-truth firewall for agents that read documentation. Built from scratch for the OpenServ and Reppo hackathon, with Claude Code.</p>
+      <a class="foot-cta" href="https://github.com/Dami904/currant" rel="noopener">View on GitHub <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <nav class="footer-col" aria-label="Overview">
+      <p>Overview</p>
+      <a href="#how">The three steps</a>
+      <a href="#demo">Live demo</a>
+      <a href="#guarantees">Guarantees</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#results">Results</a>
+      <a href="#integrate">Integrate</a>
+    </nav>
+    <nav class="footer-col" aria-label="How it works">
+      <p>How it works</p>
+      <a href="how.html#pipeline">Pipeline</a>
+      <a href="how.html#use">Use it</a>
+      <a href="how.html#receipt">Receipt anatomy</a>
+      <a href="how.html#not-built">Not built yet</a>
+      <a href="how.html#faq">FAQ</a>
+    </nav>
+    <nav class="footer-col" aria-label="Project">
+      <p>Project</p>
+      <a href="https://github.com/Dami904/currant" rel="noopener">Repository</a>
+      <a href="https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md" rel="noopener">Limitations</a>
+      <a href="https://github.com/Dami904/currant/blob/main/docs/THREAT_MODEL.md" rel="noopener">Threat model</a>
+      <a href="https://github.com/Dami904/currant/blob/main/docs/API_NOTES.md" rel="noopener">API notes</a>
+      <a href="https://github.com/Dami904/currant/issues/1" rel="noopener">Freeze note</a>
+      <a href="https://github.com/Dami904/currant/blob/main/LICENSE" rel="noopener">MIT licence</a>
+    </nav>
+    <nav class="footer-col" aria-label="Reported upstream">
+      <p>Upstream</p>
+      <a href="https://github.com/Reppo-Labs/docs/issues/11" rel="noopener">Reppo issue #11</a>
+      <a href="https://github.com/Reppo-Labs/docs/pull/12" rel="noopener">Reppo pull request #12</a>
+      <a href="https://eval.reppo.xyz/agents.md" rel="noopener">Reppo agents.md</a>
+    </nav>
+  </div>
+  <div class="wrap footer-base">
+    <span>&copy; 2026 Currant &middot; MIT licence</span>
+    <span>Documentation quoted on these pages belongs to its owners.</span>
+  </div>
+</footer>
 
 <script type="module" src="/src/main.ts"></script>
 </body>
