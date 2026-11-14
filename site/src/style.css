@@ -447,7 +447,7 @@ td.loss { color: var(--bad); } td.win { color: var(--ok); }
 .terminal pre, .code { color: var(--code-ink); }
 .code { background: var(--code-bg); box-shadow: 0 0 0 1px var(--code-line); }
 .c { color: var(--code-dim); }
-.window { background: var(--code-bar); box-shadow: 0 0 0 1px var(--code-line), 0 50px 90px -50px rgba(0, 0, 0, .85); }
+.window { background: var(--code-bar); box-shadow: 0 0 0 1px rgba(16, 30, 26, .14), 0 1px 2px rgba(16, 30, 26, .06), 0 44px 80px -44px rgba(16, 30, 26, .5); }
 .window-side { background: transparent; border-left-color: var(--code-line); }
 .ctx { background: var(--code-bg); color: var(--code-ink); box-shadow: inset 0 0 0 1px var(--code-line); }
 .cap { color: var(--code-dim); }
