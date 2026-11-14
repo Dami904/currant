@@ -1,0 +1,39 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.reppo.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Revenue Model
+
+> Where Reppo's revenue comes from: publishing and access fees, datanet lockup fees, the emissions tax, and the Performance Pool that funds staking rewards.
+
+The network has varied revenue sources:
+
+1. A portion of publishing and access fees paid by data contributors to publish in datanets.
+2. **Datanet lockup fees:** datanets must lock 20k REPPO to spin up. Fifty percent remains locked while the datanet is live, and 50% goes to the network.
+3. **Datanet emissions tax:** datanet owners seed their datanet with either REPPO or their native token. Seeding in REPPO carries no tax. Seeding in a native token collects a 15% tax, which is sent to the Foundation treasury.
+
+Any REPPO bought on the market and seeded acts as direct revenue for REPPO holders. All tax revenue from emissions goes to the treasury, contributing to protocol operations and buybacks.
+
+In V2, the majority of publishing fees and access fees go to the datanet owner, minus a small network fee deducted from the total fees accrued by the datanet each epoch. These fees can be paid in USDC or the native token.
+
+## Performance Pool
+
+Under the current staking and reward distribution spec, datanet staking rewards come from a **Performance Pool**. The Performance Pool is funded by:
+
+* **50% of datanet spin-up fees**
+* **10% of all publishing fees**
+* **10% of all data access fees**
+
+Rewards are not paid from network emissions. Instead, every third epoch, **5% of the Performance Pool** is distributed. The current split is governance-adjustable:
+
+* **80%** to REPPO stakers
+* **20%** to datanet owners
+
+New datanets are not eligible for Performance Pool rewards in their launch epoch. They must complete one full epoch before earning from the pool.
+
+> [!NOTE]
+>
+> For token supply, burns, buybacks, and the full value-accrual model, see the [\$REPPO tokenomics page](https://reppo.xyz/token).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

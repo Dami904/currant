@@ -1,0 +1,147 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.reppo.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Publish Content to a Reppo Datanet
+
+> How to browse datanets, create a pod draft via the API, mint the NFT on Base using PodManager, and record the transaction on Reppo.
+
+A **pod** is the atomic unit of content on Reppo — a tweet, article, video, PDF, annotation, or any other media that a datanet accepts. Publishing is a pay-to-publish mechanism: you pay the datanet's publishing fee in REPPO upfront, and your pod becomes visible to voters who allocate curation weight toward or against it each epoch. This guide covers the full publishing flow, from finding a datanet to recording your on-chain mint.
+
+**1. Find a target datanet**
+
+Browse available datanets to find one whose topic matches your content. You can do this without authentication using the public endpoint, or use the authenticated endpoint to see datanets you own.
+
+**Browse public datanets (no auth required)**
+
+```bash theme={null}
+curl "https://reppo.ai/api/v1/public/subnets?page=1&limit=10&search=DeFi"
+```
+
+**Response shape**
+
+```json theme={null}
+{
+  "data": {
+    "subnets": [
+      {
+        "id": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+        "subnetName": "Base DeFi Research",
+        "subnetDescription": "A curated datanet for high-signal DeFi research on Base.",
+        "nativeTokenAddress": "0x1234567890abcdef1234567890abcdef12345678",
+        "nativeTokenSymbol": "DEFI",
+        "nativeTokenDecimals": 18,
+        "accessFeeREPPO": 10,
+        "emissionsPerEpochREPPO": 100,
+        "emissionsPerEpochPrimaryToken": 500,
+        "status": "active",
+        "upVoteVolume": 4820,
+        "downVoteVolume": 310,
+        "onboardingPublishers": "Submit original DeFi analysis with verifiable on-chain references.",
+        "onboardingVoters": "Vote on quality and accuracy of DeFi research submissions.",
+        "createdByUserId": "user_abc123"
+      }
+    ]
+  }
+}
+```
+
+Note the `id` of the datanet you want to publish into and review its `onboardingPublishers` guidelines before submitting content.
+
+> [!TIP]
+>
+> Check the datanet's `onboardingPublishers` field carefully. Content that does not meet the stated criteria is more likely to receive down-votes, which affects your emissions.
+
+**2. Create a pod draft**
+
+Submit your content metadata to `POST /api/v1/me/pods`. This creates the pod record on the platform before the on-chain mint.
+
+**Request body schema**
+
+| Field | Type | Constraints | Required |
+| - | - | - | - |
+| `subnetId` | string | ID of the target datanet | Yes |
+| `podName` | string | 3–50 characters | Yes |
+| `url` | string (URI) | Source URL for the content | Yes |
+| `platform` | string | 2–50 characters (e.g. `"X"`, `"YouTube"`, `"Mirror"`) | Yes |
+| `category` | string | 2–50 characters (e.g. `"DeFi"`, `"Research"`) | Yes |
+| `imageURL` | string (URI) | Cover image | No |
+| `thumbnailURL` | string (URI) | Preview thumbnail | No |
+| `pdfURL` | string (URI) | Linked PDF asset | No |
+| `videoURL` | string (URI) | Linked video asset | No |
+| `podDescription` | string | 10–200 characters | Yes |
+| `agreeToTerms` | boolean | Must be `true` | Yes |
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/pods \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "subnetId": "subnet_01hw9k2mxvfg3q4r5t6y7u8i",
+    "podName": "Base TVL Breakdown Q2 2025",
+    "url": "https://x.com/defiresearcher/status/1234567890123456789",
+    "platform": "X",
+    "category": "DeFi",
+    "imageURL": "https://example.com/pod-cover.png",
+    "thumbnailURL": "https://example.com/pod-thumb.png",
+    "podDescription": "A thread breaking down the composition of Base TVL by protocol category and token, with on-chain data sources.",
+    "agreeToTerms": true
+  }'
+```
+
+**Response**
+
+```json theme={null}
+{
+  "data": {
+    "id": "pod_01hw9k2mxvfg3q4r5t6y7u8i"
+  }
+}
+```
+
+Save the returned `id` — you will use it to record the mint in step 4.
+
+> [!NOTE]
+>
+> Publishing requires paying the datanet's `publishingFeeREPPO` on-chain. This is a Sybil-resistance mechanism: submitting low-quality content at scale is economically costly.
+
+**3. Execute the on-chain mint transaction**
+
+Mint your pod as an NFT by calling the `PodManager` contract on Base.
+
+| Contract | Address | Chain |
+| - | - | - |
+| PodManager | `0x5C563f853eb4db33005A5C1aD9290e8560254A80` | Base (chain ID 8453) |
+
+You can perform this transaction through the Reppo web app, wagmi, ethers.js, or Foundry's `cast`. The transaction covers the publishing fee and mints the pod NFT to your wallet.
+
+Once the transaction is confirmed on-chain, copy the transaction hash.
+
+**4. Record the mint**
+
+Submit the confirmed transaction hash to `POST /api/v1/me/pods/{id}/mint`. Replace `{id}` with the pod draft ID from step 2.
+
+```bash theme={null}
+curl -X POST https://reppo.ai/api/v1/me/pods/pod_01hw9k2mxvfg3q4r5t6y7u8i/mint \
+  -H "Content-Type: application/json" \
+  -H "Cookie: privy-token=<YOUR_PRIVY_TOKEN>" \
+  -d '{
+    "podId": "pod_01hw9k2mxvfg3q4r5t6y7u8i",
+    "txHash": "0xabc123def456abc123def456abc123def456abc123def456abc123def456abc1"
+  }'
+```
+
+**Response**
+
+```json theme={null}
+{
+  "data": {
+    "success": true
+  }
+}
+```
+
+Your pod is now live in the datanet, visible to voters, and eligible to earn REPPO emissions each epoch based on its curation performance.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -1,0 +1,24 @@
+{"level": "info", "msg": "crawl_start", "run_id": "47765f4d2f75", "snapshot_date": "2026-11-05", "ts": "2026-11-05T11:10:45+00:00", "version": "0.1.0"}
+{"corpus": "openserv", "level": "info", "msg": "corpus_start", "pages": 87, "run_id": "47765f4d2f75", "ts": "2026-11-05T11:10:46+00:00"}
+{"corpus": "openserv", "fetched": 87, "level": "info", "msg": "corpus_done", "run_id": "47765f4d2f75", "ts": "2026-11-05T11:11:46+00:00"}
+{"corpus": "reppo", "level": "info", "msg": "corpus_start", "pages": 45, "run_id": "47765f4d2f75", "ts": "2026-11-05T11:11:48+00:00"}
+{"corpus": "reppo", "fetched": 45, "level": "info", "msg": "corpus_done", "run_id": "47765f4d2f75", "ts": "2026-11-05T11:12:18+00:00"}
+{"corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c", "counts": {"fetched": 132}, "level": "info", "msg": "crawl_done", "problems": 0, "run_id": "47765f4d2f75", "ts": "2026-11-05T11:12:18+00:00"}
+{"level": "info", "msg": "crawl_start", "run_id": "d5cc506c7cd9", "snapshot_date": "2026-11-05", "ts": "2026-11-05T11:13:09+00:00", "version": "0.1.0"}
+{"corpus": "openserv", "level": "info", "msg": "corpus_start", "pages": 87, "run_id": "d5cc506c7cd9", "ts": "2026-11-05T11:13:10+00:00"}
+{"corpus": "openserv", "fetched": 0, "level": "info", "msg": "corpus_done", "run_id": "d5cc506c7cd9", "ts": "2026-11-05T11:13:10+00:00"}
+{"corpus": "reppo", "level": "info", "msg": "corpus_start", "pages": 45, "run_id": "d5cc506c7cd9", "ts": "2026-11-05T11:13:11+00:00"}
+{"corpus": "reppo", "fetched": 0, "level": "info", "msg": "corpus_done", "run_id": "d5cc506c7cd9", "ts": "2026-11-05T11:13:11+00:00"}
+{"corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c", "counts": {"fetched": 132}, "level": "info", "msg": "crawl_done", "problems": 0, "run_id": "d5cc506c7cd9", "ts": "2026-11-05T11:13:11+00:00"}
+{"level": "info", "msg": "crawl_start", "run_id": "ac5a51f6b5a3", "snapshot_date": "2026-11-05", "ts": "2026-11-05T11:59:51+00:00", "version": "0.1.0"}
+{"corpus": "openserv", "level": "info", "msg": "corpus_start", "pages": 87, "run_id": "ac5a51f6b5a3", "ts": "2026-11-05T11:59:52+00:00"}
+{"corpus": "openserv", "fetched": 0, "level": "info", "msg": "corpus_done", "run_id": "ac5a51f6b5a3", "ts": "2026-11-05T11:59:54+00:00"}
+{"corpus": "reppo", "level": "info", "msg": "corpus_start", "pages": 45, "run_id": "ac5a51f6b5a3", "ts": "2026-11-05T11:59:56+00:00"}
+{"corpus": "reppo", "fetched": 0, "level": "info", "msg": "corpus_done", "run_id": "ac5a51f6b5a3", "ts": "2026-11-05T11:59:56+00:00"}
+{"complete": true, "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c", "counts": {"fetched": 132}, "level": "info", "msg": "crawl_done", "problems": 0, "run_id": "ac5a51f6b5a3", "ts": "2026-11-05T11:59:57+00:00"}
+{"level": "info", "msg": "crawl_start", "run_id": "a55f7fdac346", "snapshot_date": "2026-11-05", "ts": "2026-11-06T07:31:17+00:00", "version": "0.1.0"}
+{"corpus": "openserv", "level": "info", "msg": "corpus_start", "pages": 87, "run_id": "a55f7fdac346", "ts": "2026-11-06T07:31:19+00:00"}
+{"corpus": "openserv", "fetched": 0, "level": "info", "msg": "corpus_done", "run_id": "a55f7fdac346", "ts": "2026-11-06T07:31:19+00:00"}
+{"corpus": "reppo", "level": "info", "msg": "corpus_start", "pages": 45, "run_id": "a55f7fdac346", "ts": "2026-11-06T07:31:21+00:00"}
+{"corpus": "reppo", "fetched": 0, "level": "info", "msg": "corpus_done", "run_id": "a55f7fdac346", "ts": "2026-11-06T07:31:21+00:00"}
+{"complete": true, "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c", "counts": {"fetched": 132}, "level": "info", "msg": "crawl_done", "problems": 0, "run_id": "a55f7fdac346", "ts": "2026-11-06T07:31:22+00:00"}
