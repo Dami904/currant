@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Currant works</title>
+<meta name="description" content="How Currant turns crawled documentation into a checked context and a replayable receipt: the pipeline, how to use it, what a receipt contains, what is not built, and answers to common questions.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23072a29'/%3E%3Crect x='6' y='6' width='9' height='9' rx='2.5' fill='%23f0b46e'/%3E%3Crect x='17' y='6' width='9' height='9' rx='2.5' fill='%232a8a79'/%3E%3Crect x='6' y='17' width='9' height='9' rx='2.5' fill='%23ec8a72'/%3E%3Crect x='17' y='17' width='9' height='9' rx='2.5' fill='%23dfe2dc'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="page-how">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head" id="head">
+  <div class="brand-card">
+    <a class="brand" href="./" aria-label="Currant, home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>
+      <span class="wordmark">Currant</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open the menu"><span></span><span></span></button>
+    <nav class="menu" id="menu" aria-label="Sections" hidden>
+      <a href="#pipeline">The pipeline</a>
+      <a href="#use">Use it</a>
+      <a href="#receipt">What a receipt holds</a>
+      <a href="#built-on">Built on</a>
+      <a href="#not-built">Not built yet</a>
+      <a href="#faq">Questions</a>
+      <a href="./">Back to the overview</a>
+    </nav>
+  </div>
+  <nav class="top-nav" aria-label="Primary">
+    <a href="./">Overview</a>
+    <a href="#use">Use it</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="page-top" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h1>From a crawled page to an answer you can replay.</h1>
+    <p class="sub">Six steps. A model does the reading; our code does the checking. Every step below says which is which, and what has really run.</p>
+    <ul class="jump" aria-label="On this page">
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#use">Use it</a></li>
+      <li><a href="#receipt">Receipt</a></li>
+      <li><a href="#built-on">Built on</a></li>
+      <li><a href="#not-built">Not built yet</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="pipeline" id="pipeline" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">The pipeline</p>
+    <h2>The model proposes. Our code checks.</h2>
+    <ol class="flow">
+      <li class="stage-card">
+        <span class="num">01</span>
+        <p class="who code">Our code</p>
+        <h3>Crawl</h3>
+        <p>Public pages are fetched into a dated snapshot, and each page&rsquo;s bytes are hashed. A timeout is recorded as unknown and retried later, never counted as a failure.</p>
+        <p class="ran">Ran live: 132 pages of the OpenServ and Reppo docs, 0 errors.</p>
+        <code class="cmd-inline">currant crawl</code>
+      </li>
+      <li class="stage-card">
+        <span class="num">02</span>
+        <p class="who model">Model, then our code</p>
+        <h3>Extract claims</h3>
+        <p>A model reads each page and proposes factual claims, each with a supporting quote. Our code stores a claim only if it finds that quote word for word in the page.</p>
+        <p class="ran">Ran live: 1,011 claims stored of 1,160 proposed.</p>
+        <code class="cmd-inline">currant extract</code>
+      </li>
+      <li class="stage-card">
+        <span class="num">03</span>
+        <p class="who model">Model, then our code</p>
+        <h3>Find what replaced what</h3>
+        <p>A model proposes pairs of claims that conflict. Our code re-checks every quote and decides which is newer only from evidence it finds word for word: a line that says one value replaced the other, or a different date printed on each page. Without that, the pair is CONTESTED.</p>
+        <code class="cmd-inline">currant relate</code>
+      </li>
+      <li class="stage-card">
+        <span class="num">04</span>
+        <p class="who code">Our code</p>
+        <h3>Ground the context</h3>
+        <p>Before the model answers, the superseded sentence is cut (a span, not the page), its replacement and the ordering quote are pulled in, and contested values are marked with both quotes.</p>
+        <code class="cmd-inline">currant ground</code>
+      </li>
+      <li class="stage-card">
+        <span class="num">05</span>
+        <p class="who model">Model</p>
+        <h3>Answer</h3>
+        <p>The model answers from the grounded context, either from the command line or through a proxy your agent already speaks to.</p>
+        <code class="cmd-inline">currant serve</code>
+      </li>
+      <li class="stage-card">
+        <span class="num">06</span>
+        <p class="who code">Our code</p>
+        <h3>Receipt and replay</h3>
+        <p>The receipt records the hash of the exact context, the snapshot, the models and prompt versions, and every quote used. Replay recomputes the hash with no key and no network.</p>
+        <code class="cmd-inline">currant replay</code>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="use" id="use" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">Use it</p>
+    <h2>Three ways in, from no key at all to your own docs.</h2>
+    <p class="sub">Every command needs <a class="inline" href="https://docs.astral.sh/uv/" rel="noopener">uv</a>. Only the third path needs an API key, and it costs model credits.</p>
+    <div class="paths">
+      <article class="path">
+        <p class="tag">No key, no network</p>
+        <h3>Replay the demo</h3>
+        <p>The demo is built from invented pages and hand-written claims, so anyone can reproduce it end to end and get the same receipt id.</p>
+<pre class="cmd"><code>uv sync
+uv run currant replay examples/demo/receipt.json \
+    --db examples/demo/store.db
+uv run pytest            # the full suite, offline</code></pre>
+      </article>
+      <article class="path">
+        <p class="tag">Change one URL</p>
+        <h3>Put it in front of your agent</h3>
+        <p>An OpenAI-compatible proxy. Point your client&rsquo;s <code>base_url</code> at it: each question is grounded from the store first, then forwarded to SERV under your own key. If it cannot ground, it fails closed with a 503 and sends nothing upstream.</p>
+<pre class="cmd"><code>uv run currant serve --extract-run 1 --relate-run 2
+# the receipt viewer, with no key:
+uv run currant serve --db examples/demo/store.db \
+    --extract-run 1 --relate-run 2 \
+    --receipts examples/demo/receipts</code></pre>
+        <p class="fine-dark">Tested offline; run live against SERV twice.</p>
+      </article>
+      <article class="path">
+        <p class="tag">Needs <code>SERV_API_KEY</code></p>
+        <h3>Run it on your own docs</h3>
+        <p>Any site that serves markdown or an <code>llms.txt</code> index; HTML pages are refused. Check the site&rsquo;s <code>robots.txt</code> and terms first, and tell the maintainers before publishing anything it finds.</p>
+<pre class="cmd"><code>uv run currant crawl --config my-docs.toml \
+    --out data/mine --corpus mine
+uv run currant extract --snapshot data/mine/&lt;date&gt; \
+    --db data/mine.db
+uv run currant relate --db data/mine.db --extract-run 1
+uv run currant drift-report --db data/mine.db \
+    --extract-run 1 --relate-run 2 --out mine.md</code></pre>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="anatomy" id="receipt" data-reveal data-tone="dark">
+  <div class="wrap">
+    <p class="eyebrow">What a receipt holds</p>
+    <h2>The demo&rsquo;s receipt, field by field.</h2>
+    <p class="sub">Read from the committed <code>examples/demo/receipt.json</code> when this page loads, so it shows exactly what Currant writes. Hashes are shortened here.</p>
+    <dl class="fields" id="anatomy-fields"></dl>
+    <h3 class="acts-title">Actions: each one cites verbatim quotes, with where they sit in the stored page</h3>
+    <ol class="acts" id="anatomy-actions"></ol>
+    <p class="fine">The receipt is not signed. Replaying it proves the context matches what was recorded; it does not prove who recorded it.</p>
+  </div>
+</section>
+
+<section class="built" id="built-on" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">Built on</p>
+    <h2>One sponsor does the reading. The other does the judging.</h2>
+    <div class="sponsors">
+      <article class="sponsor">
+        <h3>SERV Reasoning, by OpenServ</h3>
+        <p>Every model call: proposing claims, proposing which claim replaced which, and answering. One model throughout, <code>gpt-6-luna</code>. Crawled text reaches it only behind SERV&rsquo;s prompt guard, and is never treated as instructions; the guard fails open, so the checks that matter run in our own code.</p>
+      </article>
+      <article class="sponsor">
+        <h3>Reppo, for independent verdicts</h3>
+        <p>Reppo&rsquo;s judges scored our answers against a baseline with no firewall: 21 public evaluations on 2026-11-12, 9,240 credits. Submissions go out only from a file a person reviewed, matched by its SHA-256. Currant also found three conflicts in Reppo&rsquo;s own docs and proposed a fix.</p>
+        <p><a class="inline" href="./#results">See the scores, including where we lost</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="notbuilt" id="not-built" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">Not built yet</p>
+    <h2>What Currant does not do today.</h2>
+    <ul class="gaps">
+      <li><b>Retrieval is not wired in.</b> Page retrieval is built and tested, but <code>currant ground</code> still takes the pages you name.</li>
+      <li><b>Receipts are unsigned.</b> They prove the context, not who produced it.</li>
+      <li><b>One model.</b> Every measured effect is with <code>gpt-6-luna</code>, on synthetic items.</li>
+      <li><b>A contested answer names neither value.</b> That cost us points in the Reppo audit; fixing it would change frozen code, so it waits.</li>
+      <li><b>Not built at all:</b> detecting supersession from crawl-to-crawl diffs, as-of queries, and a paid x402 endpoint.</li>
+      <li><b>HTML pages are refused.</b> The crawler reads markdown and <code>llms.txt</code> indexes only.</li>
+    </ul>
+    <p class="sub">The full list is in <a class="inline" href="https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md" rel="noopener">LIMITATIONS.md</a> and <a class="inline" href="https://github.com/Dami904/currant/blob/main/docs/THREAT_MODEL.md" rel="noopener">THREAT_MODEL.md</a>.</p>
+  </div>
+</section>
+
+<section class="faq" id="faq" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2>What people ask first.</h2>
+    <div class="qa">
+      <details>
+        <summary>Why not just trust the newest page?</summary>
+        <p>Pages rarely carry a reliable date, and a page that looks newer can still be the stale one: Reppo&rsquo;s main docs site describes an API that its own <code>agents.md</code> has replaced. Currant only orders two claims when the pages themselves say which came first: a line such as &ldquo;this replaces the previous value&rdquo;, or a date printed on each page. Otherwise it says CONTESTED.</p>
+      </details>
+      <details>
+        <summary>What happens when it cannot tell which claim is current?</summary>
+        <p>It marks both as CONTESTED in the context, with both quotes, and never guesses a winner. Today the model&rsquo;s answer then says the documentation is contested without naming either value, which Reppo&rsquo;s judges marked as incomplete.</p>
+      </details>
+      <details>
+        <summary>Does it delete whole pages?</summary>
+        <p>No. It cuts the superseded sentence only. A page that says &ldquo;previously 60, now 120&rdquo; keeps its history.</p>
+      </details>
+      <details>
+        <summary>Why should I trust what the model proposes?</summary>
+        <p>You don&rsquo;t have to. Nothing is cut, annotated or pulled unless our own code found the supporting quote word for word in the stored page, and the claim store itself refuses an unverified quote. The model can miss things; it cannot make Currant act on text that isn&rsquo;t there.</p>
+      </details>
+      <details>
+        <summary>How good is it?</summary>
+        <p>On 93 held-out synthetic items, scored once after a public freeze: precision 0.857 and recall 0.828. When only the stale page was retrieved, answers were right 84.2% of the time with Currant and 0% without. When both pages were retrieved, the model was already right and Currant added nothing. On three real conflicts, Reppo&rsquo;s judges scored it below the baseline. Details are on the <a class="inline" href="./#results">overview</a>.</p>
+      </details>
+      <details>
+        <summary>Does it work on documentation other than Reppo&rsquo;s?</summary>
+        <p>It ran with no code change on a second vendor&rsquo;s public docs and verified 463 of 611 proposed claims. It found nothing worth reporting there, so that shows it runs elsewhere, not that it works there.</p>
+      </details>
+      <details>
+        <summary>Can a crawled page tell the model what to do?</summary>
+        <p>It shouldn&rsquo;t be able to. Crawled text is treated as data: it reaches the model only behind SERV&rsquo;s prompt guard, and because that guard can fail open, every decision that matters is re-checked in our own code against the stored page.</p>
+      </details>
+      <details>
+        <summary>Where does my data go?</summary>
+        <p>Replaying the demo is entirely offline. Running the pipeline sends pages and questions to SERV under your key. Nothing goes to Reppo unless you submit a file you reviewed, and Reppo evaluations are public.</p>
+      </details>
+      <details>
+        <summary>Who built it?</summary>
+        <p>It was built from scratch for the OpenServ and Reppo hackathon, with Claude Code. The code and docs are MIT licensed.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="replay" data-reveal data-tone="dark">
+  <div class="wrap">
+    <h2>Replay a receipt before you believe one.</h2>
+    <p class="sub">The demo needs no key and no network, and gives the same receipt every time.</p>
+    <div class="links">
+      <a class="btn-solid" href="https://github.com/Dami904/currant" rel="noopener">Open the repository</a>
+      <a class="btn-text" href="./#demo">Try the demo in your browser</a>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <span class="foot-brand"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>Currant &middot; MIT &middot; 2026</span>
+      <nav class="foot-links" aria-label="Elsewhere">
+        <a href="https://github.com/Dami904/currant/issues/1" rel="noopener">Freeze note</a>
+        <a href="https://github.com/Reppo-Labs/docs/pull/12" rel="noopener">Pull request #12</a>
+        <a href="https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md" rel="noopener">Limitations</a>
+      </nav>
+    </div>
+    <p class="wrap foot-note">Built from scratch for the OpenServ and Reppo hackathon, with Claude Code. Documentation quoted on these pages belongs to its owners.</p>
+  </footer>
+</section>
+</main>
+
+<script type="module" src="/src/how.ts"></script>
+</body>
+</html>
