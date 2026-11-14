@@ -1,0 +1,24 @@
+<<<NOTICE: CONTESTED>>>
+These sources disagree and nothing in them shows which is current. Do not pick a winner; report both.
+- https://docs.example.com/faq.md: "Uploads can be up to 25 MB."
+- https://docs.example.com/limits.md: "Uploads can be up to 10 MB."
+<<<END NOTICE>>>
+<<<DOCUMENT 1: https://docs.example.com/limits.md>>>
+# Limits
+
+Rate limits and uploads.
+
+[REMOVED: superseded by newer documentation]
+
+Uploads can be up to 10 MB.
+
+<<<END DOCUMENT 1>>>
+<<<DOCUMENT 2: https://docs.example.com/faq.md>>>
+# FAQ
+
+Uploads can be up to 25 MB.
+
+<<<END DOCUMENT 2>>>
+<<<PULLED EVIDENCE>>>
+- https://docs.example.com/changelog.md: "Each API key may make 120 requests per minute."
+<<<END PULLED EVIDENCE>>>
