@@ -1,0 +1,165 @@
+{
+  "actions": [
+    {
+      "chain": [],
+      "evidence": [
+        {
+          "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+          "end": 110,
+          "quote": "Uploads can be up to 10 MB.",
+          "role": "other",
+          "start": 83,
+          "url": "https://docs.example.com/limits.md"
+        },
+        {
+          "doc_id": "8ac87694c209e75dd2bd8263b19c110146acd419516db465150576355f923c0f",
+          "end": 34,
+          "quote": "Uploads can be up to 25 MB.",
+          "role": "other",
+          "start": 7,
+          "url": "https://docs.example.com/faq.md"
+        }
+      ],
+      "kind": "contested",
+      "relation_id": "60c72de2c80378b85617b1ba6416beb1deef990f6e48712ce955141d816539e4",
+      "source": {
+        "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+        "end": 110,
+        "quote": "Uploads can be up to 10 MB.",
+        "start": 83,
+        "url": "https://docs.example.com/limits.md"
+      },
+      "target": {
+        "doc_id": "8ac87694c209e75dd2bd8263b19c110146acd419516db465150576355f923c0f",
+        "end": 34,
+        "quote": "Uploads can be up to 25 MB.",
+        "start": 7,
+        "url": "https://docs.example.com/faq.md"
+      }
+    },
+    {
+      "chain": [],
+      "evidence": [
+        {
+          "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+          "end": 81,
+          "quote": "Each API key may make 60 requests per minute.",
+          "role": "older",
+          "start": 36,
+          "url": "https://docs.example.com/limits.md"
+        },
+        {
+          "doc_id": "4364209167fdaaffcffe4e172a1612bf307d625fe6f02afad6d93e41d02e436a",
+          "end": 59,
+          "quote": "Each API key may make 120 requests per minute.",
+          "role": "newer",
+          "start": 13,
+          "url": "https://docs.example.com/changelog.md"
+        },
+        {
+          "doc_id": "4364209167fdaaffcffe4e172a1612bf307d625fe6f02afad6d93e41d02e436a",
+          "end": 125,
+          "quote": "This replaces the previous value of 60 in earlier documentation.",
+          "role": "ordering",
+          "start": 61,
+          "url": "https://docs.example.com/changelog.md"
+        }
+      ],
+      "kind": "redact",
+      "relation_id": "e1aea66bf8686a93247aa79572e2e6822c9680bca5d7a2fca5665260fc82e775",
+      "source": {
+        "doc_id": "4364209167fdaaffcffe4e172a1612bf307d625fe6f02afad6d93e41d02e436a",
+        "end": 59,
+        "quote": "Each API key may make 120 requests per minute.",
+        "start": 13,
+        "url": "https://docs.example.com/changelog.md"
+      },
+      "target": {
+        "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+        "end": 81,
+        "quote": "Each API key may make 60 requests per minute.",
+        "start": 36,
+        "url": "https://docs.example.com/limits.md"
+      }
+    },
+    {
+      "chain": [
+        "e1aea66bf8686a93247aa79572e2e6822c9680bca5d7a2fca5665260fc82e775"
+      ],
+      "evidence": [
+        {
+          "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+          "end": 81,
+          "quote": "Each API key may make 60 requests per minute.",
+          "role": "older",
+          "start": 36,
+          "url": "https://docs.example.com/limits.md"
+        },
+        {
+          "doc_id": "4364209167fdaaffcffe4e172a1612bf307d625fe6f02afad6d93e41d02e436a",
+          "end": 59,
+          "quote": "Each API key may make 120 requests per minute.",
+          "role": "newer",
+          "start": 13,
+          "url": "https://docs.example.com/changelog.md"
+        },
+        {
+          "doc_id": "4364209167fdaaffcffe4e172a1612bf307d625fe6f02afad6d93e41d02e436a",
+          "end": 125,
+          "quote": "This replaces the previous value of 60 in earlier documentation.",
+          "role": "ordering",
+          "start": 61,
+          "url": "https://docs.example.com/changelog.md"
+        }
+      ],
+      "kind": "pull",
+      "relation_id": "e1aea66bf8686a93247aa79572e2e6822c9680bca5d7a2fca5665260fc82e775",
+      "source": {
+        "doc_id": "4364209167fdaaffcffe4e172a1612bf307d625fe6f02afad6d93e41d02e436a",
+        "end": 59,
+        "quote": "Each API key may make 120 requests per minute.",
+        "start": 13,
+        "url": "https://docs.example.com/changelog.md"
+      },
+      "target": {
+        "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+        "end": 81,
+        "quote": "Each API key may make 60 requests per minute.",
+        "start": 36,
+        "url": "https://docs.example.com/limits.md"
+      }
+    }
+  ],
+  "context_chars": 706,
+  "context_sha256": "cd5ee7e3aae56daadf9ae89c2a15aac9a2fdf14cc6cdda73ca76a0ea2ad14a69",
+  "corpus": {
+    "corpus_hash": "d2f6ed1cb8c7af1a8de429458d0583ee9529fbddc5be521a06d1e89e30876077",
+    "snapshot_date": "demo"
+  },
+  "documents": [
+    {
+      "doc_id": "9079063a3de0f677aa72f4b2728fd393c854e06e5280343053649a4119271765",
+      "url": "https://docs.example.com/limits.md"
+    },
+    {
+      "doc_id": "8ac87694c209e75dd2bd8263b19c110146acd419516db465150576355f923c0f",
+      "url": "https://docs.example.com/faq.md"
+    }
+  ],
+  "mode": "redact_pull",
+  "question": "What are the API rate limit and the maximum upload size?",
+  "receipt_id": "c7bac56acf42e227012c8507026384d2b9d245606c1c98c59c776494fd0ffd24",
+  "receipt_version": 1,
+  "runs": {
+    "extract": {
+      "model": "hand-written",
+      "prompt_version": "demo-v1",
+      "run_id": 1
+    },
+    "relate": {
+      "model": "hand-written",
+      "prompt_version": "relate-v1",
+      "run_id": 2
+    }
+  }
+}
