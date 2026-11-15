@@ -669,5 +669,3 @@ Gaps in the enforcement itself:
   identical. The SERV and Reppo key formats are unknown, so they have no pattern.
 - The `.env*` deny rule in `.claude/settings.json` blocks Claude's Read tool, not a shell
   `cat`; the guardrails scan is the second layer for committed files.
-- The two review agents in `.claude/agents/` were written for TypeScript and pnpm. They need the
-  Python context passed in the prompt, or an adaptation, to apply their checks here.

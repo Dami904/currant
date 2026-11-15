@@ -176,12 +176,11 @@ def _contested_values(raw: object) -> tuple[ContestedValue, ...]:
         ):
             continue
         unit, source = entry.get("unit"), entry.get("source")
+        # One spelling per page: every later lookup and comparison sees the same stripped URL, so
+        # padding a URL cannot make one page count as two. A blank source is no source.
+        cited = source.strip() if isinstance(source, str) else ""
         kept.append(
-            ContestedValue(
-                float(value),
-                unit if isinstance(unit, str) else None,
-                source if isinstance(source, str) else None,
-            )
+            ContestedValue(float(value), unit if isinstance(unit, str) else None, cited or None)
         )
     return tuple(kept)
 
@@ -214,7 +213,7 @@ def verify_contested(answer: Answer, context: str) -> Answer:
     on_page = tuple(
         replace(v, basis="page")
         for v in answer.contested
-        if v.source is not None and _written(v.value, pages.get(v.source.strip(), set()))
+        if v.source is not None and _written(v.value, pages.get(v.source, set()))
     )
     if not _two_pages_differ(on_page):
         on_page = ()

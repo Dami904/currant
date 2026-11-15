@@ -277,9 +277,11 @@ models page, which gained a model row). The read-only probes in `scripts/live_re
 **Observed in the audits (2026-11-12: 21 evaluations; 2026-11-15: 7 more; `results/audit/`).**
 
 - Every submit returned 201 with `QUEUED`; every evaluation reached `COMPLETED`, none `FAILED`.
-  On 2026-11-15 the seven took about 1.5 to 3 minutes each from submit to verdict, one at a time.
-  Three or four evaluators judged each one. Every one was charged 440 credits.
-- **A read failed after a successful submit** (2026-11-12): a network error while polling. The
+  Three or four evaluators judged each one. Every one was charged 440 credits. (From the
+  committed rows.) From the terminal output of the 2026-11-15 run, not from a committed file: the
+  seven took about 1.5 to 3 minutes each from submit to verdict, one at a time.
+- **A read failed after a successful submit** (2026-11-12, from that run's terminal output; the
+  committed rows record only the outcome): a network error while polling. The
   ledger had the evaluation's id, so resuming read that same evaluation instead of resubmitting;
   nothing was sent twice. That is the case a blind retry of the POST would have double-charged.
 - **Identical text is not resent**: the ledger keys on the submission's content hash, so on

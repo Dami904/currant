@@ -139,7 +139,7 @@ MUTANTS = (
     Mutant(
         "answer: a page-read value must be written in the page it cites",
         "src/currant/harness/answer.py",
-        "_written(v.value, pages.get(v.source.strip(), set()))",
+        "_written(v.value, pages.get(v.source, set()))",
         "any(_written(v.value, n) for n in pages.values())",
         ("tests/test_answer.py",),
     ),
@@ -177,6 +177,34 @@ MUTANTS = (
         "    if not evals.is_frozen():",
         "    if False:",
         ("tests/test_export_labels.py",),
+    ),
+    Mutant(
+        "labels: export refuses a store that fails its integrity check",
+        "scripts/export_labels.py",
+        "    if problems:",
+        "    if False:",
+        ("tests/test_export_labels.py",),
+    ),
+    Mutant(
+        "labels: export refuses a moved commit root",
+        "scripts/export_labels.py",
+        '    if freeze_event.get("commit_root") != root:',
+        "    if False:",
+        ("tests/test_export_labels.py",),
+    ),
+    Mutant(
+        "labels: export re-checks every label against its commit before writing",
+        "scripts/export_labels.py",
+        '        if label_commit(r["salt"], json.loads(r["label"])) != r["label_commit"]:',
+        "        if False:",
+        ("tests/test_export_labels.py",),
+    ),
+    Mutant(
+        "answer: a cited source is normalised once, so padding cannot split one page in two",
+        "src/currant/harness/answer.py",
+        'cited = source.strip() if isinstance(source, str) else ""',
+        'cited = source if isinstance(source, str) else ""',
+        ("tests/test_answer.py",),
     ),
     Mutant(
         "guardrails: data/ (the signing key) must be git-ignored",

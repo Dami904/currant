@@ -170,6 +170,37 @@ def test_a_page_value_must_be_written_in_the_document_it_cites() -> None:
     assert result.answer is not None and result.answer.contested == ()  # one value is no conflict
 
 
+def test_values_swapped_between_two_pages_are_both_dropped() -> None:
+    # Each number is written on the OTHER page: nothing is on the page it cites.
+    values = [
+        {"value": 2, "unit": "MB", "source": "https://a.example/agents.md"},
+        {"value": 1.25, "unit": "MB", "source": "https://b.example/evaluations.md"},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", PAGE_CONTEXT,
+                 sleep=no_sleep)  # fmt: skip
+    assert result.answer is not None and result.answer.contested == ()
+
+
+def test_a_padded_url_is_still_the_same_page() -> None:
+    # Two numbers from one page stay one page when the model pads a URL with whitespace.
+    context = (
+        "<<<DOCUMENT 1: https://a.example/limits.md>>>\nUp to 10 files per upload. Each file may "
+        "be 25 MB.\n<<<END DOCUMENT 1>>>\n"
+    )
+    values = [
+        {"value": 10, "unit": "MB", "source": "https://a.example/limits.md"},
+        {"value": 25, "unit": "MB", "source": "  https://a.example/limits.md \n"},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", context, sleep=no_sleep)
+    assert result.answer is not None and result.answer.contested == ()
+
+
+def test_a_blank_source_is_no_source() -> None:
+    values = [{"value": 2, "unit": "MB", "source": "   "}]
+    parsed = parse_answer(json.dumps(contested_reply(values)))
+    assert isinstance(parsed, Answer) and parsed.contested[0].source is None
+
+
 def test_two_numbers_from_one_page_are_not_a_disagreement() -> None:
     context = (
         "<<<DOCUMENT 1: https://a.example/limits.md>>>\nUp to 10 files per upload. Each file may "

@@ -22,8 +22,10 @@ Thumbs.db
 
 # Note: snapshots/ and results/ are committed on purpose (corpus manifest, raw run logs).
 
-# local-only Claude Code settings
+# local-only Claude Code settings, and the owner's private agent definitions
 .claude/settings.local.json
+.claude/agents/
+.claude/skills/
 
 # Local state: the claim store, the sealed-label database and the model cache. Not committed.
 # Rebuilding the store needs a SERV key and is not deterministic; examples/demo/ is the
