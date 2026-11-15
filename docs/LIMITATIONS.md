@@ -298,7 +298,10 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
     numbers), and the answer says Currant has not verified a conflict. Still open: the verdict
     "contested" itself is the model's call when no notice covers the question, and the fallback
     checks only that each number is on its page: not the unit, not that the two numbers are the
-    same fact ("Step 3" and "Step 7" would pass), and not that neither page is dated history. A
+    same fact ("Step 3" and "Step 7" would pass), and not that neither page is dated history.
+    Pages are matched by the exact URL string written into the context (whitespace stripped, no
+    other normalisation): a cited spelling not in the context is dropped, but a context holding one
+    page twice under two spellings (case, trailing `/`, `#fragment`) would count as two pages. A
     stronger version would have the model return a quote per value and verify it like `extract`.
   - *Our other miss:* the detector did not find the attachment-size conflict, so both arms gave the
     stale "2 MB" (the judges flagged the 2 MB vs 1.25 MB conflict themselves).
