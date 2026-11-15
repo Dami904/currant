@@ -10,10 +10,12 @@ Rules:
    docs. Bare 64-hex strings are not flagged because SHA-256 hashes look identical.
 3. `.gitignore` must ignore `.env`. Files named `.env` or `.env.*` are never read (except
    `.env.example`, which is committed and therefore checked).
-4. HTTP clients may only be constructed in `src/currant/cli.py` or `live_*` scripts, so
-   "anything that touches the network is a demo path" is enforced, not just stated.
+4. HTTP clients may only be constructed in the `src/currant/cli/` package or `live_*` scripts,
+   so "anything that touches the network is a demo path" is enforced, not just stated.
 5. No skipped / xfail tests, no type-check suppressions, no lint exemptions without a rule
    code in src/, tests/ or scripts/.
+6. No Python file under src/ is longer than MAX_SOURCE_LINES: a module that big is doing
+   several jobs and should be split (cli.py reached 1,286 lines before this rule).
 
 Anything that cannot be scanned (too large, not UTF-8, unreadable) is reported as a note
 instead of being skipped silently.
@@ -31,7 +33,10 @@ from pathlib import Path
 SECRET_ENV_NAMES = ("SERV_API_KEY", "OPENSERV_API_KEY", "REPPO_API_KEY", "WALLET_PRIVATE_KEY")
 ENV_ENTRY_POINTS = frozenset({"src/currant/config.py", "src/currant/guardrails.py"})
 RULE_DEFINITIONS = "src/currant/guardrails.py"  # names the patterns, so exempt from them
-NETWORK_ALLOWED = frozenset({"src/currant/cli.py"})
+NETWORK_ALLOWED_PREFIX = "src/currant/cli/"
+# The largest module today is store.py (836 lines, one class). The cap stops regrowth past it;
+# lower it once ClaimStore is split.
+MAX_SOURCE_LINES = 900
 
 SECRET_SHAPES = {
     "private key block": re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
@@ -172,8 +177,15 @@ def scan(root: Path) -> ScanResult:
             continue
         if NETWORK_CALL.search(text) and not _may_use_network(relative):
             result.violations.append(
-                f"{relative}: builds an HTTP client; only src/currant/cli.py or a live_* script may"
+                f"{relative}: builds an HTTP client; only {NETWORK_ALLOWED_PREFIX} or a live_* "
+                "script may"
             )
+        if relative.startswith("src/"):
+            count = text.count("\n") + (0 if text.endswith("\n") or not text else 1)
+            if count > MAX_SOURCE_LINES:
+                result.violations.append(
+                    f"{relative}: {count} lines, over the cap of {MAX_SOURCE_LINES}; split it"
+                )
         if relative.startswith(LABEL_ISOLATED) and EVALSET_IMPORT.search(text):
             result.violations.append(
                 f"{relative}: imports the evaluation store; labels must never reach the pipeline"
@@ -204,7 +216,7 @@ def scan(root: Path) -> ScanResult:
 def _may_use_network(relative: str) -> bool:
     if relative.startswith("tests/"):
         return True  # tests only ever use httpx.MockTransport; conftest blocks real sockets
-    return relative in NETWORK_ALLOWED or Path(relative).name.startswith("live_")
+    return relative.startswith(NETWORK_ALLOWED_PREFIX) or Path(relative).name.startswith("live_")
 
 
 def check(root: Path) -> list[str]:

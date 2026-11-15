@@ -604,7 +604,7 @@ def test_relate_reports_an_unexpected_error_instead_of_a_traceback(
     def boom(*_args: Any, **_kwargs: Any) -> None:
         raise RuntimeError("detector exploded")
 
-    monkeypatch.setattr(cli, "run_detection", boom)
+    monkeypatch.setattr("currant.cli.pipeline.run_detection", boom)
     monkeypatch.setenv("SERV_API_KEY", "placeholder-key-for-tests")
     patch_network(monkeypatch, httpx.MockTransport(lambda _r: httpx.Response(500)))
     cache, dotenv = str(tmp_path / "cache.db"), str(tmp_path / "no.env")

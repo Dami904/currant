@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from currant.guardrails import check, main, scan
+from currant.guardrails import MAX_SOURCE_LINES, check, main, scan
 
 REPO = Path(__file__).parents[1]
 
@@ -141,18 +141,36 @@ def test_http_clients_may_only_be_built_in_the_cli_or_live_scripts(tmp_path: Pat
     root = tree(
         tmp_path,
         {
-            "src/currant/cli.py": client,
+            "src/currant/cli/pipeline.py": client,
             "scripts/live_smoke.py": client,
             "tests/test_x.py": client,
             "src/currant/crawl/sneaky.py": client,
+            "src/currant/cli.py": client,  # the old single-file path is no longer allowed
+            "src/currant/clix/a.py": client,  # nor a sibling whose name merely starts with cli
             "scripts/other.py": "import urllib.request\nurllib.request.urlopen('http://x')\n",
         },
     )
-    # Compare the flagged *paths*: the message itself names cli.py as the allowed file.
+    # Compare the flagged *paths*: the message itself names the cli package as the allowed place.
     assert {v.split(":")[0] for v in check(root)} == {
         "src/currant/crawl/sneaky.py",
+        "src/currant/cli.py",
+        "src/currant/clix/a.py",
         "scripts/other.py",
     }
+
+
+def test_a_source_file_over_the_line_cap_is_flagged(tmp_path: Path) -> None:
+    at_cap = "x = 1\n" * MAX_SOURCE_LINES
+    root = tree(
+        tmp_path,
+        {
+            "src/currant/fine.py": at_cap,
+            "src/currant/big.py": at_cap + "y = 2\n",
+            "tests/test_long.py": at_cap + "y = 2\n",  # tests are exempt: tables of cases
+        },
+    )
+    assert {v.split(":")[0] for v in check(root)} == {"src/currant/big.py"}
+    assert "lines" in flagged(root)
 
 
 @pytest.mark.parametrize(
@@ -226,7 +244,7 @@ def test_the_cli_the_harness_and_tests_may_import_it(tmp_path: Path) -> None:
     root = tree(
         tmp_path,
         {
-            "src/currant/cli.py": line,
+            "src/currant/cli/evaluation.py": line,
             "src/currant/evalset.py": "x = 1\n",
             "src/currant/harness/run.py": line,
             "tests/test_x.py": line,

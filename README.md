@@ -477,7 +477,7 @@ compromised key allows is in [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 ```text
 currant/
 ├─ src/currant/
-│  ├─ cli.py              the commands (currant --help lists them)
+│  ├─ cli/                the commands, one module per group (currant --help lists them)
 │  ├─ config.py           the only file that reads API keys
 │  ├─ crawl/              urls, config, index, fetch, snapshot, runner
 │  ├─ store.py            the claim store; store_schema.py holds its triggers

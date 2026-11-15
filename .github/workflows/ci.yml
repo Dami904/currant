@@ -92,7 +92,7 @@ jobs:
           enable-cache: true
       - run: uv sync --locked
       # Env reads only in config.py, no secret-shaped strings, .env ignored, HTTP clients only
-      # in cli.py / live_* scripts, no skipped tests or suppressed type/lint failures.
+      # in the cli/ package / live_* scripts, no skipped tests or suppressed type/lint failures.
       - run: uv run python -m currant.guardrails
 
   snapshots:

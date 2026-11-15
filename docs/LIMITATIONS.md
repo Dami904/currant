@@ -539,7 +539,7 @@ redistribution of their text is unchecked; only counts are recorded here.
 
 Enforced as code today: the secret env-var names and any `os.environ` / `os.getenv` read only in
 `src/currant/config.py`; secret-shaped strings; `.env` ignored and `.env.*` never read by the
-scan; HTTP clients only built in `cli.py` or `live_*` scripts; no skipped tests, type
+scan; HTTP clients only built in the `cli/` package or `live_*` scripts; no skipped tests, type
 suppressions or bare lint exemptions; sockets blocked in the test suite; the item split rule (golden
 test) and sealed labels; pipeline modules barred from importing the evaluation store; and `uv.lock` in sync with `pyproject.toml` (`--locked` in CI).
 
