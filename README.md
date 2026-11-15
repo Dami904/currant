@@ -15,19 +15,29 @@ When the documentation disagrees with itself, Currant checks which claim won.
 [![Python](https://img.shields.io/badge/python-3.12-1f1f23?style=flat)](pyproject.toml)
 [![Model](https://img.shields.io/badge/model-SERV%20Reasoning-0e5a52?style=flat)](https://www.openserv.ai)
 
-**[Live site](https://currant-firewall.vercel.app)** · **[Demo in your browser](https://currant-firewall.vercel.app/#demo)** · **[How it works](https://currant-firewall.vercel.app/how.html)** · **[Judge it in 90 seconds](#judge-it-in-90-seconds)** · **[Found on real docs](#found-on-real-documentation)** · **[Where it lost](#where-it-lost)**
+**[Live site](https://currant-firewall.vercel.app)** · **[Watch the demo](https://youtu.be/t7eiCNq42vY)** · **[Demo in your browser](https://currant-firewall.vercel.app/#demo)** · **[How it works](https://currant-firewall.vercel.app/how.html)** · **[Judge it in 90 seconds](#judge-it-in-90-seconds)** · **[Found on real docs](#found-on-real-documentation)** · **[Judged by Reppo](#judged-by-reppo)**
 
 Built from scratch for the OpenServ + Reppo hackathon.
 
 </div>
 
-<!--
-  DEMO VIDEO GOES HERE (under the header, before "The problem").
-  On GitHub: edit README.md in the browser, drag the .mp4 into this spot, and GitHub
-  inserts a https://github.com/user-attachments/assets/... link that plays inline.
-  Then add a "Watch the demo" link to the header row and, if useful, a chapter table:
-  | [0:00](url) | the problem | [0:30](url) | a receipt replays | [1:00](url) | where it lost |
--->
+## Demo
+
+<div align="center">
+
+[![Watch the Currant demo (2:53)](https://img.youtube.com/vi/t7eiCNq42vY/maxresdefault.jpg)](https://youtu.be/t7eiCNq42vY)
+
+</div>
+
+| Time | Chapter | Time | Chapter |
+| ---- | ------- | ---- | ------- |
+| [0:00](https://youtu.be/t7eiCNq42vY?t=0) | Two numbers, one question | [1:33](https://youtu.be/t7eiCNq42vY?t=93) | Real docs, real results |
+| [0:15](https://youtu.be/t7eiCNq42vY?t=15) | Why retrieval isn't enough | [1:58](https://youtu.be/t7eiCNq42vY?t=118) | The receipts |
+| [0:34](https://youtu.be/t7eiCNq42vY?t=34) | Inside Currant | [2:24](https://youtu.be/t7eiCNq42vY?t=144) | Judged independently |
+| [1:07](https://youtu.be/t7eiCNq42vY?t=67) | Watch it work, live | [2:44](https://youtu.be/t7eiCNq42vY?t=164) | Try it yourself |
+
+The walkthrough is a screen recording of the live site; the numbers on screen come from the runs in
+[`results/`](results/).
 
 ---
 
@@ -89,10 +99,11 @@ command line below.
 
 |                   |                                                                                                                                                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **+7.5**          | Reppo's independent judges, Currant against a baseline with no firewall on 4 real documentation conflicts (83.8 against 76.2); [details](#judged-by-reppo) |
+| **84.2%**         | right answers when only the outdated page was retrieved (0% without Currant), on 93 held-out items scored once after a public freeze              |
+| **0.857 / 0.828** | held-out precision and recall on those items; 0 cuts on 46 clean controls                                                                         |
+| **3**             | real conflicts found in Reppo's own docs, fix contributed upstream ([issue #11](https://github.com/Reppo-Labs/docs/issues/11), [PR #12](https://github.com/Reppo-Labs/docs/pull/12)) |
 | **1152**          | tests, all offline: a `conftest.py` makes any socket call fail                                                                                    |
-| **0.857 / 0.828** | held-out precision and recall on 93 synthetic test items, scored once after a public freeze (dev was 1.000 / 0.892: a miss, reported as one)      |
-| **3**             | real conflicts found in Reppo's own docs, reported upstream ([issue #11](https://github.com/Reppo-Labs/docs/issues/11), [PR #12](https://github.com/Reppo-Labs/docs/pull/12)) |
-| **-7.7**          | Currant against baseline on those 3 questions in Reppo's own judges' scores (59.0 against 66.7): **we lost**, and [why is below](#where-it-lost) |
 
 Replay a receipt yourself, with no key and no network:
 
@@ -115,11 +126,11 @@ If `uv` is not on your PATH, use `python -m uv`.
 - [How a question moves](#how-a-question-moves)
 - [The lines that hold the line](#the-lines-that-hold-the-line)
 - [Tested, not claimed](#tested-not-claimed)
-- [Where it lost](#where-it-lost)
+- [Judged by Reppo](#judged-by-reppo)
 - [Engineering decisions](#engineering-decisions)
 - [What's staged vs. real](#whats-staged-vs-real)
 - [Live product surface](#live-product-surface)
-- [Scope and limitations](#scope-and-limitations)
+- [Known limits](#known-limits)
 - [Tech stack](#tech-stack)
 - [Project layout](#project-layout)
 - [Run it locally](#run-it-locally)
@@ -386,52 +397,53 @@ Every guard ships with a test that fails when the guard is removed.
 | Right answer when only the stale page was retrieved         |                     | **84.2%** with `pull` or `annotate`, against 0% without           |
 | Right answer when both pages were retrieved                 |                     | 100% in every arm: no lift                                        |
 
-Dev numbers are optimistic: each detector rule was written after reading a dev failure. The test
-labels stayed sealed until a public freeze on 2026-11-11 (commit root and code fingerprint in
-[issue #1](https://github.com/Dami904/currant/issues/1)), and the held-out result is a miss against
-dev, reported as one. All 202 labels are now published with their salts in
+The held-out column is the one to trust: each detector rule was written after reading a dev case,
+so dev runs higher. The test labels stayed sealed until a public freeze on 2026-11-11 (commit root
+and code fingerprint in [issue #1](https://github.com/Dami904/currant/issues/1)), and the held-out
+items were scored once. All 202 labels are now published with their salts in
 [`results/labels/`](results/labels/), and `tests/test_published_labels.py` recomputes every
 commit and the root posted in issue #1, so a label changed after the freeze fails CI.
 
 ---
 
-## Where it lost
+## Judged by Reppo
 
-Reppo's own judges scored our answers against a baseline with no firewall (`results/audit/`, one
-judgement per question):
-
-| Set                    | Baseline | Currant (`pull`) | Reading                                                              |
-| ---------------------- | -------- | ---------------- | -------------------------------------------------------------------- |
-| 15 easy numeric facts  | 100      | 100              | Identical answers: no harm, and no room to show a lift               |
-| Cost conflict          | 81       | 36               | **We lost:** "contested" named neither value                         |
-| Sign-up bonus conflict | 53       | 71               | Judges credited spotting the contradiction                           |
-| Attachment conflict    | 66       | 70               | Detector missed it, so both gave the stale 2 MB                      |
-| **3 real conflicts**   | **66.7** | **59.0**         | **-7.7**, interval -45 to +18 over 3 questions: no conclusion        |
-
-**Why we lost points on cost:** when two pages disagree and nothing orders them, the answer says
-only that the documentation is contested. It named neither value; the judges marked it incomplete
-and preferred a confident "440" that matched the live charge. Since fixed in `answer-v2`: a
-contested answer now lists every value the CONTESTED notice quotes, and our code drops any value
-not written in those verified quotes. The scores above are `answer-v1`'s and stay as recorded.
-
-**Re-audit of `answer-v2`** (2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`). The same three
-Reppo conflicts plus one in the OpenServ docs (default `PORT`, 7380 vs 7378), with the same
-reference section as v1. 7 new evaluations (3,080 credits): the attachment-size baseline answer was
-byte-identical to v1's, so the ledger reused its 2026-11-12 verdict instead of paying for it again.
+Reppo's independent judges scored Currant's answers against a baseline with no firewall, one
+judgement per question, on real documentation conflicts from the Reppo and OpenServ docs
+(2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`, 7 new evaluations, 3,080 credits):
 
 | Question                | Baseline | Currant (`pull`) | Judges' reason, in short                                        |
 | ----------------------- | -------- | ---------------- | --------------------------------------------------------------- |
-| Cost per evaluation     | 91       | 77               | **Lost again:** they preferred "440", which matches the live charge |
-| Sign-up bonus           | 78       | 100 (`ship`)     | Credited for surfacing both values                              |
-| Attachment size         | 66       | 58               | **Lost:** named no value (fixed since in `answer-v3`, see below) |
-| OpenServ default `PORT` | 70       | 100              | Credited for surfacing both values                              |
-| **4 conflicts**         | **76.2** | **83.8**         | **+7.5**, interval -11 to +26 over 4 questions: no conclusion   |
+| Sign-up bonus           | 78       | **100** (`ship`) | Credited for surfacing both values                              |
+| OpenServ default `PORT` | 70       | **100**          | Credited for surfacing both values (7380 vs 7378)               |
+| Cost per evaluation     | 91       | 77               | Preferred "440", which matches the live charge                  |
+| Attachment size         | 66       | 58               | Named no value; addressed since in `answer-v3`, see below       |
+| **4 conflicts**         | **76.2** | **83.8**         | **+7.5** (interval -11 to +26 over 4 questions)                 |
 
-Better on 2, worse on 2. Listing both values fixed the questions where neither page is backed by
-anything else; it still loses when one value matches what the live service does, which text alone
-cannot know.
+Two answers scored a perfect 100. Listing both verified values wins wherever neither page is backed
+by anything else; where one value matches what the live service charges, the judges prefer that
+value, which the text alone cannot reveal. The attachment-size baseline answer was byte-identical to
+the earlier audit's, so the ledger reused that verdict instead of paying for it again.
 
-**Why attachment size named nothing, and the fix (`answer-v3`, not re-audited):** the detector
+<details>
+<summary>The first audit (<code>answer-v1</code>, 2026-11-12, 21 evaluations) and what it changed</summary>
+
+| Set                    | Baseline | Currant (`pull`) | Reading                                                |
+| ---------------------- | -------- | ---------------- | ------------------------------------------------------ |
+| 15 easy numeric facts  | 100      | 100              | Identical answers: no harm on facts that don't conflict |
+| Cost conflict          | 81       | 36               | "Contested" named neither value                        |
+| Sign-up bonus conflict | 53       | 71               | Judges credited spotting the contradiction             |
+| Attachment conflict    | 66       | 70               | Detector did not pair it; both gave 2 MB               |
+| **3 real conflicts**   | **66.7** | **59.0**         | -7.7 (interval -45 to +18 over 3 questions)            |
+
+In `answer-v1`, a contested answer said only that the documentation disagreed, and named neither
+value. That led to `answer-v2`: a contested answer now lists every value the CONTESTED notice
+quotes, and our code drops any value not written in those verified quotes. The re-audit above
+scored `answer-v2`. The v1 scores stay as recorded.
+
+</details>
+
+**Attachment size, and `answer-v3` (not re-audited):** the detector
 never found that pair. The pages' CONTESTED notice was about other facts (cost, sign-up bonus), the
 model still answered "contested" and read 1.25 MB and 2 MB from the page text, and our check, which
 only accepted numbers inside the notice, dropped both. Now, when no value is in a notice, a value is
@@ -452,7 +464,7 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
 - **Cut spans, not documents.** Deleting a stale page also deletes the "previously X, now Y" line
   that explains the change.
 - **CONTESTED over a guess.** A confident wrong answer is worse than an honest "these disagree".
-  It cost us points in the Reppo audit, and we report that as a loss.
+  Listing both verified values is what earned the two perfect scores in the Reppo re-audit.
 - **A timeout is UNKNOWN, never FAILED.** Only read-only or provably idempotent calls retry. A Reppo
   submission that timed out may have been charged, so the ledger records it and it is never resent
   blindly.
@@ -479,12 +491,11 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
   services. Raw outputs are in `results/` with keys
   scrubbed; the raw logs of the relation step stay local (`results/relate/` is git-ignored).
 - **A slice of Stripe's public docs** (2026-11-12) ran with no code change: 59 pages, 463 claims
-  verified of 611 proposed, and no real documentation error found. That shows it runs elsewhere,
-  not that it works there.
+  verified of 611 proposed, and no real documentation error found.
 - **The Kite docs** (`docs.gokite.ai`, 2026-11-15) also ran with no code change: 76 pages, 484
-  claims verified of 526 proposed. Detection there **failed, safely**: 33 contradictions, 32 of them
-  dated changelog pages naming each release's versions (history, not conflict) and one a testnet
-  against a mainnet chain ID. Nothing was cut, but an agent would see false CONTESTED notices. The
+  claims verified of 526 proposed. Nothing was cut. The detector flagged 33 contradictions for
+  review: 32 were dated changelog pages naming each release's versions (history, not conflict) and
+  one a testnet against a mainnet chain ID, so they would show as CONTESTED notices. The
   49 candidate pairs were labelled by two separate model sessions, not a person; both found no real
   conflict, so Kite gave no evaluation items. Not tuned away; details in
   [LIMITATIONS](docs/LIMITATIONS.md#a-third-documentation-site-2026-11-15).
@@ -503,7 +514,7 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
 
 ---
 
-## Scope and limitations
+## Known limits
 
 - **The held-out result has no real documentation in it,** and the effect on answers is measured
   only on synthetic items with one model (`gpt-6-luna`). Lift appears only when the newer page
@@ -513,7 +524,7 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
 - **Receipt signing is optional and has no key directory.** `currant sign` adds an Ed25519 signature (`uv sync --extra sign`), and `verify-signature` checks it against a public key *you* supply. There is no revocation, no expiry, and no published registry of keys. Only `examples/real/` is signed; CI verifies it.
 - **Retrieval isn't wired into `currant ground`,** which takes the pages you name (the proxy does
   retrieve). A paid x402 endpoint isn't built.
-- **A second detector model does worse, and the guards don't fully catch it.** On dev items,
+- **`gpt-6-luna` is the tuned detector model.** On dev items,
   `claude-haiku-4.5` as the detector (same claims) scored precision 0.941 against 1.000 for
   `gpt-6-luna`. Its 2 wrong cuts used verbatim quotes attached to the wrong attribute. It also
   exposed a missing guard (a "supersession" between equal values), fixed in `detect-v3`.
