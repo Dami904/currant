@@ -67,6 +67,7 @@ jobs:
       - run: uv run currant --help
       # The committed demo needs no key and no network: a stranger can do exactly this.
       - run: uv run currant replay examples/demo/receipt.json --db examples/demo/store.db
+      - run: uv run currant replay examples/real/receipt.json --db examples/real/store.db
 
   build:
     runs-on: ubuntu-latest

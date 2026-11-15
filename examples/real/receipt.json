@@ -1,0 +1,73 @@
+{
+  "actions": [
+    {
+      "chain": [],
+      "evidence": [
+        {
+          "doc_id": "6b3800a39a929d801a1b74594dc2aa8be27691419e470d59f69d4fcda5b9ffda",
+          "end": 3056,
+          "quote": "An evaluation costs 100 credits.",
+          "role": "other",
+          "start": 3024,
+          "url": "https://docs.reppo.ai/api/eval/evaluations.md"
+        },
+        {
+          "doc_id": "e6d6319d86045450533d000e198a1af737e03ac41022d4bcac352926585840de",
+          "end": 1084,
+          "quote": "A text-only evaluation costs **440 credits**;",
+          "role": "other",
+          "start": 1039,
+          "url": "https://eval.reppo.xyz/agents.md"
+        }
+      ],
+      "kind": "contested",
+      "relation_id": "43b0500677cd3bfa0408ef426373449e64280e293b67076cb0aa30c65ec75eea",
+      "source": {
+        "doc_id": "e6d6319d86045450533d000e198a1af737e03ac41022d4bcac352926585840de",
+        "end": 1084,
+        "quote": "A text-only evaluation costs **440 credits**;",
+        "start": 1039,
+        "url": "https://eval.reppo.xyz/agents.md"
+      },
+      "target": {
+        "doc_id": "6b3800a39a929d801a1b74594dc2aa8be27691419e470d59f69d4fcda5b9ffda",
+        "end": 3056,
+        "quote": "An evaluation costs 100 credits.",
+        "start": 3024,
+        "url": "https://docs.reppo.ai/api/eval/evaluations.md"
+      }
+    }
+  ],
+  "context_chars": 30780,
+  "context_sha256": "453a2683b62d80e940479821ce3bdf2ea29e094f28ce245195ba67296ae3143a",
+  "corpus": {
+    "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c",
+    "snapshot_date": "2026-11-05"
+  },
+  "documents": [
+    {
+      "doc_id": "6b3800a39a929d801a1b74594dc2aa8be27691419e470d59f69d4fcda5b9ffda",
+      "url": "https://docs.reppo.ai/api/eval/evaluations.md"
+    },
+    {
+      "doc_id": "e6d6319d86045450533d000e198a1af737e03ac41022d4bcac352926585840de",
+      "url": "https://eval.reppo.xyz/agents.md"
+    }
+  ],
+  "mode": "redact_pull",
+  "question": "How many credits does a text-only Reppo evaluation cost?",
+  "receipt_id": "348c8eecb44e9eac6126f98b8bd6441c7159deea759250d3d7a0cba300d1802e",
+  "receipt_version": 1,
+  "runs": {
+    "extract": {
+      "model": "gpt-6-luna",
+      "prompt_version": "extract-v1",
+      "run_id": 1
+    },
+    "relate": {
+      "model": "gpt-6-luna",
+      "prompt_version": "relate-v1",
+      "run_id": 2
+    }
+  }
+}
