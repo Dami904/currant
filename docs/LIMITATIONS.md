@@ -56,10 +56,16 @@ with the second model.
 The Kite docs (`docs.gokite.ai`, the `kite` corpus in `corpora.toml`) were crawled once: 76 pages
 fetched; the root page refused as HTML; one URL that their own `llms.txt` lists returns 404.
 `gpt-6-luna` extracted 484 claims (526 proposed) for about $0.07, and `currant real-worksheet`
-proposed 49 candidate pairs for a person to label. **Nothing is labelled or measured on this site
-yet**: the worksheet is private (`docs/private/`) and has no detector verdicts on it, so a
-person's labels stay independent. Until those labels exist, there is no measured claim about how
-Currant does on a documentation site it was not built against.
+proposed 49 candidate pairs. **They were labelled by models, not by a person**: two separate
+agent sessions (`claude-sonnet-4-6` and `claude-opus-5-5`) labelled them independently from the
+crawled text, without seeing detector verdicts. Both labelled **all 49 as not a conflict**: testnet
+against mainnet chain IDs, a chain ID against a LayerZero endpoint ID, Kite against another chain
+named in a changelog, and two port numbers from the same table. So this site yields **no
+evaluation items**, and there is still no measured precision or recall on a site Currant was not
+built against. What the labels do show: the one detector contradiction that falls on a worksheet
+pair (chain ID 2368 against 2366) is a false positive, and the detector called the other 48
+worksheet pairs unrelated, which both labellers agree with. Model labels are not ground truth;
+they are reported as model-made.
 
 Detection was then run once (`relate-v1`, `gpt-6-luna`, 229 pairs, 228 model calls, one pair
 failed and one was blocked by the prompt guard; raw log kept locally, as `results/relate/` is git-ignored).
@@ -67,8 +73,8 @@ It verified 33 contradictions and 0 supersessions. Read by eye (not labelled), *
 changelog entries**: each dated release page names that release's versions, which is history,
 not a conflict. The pages are dated only in their URLs (`changelog/2026/2026-11-13-release.md`),
 and the detector accepts a date only as a quote from the page text, so it cannot order them and
-falls back to CONTESTED. The 33rd (chain ID 2368 against 2366) is most likely testnet against
-mainnet. **This is a real failure on an unseen site.** It fails safe: nothing was cut and nothing
+falls back to CONTESTED. The 33rd (chain ID 2368 against 2366) is testnet against mainnet,
+as both model labellers found. **This is a real failure on an unseen site.** It fails safe: nothing was cut and nothing
 was retired. But an agent asking about versions would get false CONTESTED notices. It was not
 tuned away, so a later measurement on this site stays honest. The likely fixes are a URL date as
 an ordering source, or treating release-note claims as `historical`. The snapshot is kept out of the repository

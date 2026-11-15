@@ -17,4 +17,4 @@ carry the timestamp, so it can be checked without trusting this page.
 
 The 202 frozen labels were published on 2026-11-15 (`results/labels/`); their commit root equals the
 one posted in issue #1 before the freeze. What is not on this timeline: the Reppo audit runs are
-dated inside `results/audit/`, and the labels for the third site have not been written yet.
+dated inside `results/audit/`, and the third site's 49 candidate pairs were model-labelled (all "not a conflict"; no evaluation items), see `docs/LIMITATIONS.md`.
