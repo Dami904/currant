@@ -23,7 +23,10 @@ from currant.serv import ModelError, ModelReply
 
 # answer-v2 (2026-11-15): a contested answer reports every value the CONTESTED notice quotes,
 # instead of naming none. answer-v1 results stay labelled as such in their run files.
-PROMPT_VERSION = "answer-v2"
+# answer-v3 (2026-11-15): when no value is in a notice, values written in the cited document's
+# own text are kept, marked basis "page" (the Reppo re-audit's c03 named nothing). The prompt text
+# is unchanged; the version moves because what the answer reports changed.
+PROMPT_VERSION = "answer-v3"
 SCHEMA_NAME = "answer"
 VERDICTS = ("answer", "contested", "unknown")
 
@@ -76,6 +79,9 @@ ANSWER_SCHEMA: dict[str, Any] = {
 # The CONTESTED notice that `ground` writes from verified quotes. Only numbers written inside it
 # may be reported as contested values.
 _NOTICE = re.compile(r"<<<NOTICE: CONTESTED>>>(.*?)<<<END NOTICE>>>", re.DOTALL)
+# A document block as `ground` writes it. Page text is defanged there, so a page cannot open or
+# close one of these; the number on the closing marker must match the opening one.
+_DOCUMENT = re.compile(r"<<<DOCUMENT (\d+): ([^\n>]*)>>>\n(.*?)\n<<<END DOCUMENT \1>>>", re.DOTALL)
 
 
 @dataclass(frozen=True)
@@ -83,6 +89,9 @@ class ContestedValue:
     value: float
     unit: str | None
     source: str | None
+    # "notice": the number is in a CONTESTED notice our code built from a verified relation.
+    # "page": no notice backs it; the number is written in the cited document's own text.
+    basis: str = "notice"
 
 
 @dataclass(frozen=True)
@@ -177,21 +186,37 @@ def _contested_values(raw: object) -> tuple[ContestedValue, ...]:
     return tuple(kept)
 
 
+def _written(value: float, numbers: set[float]) -> bool:
+    return any(math.isclose(value, n, rel_tol=1e-9, abs_tol=1e-12) for n in numbers)
+
+
 def verify_contested(answer: Answer, context: str) -> Answer:
-    """Keep only contested values whose number is written in the context's CONTESTED notice. The
-    notice is built by our code from verified quotes, so a kept value is one a source really
-    states; a value the model invented, or took from elsewhere in the context, is dropped."""
+    """Keep only contested values our code can find written down.
+
+    First choice: values whose number is in the context's CONTESTED notice, which our code built
+    from verified quotes. If none is, the notice is about something else (or there is none), and
+    the fallback keeps values whose number is written in the text of the document the value cites,
+    marked basis "page". The fallback needs at least two different numbers, since one value is not
+    a disagreement. A value the model invented, or attributed to the wrong page, is dropped."""
     if not answer.contested:
         return answer
     quoted: set[float] = set()
     for notice in _NOTICE.findall(context):
         quoted |= numbers_in(notice)
-    kept = tuple(
-        v
+    kept = tuple(v for v in answer.contested if _written(v.value, quoted))
+    if kept:
+        return replace(answer, contested=kept)
+    pages: dict[str, set[float]] = {}
+    for _number, url, body in _DOCUMENT.findall(context):
+        pages.setdefault(url.strip(), set()).update(numbers_in(body))
+    on_page = tuple(
+        replace(v, basis="page")
         for v in answer.contested
-        if any(math.isclose(v.value, n, rel_tol=1e-9, abs_tol=1e-12) for n in quoted)
+        if v.source is not None and _written(v.value, pages.get(v.source.strip(), set()))
     )
-    return replace(answer, contested=kept)
+    if len({v.value for v in on_page}) < 2:
+        on_page = ()
+    return replace(answer, contested=on_page)
 
 
 def build_user_message(question: str, context: str, *, repeat: int = 0) -> str:

@@ -87,16 +87,21 @@ def answer_text(answer: Answer) -> str:
         evidence = f" Evidence: {answer.evidence}" if answer.evidence else ""
         return f"{answer.value:g}{unit}.{evidence}"
     if answer.verdict == "contested":
+        stated = "; ".join(
+            f"{v.value:g}{f' {v.unit}' if v.unit else ''}" + (f" ({v.source})" if v.source else "")
+            for v in answer.contested
+        )
+        if answer.contested and all(v.basis == "page" for v in answer.contested):
+            # Read from the pages' own text; no verified relation backs the disagreement.
+            return (
+                "The documentation appears contested: the pages give different values and "
+                f"nothing shows which is current. The pages state: {stated}."
+            )
         text = (
             "The documentation is contested: the sources disagree and nothing shows which "
             "is current."
         )
         if answer.contested:  # only values the CONTESTED notice's verified quotes state
-            stated = "; ".join(
-                f"{v.value:g}{f' {v.unit}' if v.unit else ''}"
-                + (f" ({v.source})" if v.source else "")
-                for v in answer.contested
-            )
             text += f" The sources state: {stated}."
         return text
     return "The documentation does not say."

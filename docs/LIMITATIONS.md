@@ -286,8 +286,14 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
     76.2, Currant 83.8, +7.5 (95% interval -11 to +26, 4 questions: no conclusion), better on 2,
     worse on 2. Per question: cost 91 vs 77 (still lost: the judges prefer the value the live
     service charges, which text cannot know), sign-up bonus 78 vs 100, attachment size 66 vs 58
-    (the contested answer still named no value, so the judges marked it incomplete), `PORT` 70
-    vs 100.
+    (the contested answer named no value, so the judges marked it incomplete), `PORT` 70 vs 100.
+  - *Why attachment size named nothing (fixed in `answer-v3`, not re-audited):* the detector never
+    found that pair; the CONTESTED notice on those pages was about other facts. The model answered
+    "contested" with 1.25 MB and 2 MB read from the page text, and `verify_contested` dropped both
+    because only numbers inside a notice counted. It now falls back, when no value is in a notice,
+    to values written in the text of the page each one cites (at least two different values), and
+    the answer says "the pages state" rather than claiming a verified conflict. Still open: the
+    verdict "contested" itself is the model's call when no notice covers the question.
   - *Our other miss:* the detector did not find the attachment-size conflict, so both arms gave the
     stale "2 MB" (the judges flagged the 2 MB vs 1.25 MB conflict themselves).
   - *The documentation's side:* all three conflicts are real. The judges found each from the

@@ -183,3 +183,13 @@ def test_a_contested_answer_names_every_verified_value_and_its_source() -> None:
     # With no verified values it says only that the sources disagree.
     bare = answer_text(Answer("contested", None, None, None))
     assert "contested" in bare and "MB" not in bare
+
+
+def test_values_read_from_the_pages_are_not_presented_as_a_verified_conflict() -> None:
+    page = (
+        ContestedValue(1.25, "MB", "https://eval.reppo.xyz/agents.md", "page"),
+        ContestedValue(2.0, "MB", "https://docs.reppo.ai/api/eval/evaluations.md", "page"),
+    )
+    text = answer_text(Answer("contested", None, None, None, page))
+    assert "appears contested" in text and "The pages state: 1.25 MB" in text and "2 MB" in text
+    assert "The sources state" not in text
