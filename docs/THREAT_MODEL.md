@@ -82,6 +82,20 @@ string is committed. `.claude/settings.json` denies Claude's Read tool on `.env`
 
 ## Not defended, be explicit
 
+- **Crawl-diff trusts our own snapshots for order (2026-11-15).** A `crawl_diff` supersession
+  needs no ordering quote: the order is that our crawler saw the old value on an earlier snapshot
+  date and the new value on a later one. The database still requires both claim quotes verbatim
+  in their own page versions. Whoever can write a snapshot that verifies (the crawler's output
+  directory, or the person ingesting it) can therefore stage an "edit" by ingesting a doctored
+  later version. `currant verify` checks a snapshot against its own manifest, not against the
+  site, so it does not stop this. The same person could already plant page text, so this widens
+  nothing. A site owner can also edit a page back and forth between crawls; crawl-diff reports
+  what was observed, never why.
+- **A right quote on the wrong claim.** Measured on dev with a second detector model: a verbatim
+  ordering quote about one attribute ("Scans up to 250 epochs") retired a claim about another
+  ("Claims up to 50 epochs"). The checks require verbatim quotes, one page, the same kind of value
+  and a changed value; they do not check that the two claims are about the same attribute.
+
 - **Prompt injection inside crawled text.** The crawler stores text verbatim. Crawled text goes
   to our extraction and relation prompts only behind `serv_prompt_guard` (which fails open), and
   the model cannot cause a cut except through quotes our code verifies. Grounded context still

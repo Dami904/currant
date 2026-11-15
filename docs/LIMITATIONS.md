@@ -51,6 +51,19 @@ model, and the guards bound what a wrong model can do (verbatim evidence, same k
 value), not whether it pairs the right attributes.** Dev items only; the test split was not run
 with the second model.
 
+## A third documentation site (2026-11-15)
+
+The Kite docs (`docs.gokite.ai`, the `kite` corpus in `corpora.toml`) were crawled once: 76 pages
+fetched; the root page refused as HTML; one URL that their own `llms.txt` lists returns 404.
+`gpt-6-luna` extracted 484 claims (526 proposed) for about $0.07, and `currant real-worksheet`
+proposed 49 candidate pairs for a person to label. **Nothing is labelled or measured on this site
+yet**: the worksheet is private (`docs/private/`) and has no detector verdicts on it, so a
+person's labels stay independent. Until those labels exist, there is no claim about how Currant
+does on a documentation site it was not built against. The snapshot is kept out of the repository
+(`data/snapshots-kite/`) because two pages contain `0x` + 64-hex strings that the secret scanner
+cannot tell apart from wallet keys. The raw extraction log is
+`results/extract/kite-20261115T095906Z-run1.jsonl`.
+
 ## Candidate pairing at scale (2026-11-15)
 
 Candidate pairs are found by prefix-filter blocking, proven equal to the old all-pairs search by
