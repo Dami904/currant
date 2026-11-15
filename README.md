@@ -25,6 +25,10 @@ Built from scratch for the OpenServ + Reppo hackathon.
 
 <div align="center">
 
+
+https://github.com/user-attachments/assets/2bc195e4-027b-499e-a947-d2944459a263
+
+
 [![Watch the Currant demo (2:53)](https://img.youtube.com/vi/t7eiCNq42vY/maxresdefault.jpg)](https://youtu.be/t7eiCNq42vY)
 
 </div>
