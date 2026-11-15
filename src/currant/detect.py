@@ -178,6 +178,47 @@ def enclosing_line(text: str, start: int, end: int) -> str:
     return text[lo:hi]
 
 
+def _pairs_to_score(
+    current: list[ClaimRow],
+    profile: dict[str, tuple[frozenset[str], frozenset[str], frozenset[str]]],
+    min_score: float,
+) -> list[tuple[int, int]]:
+    """Index pairs (i < j) worth scoring, in the order the all-pairs loop visited them. Exact: no
+    pair that could reach `min_score` is left out (tests/test_blocking.py checks the output is
+    identical to scoring every pair).
+
+    Why it is exact. The score is the mean of J(keys) and max(J(quotes), J(lines)), so a score of
+    at least t needs one of those three Jaccard values to be at least t (the mean of two numbers
+    below t is below t, in floating point too). And J(x, y) >= t needs |x & y| >= t * |x|, so
+    with tokens sorted rarest first, x and y must share a token within the first
+    |x| - floor(t * |x|) + 1 of each (prefix filtering). `floor` rather than `ceil` keeps the
+    prefix at least as long as needed when t * |x| is not exact in floating point.
+
+    Rare words go first, so the common words that every page shares rarely enter a prefix: the
+    work follows how many claims share uncommon words, not the square of the claim count. With
+    `min_score <= 0` every pair qualifies, so every pair is returned."""
+    n = len(current)
+    if min_score <= 0:
+        return [(i, j) for i in range(n) for j in range(i + 1, n)]
+    sets = [profile[c.claim_id] for c in current]
+    frequency: dict[str, int] = {}
+    for triple in sets:
+        for token in triple[0] | triple[1] | triple[2]:
+            frequency[token] = frequency.get(token, 0) + 1
+    partners: list[set[int]] = [set() for _ in range(n)]
+    for kind in range(3):  # keys, quotes, lines: each is compared only with its own kind
+        postings: dict[str, list[int]] = {}
+        for i, triple in enumerate(sets):
+            ordered = sorted(triple[kind], key=lambda t: (frequency[t], t))
+            prefix = len(ordered) - math.floor(min_score * len(ordered)) + 1
+            for token in ordered[:prefix]:
+                postings.setdefault(token, []).append(i)
+        for members in postings.values():
+            for x, i in enumerate(members):
+                partners[i].update(members[x + 1 :])
+    return [(i, j) for i in range(n) for j in sorted(partners[i])]
+
+
 def candidate_pairs(
     claims: list[ClaimRow],
     *,
@@ -209,20 +250,24 @@ def candidate_pairs(
         for c in current
     }
     scored: list[tuple[float, ClaimRow, ClaimRow]] = []
-    for i, a in enumerate(current):
-        for b in current[i + 1 :]:
-            if a.doc_id == b.doc_id or a.value_key == b.value_key:
-                continue
-            if "current" not in (a.stance, b.stance):
-                continue  # two historical mentions are not a live conflict
-            (ka, qa, la), (kb, qb, lb) = profile[a.claim_id], profile[b.claim_id]
-            score = 0.5 * jaccard(ka, kb) + 0.5 * max(jaccard(qa, qb), jaccard(la, lb))
-            if score >= min_score:
-                scored.append((score, a, b))
+    for i, j in _pairs_to_score(current, profile, min_score):
+        a, b = current[i], current[j]
+        if a.doc_id == b.doc_id or a.value_key == b.value_key:
+            continue
+        if "current" not in (a.stance, b.stance):
+            continue  # two historical mentions are not a live conflict
+        (ka, qa, la), (kb, qb, lb) = profile[a.claim_id], profile[b.claim_id]
+        score = 0.5 * jaccard(ka, kb) + 0.5 * max(jaccard(qa, qb), jaccard(la, lb))
+        if score >= min_score:
+            scored.append((score, a, b))
+    by_claim: dict[str, list[tuple[float, ClaimRow, ClaimRow]]] = {}
+    for s in scored:
+        by_claim.setdefault(s[1].claim_id, []).append(s)
+        by_claim.setdefault(s[2].claim_id, []).append(s)
     keep: set[tuple[str, str]] = set()
     for claim in current:
         mine = sorted(
-            (s for s in scored if claim.claim_id in (s[1].claim_id, s[2].claim_id)),
+            by_claim.get(claim.claim_id, ()),
             key=lambda s: (-s[0], s[1].claim_id, s[2].claim_id),
         )
         keep.update((s[1].claim_id, s[2].claim_id) for s in mine[:top_k])
