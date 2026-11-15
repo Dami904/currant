@@ -51,7 +51,8 @@ def main(argv: list[str]) -> int:
         if text is None:
             missing += 1
             continue
-        claims = parse_claims(row.get("raw") if isinstance(row.get("raw"), str) else None)
+        raw = row.get("raw")
+        claims = parse_claims(raw if isinstance(raw, str) else None)
         if isinstance(claims, str):
             continue
         for proposal in claims:
