@@ -416,6 +416,19 @@ def test_limit_caps_the_pages(two_pages: World) -> None:
     assert len(model.calls) == 1
 
 
+def test_only_docs_restricts_the_pages_and_marks_the_run_partial(two_pages: World) -> None:
+    pages = two_pages.store.pages(two_pages.snapshot_id)
+    chosen = pages[1].doc_id
+    model = FakeModel(lambda _u, _g: reply([]))
+    summary = run_extraction(
+        two_pages.store, two_pages.snapshot_id, model, only_docs=frozenset({chosen}),
+        sleep=no_sleep,
+    )  # fmt: skip
+    assert len(model.calls) == 1 and summary.pages_total == 1
+    params = two_pages.store.run_meta(summary.run_id).params
+    assert params["limited"] is True and params["only_docs"] == [chosen]
+
+
 def test_every_page_is_logged_with_the_raw_model_output_and_no_secret(
     world: World, tmp_path: Path
 ) -> None:

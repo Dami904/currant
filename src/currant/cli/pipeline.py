@@ -20,6 +20,7 @@ from currant.config import (
     MissingSecret,
     serv_api_key,
 )
+from currant.crawldiff import changed_pages
 from currant.detect import (
     run_detection,
 )
@@ -34,6 +35,19 @@ from currant.serv import ServClient
 from currant.store import ClaimStore, StoreError
 
 
+def _changed_since(store: ClaimStore, snapshot_id: int, since: str) -> frozenset[str]:
+    """Documents of this snapshot whose URL had different content in the snapshot dated `since`
+    (which must already be in the store)."""
+    row = store.conn.execute(
+        "SELECT snapshot_id FROM snapshots WHERE snapshot_date = ? ORDER BY snapshot_id DESC",
+        (since,),
+    ).fetchone()
+    if row is None:
+        raise StoreError(f"no snapshot dated {since} in the store; ingest it first")
+    pages = changed_pages(store, int(row["snapshot_id"]), snapshot_id)
+    return frozenset(page.new_doc for page in pages)
+
+
 def cmd_extract(args: argparse.Namespace) -> int:
     try:
         key = serv_api_key(args.dotenv)
@@ -44,6 +58,10 @@ def cmd_extract(args: argparse.Namespace) -> int:
         args.db.parent.mkdir(parents=True, exist_ok=True)
         store = ClaimStore(args.db)
         ingest = store.ingest_snapshot(args.snapshot)
+        only_docs = None
+        if args.only_changed_since is not None:
+            only_docs = _changed_since(store, ingest.snapshot_id, args.only_changed_since)
+            print(f"only the {len(only_docs)} pages changed since {args.only_changed_since}")
     except (StoreError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -59,6 +77,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
                 ingest.snapshot_id,
                 model,
                 limit=args.limit,
+                only_docs=only_docs,
                 allow_unguarded_retry=args.allow_unguarded_retry,
                 shadow=args.shadow,
                 resume_run_id=args.resume,

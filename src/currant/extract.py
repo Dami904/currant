@@ -410,6 +410,7 @@ def run_extraction(
     model: ChatModel,
     *,
     limit: int | None = None,
+    only_docs: frozenset[str] | None = None,
     allow_unguarded_retry: bool = False,
     shadow: bool = False,
     resume_run_id: int | None = None,
@@ -466,9 +467,13 @@ def run_extraction(
                 )
         finished = store.finished_documents(resume_run_id)
         work = [page for page in work if page.doc_id not in finished]
+    if only_docs is not None:
+        if resume_run_id is not None:
+            raise StoreError("--only-changed-since applies only to a new run")
+        work = [page for page in work if page.doc_id in only_docs]
     # A run that did only part of the snapshot is recorded as such: `complete` must not pass
     # for full coverage downstream.
-    limited = limit is not None and limit < len(work)
+    limited = (limit is not None and limit < len(work)) or only_docs is not None
     if limit is not None:
         work = work[:limit]
 
@@ -484,6 +489,7 @@ def run_extraction(
             {
                 "limit": limit,
                 "limited": limited,
+                **({"only_docs": sorted(only_docs)} if only_docs is not None else {}),
                 "guard": True,
                 "shadow_agent": shadow,
                 "allow_unguarded_retry": allow_unguarded_retry,

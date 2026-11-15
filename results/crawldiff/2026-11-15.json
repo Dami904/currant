@@ -1,0 +1,48 @@
+[
+  {
+    "relate_run": 9,
+    "model": "none",
+    "prompt_version": "crawl-diff-v1",
+    "status": "complete",
+    "old_run": 1,
+    "new_run": 8,
+    "old_snapshot": "2026-11-05",
+    "new_snapshot": "2026-11-11",
+    "relations": [
+      {
+        "relation_id": "1b56b08b69661b7afdac9af24ccf8f5708a340b2ecec5f62ac23c81cc5fdceeb",
+        "status": "verified",
+        "older": {
+          "doc_id": "e6d6319d86045450533d000e198a1af737e03ac41022d4bcac352926585840de",
+          "quote": "One of `accept`, `revise`, `reject`"
+        },
+        "newer": {
+          "doc_id": "b6703fb1bd4d28267efb68bd996c040aac74d3f2eaadff7cccab9de25154ed2a",
+          "quote": "`result.decision` — accept or\n  reject at the policy threshold;"
+        }
+      }
+    ]
+  },
+  {
+    "relate_run": 11,
+    "model": "none",
+    "prompt_version": "crawl-diff-v1",
+    "status": "complete",
+    "old_run": 8,
+    "new_run": 10,
+    "old_snapshot": "2026-11-11",
+    "new_snapshot": "2026-11-15",
+    "relations": []
+  },
+  {
+    "relate_run": 12,
+    "model": "none",
+    "prompt_version": "crawl-diff-v1",
+    "status": "complete",
+    "old_run": 1,
+    "new_run": 10,
+    "old_snapshot": "2026-11-05",
+    "new_snapshot": "2026-11-15",
+    "relations": []
+  }
+]

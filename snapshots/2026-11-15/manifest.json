@@ -1,0 +1,2700 @@
+{
+  "complete": true,
+  "config_sha256": "601916544eb6e876856c715f7eb17ed3dabf594f43d749f9ef4be3a391e91a6d",
+  "corpus_hash": "c3bb782764de4c21ce907dccd768bb69ecacea132cead8e35fce79ef095b0eff",
+  "counts": {
+    "fetched": 132
+  },
+  "crawler_version": "0.1.0",
+  "finished_at": "2026-11-15T09:39:19+00:00",
+  "indexes": [
+    {
+      "attempts": 1,
+      "content_sha256": "e5a4710d1903d1b755d7491c670661cba0bc2e029dab02bec4955208992558ca",
+      "content_type": "text/plain; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": "W/\"iTFg_5qCQ33-ycy2GXRnnxwyVYBHE6QXSD5B_fy1rkU\"",
+      "fetched_at": "2026-11-15T09:37:43+00:00",
+      "http_status": 200,
+      "kind": "index",
+      "last_attempt": null,
+      "last_modified": null,
+      "path": "indexes/openserv-0.txt",
+      "size": 12678,
+      "sources": [],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/llms.txt"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "3747c69676dded82e37971ac90b612f5925ac1158ebc8ee1edf99b6d70e2d69a",
+      "content_type": "text/plain; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": "W/\"r8dvtEAKlylqSU_OzloZcdy-4qKuZCA44el0Y5YU-4Q\"",
+      "fetched_at": "2026-11-15T09:38:49+00:00",
+      "http_status": 200,
+      "kind": "index",
+      "last_attempt": null,
+      "last_modified": null,
+      "path": "indexes/reppo-0.txt",
+      "size": 10316,
+      "sources": [],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/llms.txt"
+    }
+  ],
+  "pages": [
+    {
+      "attempts": 1,
+      "content_sha256": "e26e4f32f73eb373c45ee055b5d16d122a6797d5aafeebfa3d3e0fe2addc8eef",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:08+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:08 GMT",
+      "path": "pages/openserv/docs.openserv.ai_blog_the-reasoning-problem.md--fe13b017.md",
+      "size": 16817,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/blog/the-reasoning-problem.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "4eaddd92749e3b4aca3143e7a6cbbb80ddec068d38208de9dcb8002c0a70e918",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:10+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:09 GMT",
+      "path": "pages/openserv/docs.openserv.ai_build_index.md--9265d62e.md",
+      "size": 769,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/build/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f7d332ef359376898158d2d8ea6bbcadcf84a57f43ac14b835f3a02427a4ff0c",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:09+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:09 GMT",
+      "path": "pages/openserv/docs.openserv.ai_changelog_overview.md--3259e2c5.md",
+      "size": 13942,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt",
+        "config"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/changelog/overview.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "90bc17725b342915ceed074da7df2031f3ebb69ec4c7c317fd29928ebf85fa20",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:46+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:46 GMT",
+      "path": "pages/openserv/docs.openserv.ai_launch_agent-launches.md--b2645489.md",
+      "size": 4712,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/launch/agent-launches.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f0f5aa58ed0de4e4ea9b6526682292d13412ec51e4528c134bf49dcc8dffbdac",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:43+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:43 GMT",
+      "path": "pages/openserv/docs.openserv.ai_launch_for-builders.md--f5d6d5aa.md",
+      "size": 2527,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/launch/for-builders.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "dcb93e166e4b21bb235e15a9ed581390c0622a381b1bcd6329369f3ce42c9927",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:44+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:44 GMT",
+      "path": "pages/openserv/docs.openserv.ai_launch_for-buyers.md--f23b8842.md",
+      "size": 5803,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/launch/for-buyers.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "e82920e843ed3cba727fb418e495f039de50a415034d363e9d9dcbdf65b57949",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:42+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:42 GMT",
+      "path": "pages/openserv/docs.openserv.ai_launch_index.md--52466711.md",
+      "size": 3781,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/launch/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "b976be1d0655d7f12c87ac68619c9dc6961e1b69f9e82bd6224cf0c541d29b6c",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:44+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:44 GMT",
+      "path": "pages/openserv/docs.openserv.ai_launch_programmatic-fundraising.md--78bb2ddc.md",
+      "size": 2202,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/launch/programmatic-fundraising.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "6c61efd0c8bc088ebcadfdb05cc86f72fd949f7e147aeb31c5a0a1a8e6729c82",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:45+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:45 GMT",
+      "path": "pages/openserv/docs.openserv.ai_launch_staking.md--89269da1.md",
+      "size": 1016,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/launch/staking.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "aa9f9df1d8ddd5af8e8a71727d27cd7a5f5debec93a007a75b91bd10c08c4a73",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:18+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:18 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_agents_add-agent.md--7a6f050e.md",
+      "size": 817,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/agents/add-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "18a19a20eedd95f08569a1e1753a3e004f3c38f7990deb186fce0887bd3e4727",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:18+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:18 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_agents_browse-agents.md--2542f6d6.md",
+      "size": 669,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/agents/browse-agents.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f1fbc91e58927d8952741039b6776519136f741e4c8e5cc1da548ad7eb68850e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:20+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:20 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_agents_build-agent.md--b99cbecc.md",
+      "size": 833,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/agents/build-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "805317e253ee81006682952bbf7681410747661e944e327c62c542013b61ea27",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:17+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:17 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_agents_index.md--db62e3a1.md",
+      "size": 880,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/agents/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "e8feef3297df422d73e82c2825068c721df0a5074f941ddde071c572f464d478",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:19+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:19 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_agents_your-agents.md--d2227535.md",
+      "size": 793,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/agents/your-agents.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "135b8bf08ea2ed0ba72aad7af3b0dec07c285b89c4593b609e489638da8749ed",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:21+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:20 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_connect_index.md--492174b8.md",
+      "size": 788,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/connect/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f89984b9b22deac22644643a06b3f1ca0b4495a448ece40fd13dbec7354f58aa",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:23+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:23 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_connect_integrations.md--8bd46fcf.md",
+      "size": 834,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/connect/integrations.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "325f9686e960bb070c4d1e368339c9a22ad55ec689b8822103241bdb5905f91e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:21+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:21 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_connect_mcps.md--cc939c3a.md",
+      "size": 845,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/connect/mcps.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "3a503572d25a38f8e6eaa04d57b327829303bdf8b27964c36cc07207867661e7",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:22+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:22 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_connect_secrets.md--77d24992.md",
+      "size": 701,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/connect/secrets.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "1f3aae2b591872062aefa8eafeab94739a27828ee27bac7e25b1732043606a64",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:25+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:24 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_examples_beginner-workflows.md--88f85e66.md",
+      "size": 540,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/examples/beginner-workflows.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f175052cf68841f11716f3c8877bbeaf69ef413089cf3bbfc8b5dfabf0a7d4a8",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:26+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:26 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_guides_faq.md--4887aea8.md",
+      "size": 397,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/guides/faq.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "652911ee6a1ce5634dbdeaf7f3b112c99d61a4ccbbe9e4e5775a16c967fec437",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:25+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:25 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_guides_overview.md--14693592.md",
+      "size": 429,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/guides/overview.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "d3d4f18c432b16cbc11094f2f47e8a2a70726b4300b67c826419488a2e25b7ff",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:10+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:10 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_index.md--0af4696a.md",
+      "size": 1271,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "c2b96702e0f2e9fc5f95820d297cb3004c4bf8095200e771c5830dc18b25bf94",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:12+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:12 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_what-is-agent.md--d8e7c395.md",
+      "size": 571,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/what-is-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "10a8680232d1a5cf92e4b5642d1e5697eed07fbb45d578ad2a98e5757c1e8980",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:11+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:11 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_what-is-openserv.md--2be0db72.md",
+      "size": 1318,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/what-is-openserv.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "c7fbfffedbb974024bf90f43d89798df101d13e0f1175b41fdfadaff2c5fad41",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:24+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:24 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_workflow-basics.md--7b0398e5.md",
+      "size": 666,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/workflow-basics.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "bd769f2c2b214bc2f4f6c16c1a3aa9f6a1b70e3ec256b8c32b239c6f64c9c433",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:14+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:14 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_workflows_create-workflow.md--de4b3f53.md",
+      "size": 1011,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/workflows/create-workflow.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "8afdd62f9783e8699a012fd51415c96c33511341ff18f975fe43bf02eced4dd1",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:13+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:13 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_workflows_index.md--60457587.md",
+      "size": 917,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/workflows/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "52a01af349beb7c9d3d54e5bf76fbb653e7aaed39335978be6782dfe0aac9e34",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:14+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:14 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_workflows_templates.md--820936ec.md",
+      "size": 748,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/workflows/templates.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "884d34a03b0049ffc372da168609a45d4a3737bb86c45569165324a6e0415c24",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:16+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:16 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_workflows_your-templates.md--b11883a8.md",
+      "size": 684,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/workflows/your-templates.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "ab42040b834e7a1cecc00a9e3b003a69dbd092462f24334cfa755229cf716734",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:15+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:15 GMT",
+      "path": "pages/openserv/docs.openserv.ai_no-code_workflows_your-workflows.md--837033c5.md",
+      "size": 730,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/no-code/workflows/your-workflows.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "b91efb834e63fabaaa1a87f439b3d16b0c75676551b418ba0e586f5680634e9d",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:47+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:47 GMT",
+      "path": "pages/openserv/docs.openserv.ai_run_index.md--81324a72.md",
+      "size": 7032,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/run/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "d725ec7a8e4a536a442e135a809b00ace07239def7e92c55e245484ad74de2dc",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:50+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:50 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_api_chat-completions.md--5c98c449.md",
+      "size": 3314,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/api/chat-completions.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "5a8db8eee2f2c876d4eeabf60dab7f6d157040cd31b3935b2514cdbd182e1839",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:52+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:52 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_api_compatibility.md--10677b60.md",
+      "size": 1963,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/api/compatibility.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "1d99af1f1bfbf272cdfdccd39e3d30b6bdc0fa3e81a1cf30cc95ab452b953083",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:49+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:49 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_api_index.md--7b9ebb19.md",
+      "size": 2432,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/api/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "e36893a6f8f3505e3b3d76f37a58bdfc23eadb9a9f7611e5be0552f33a43c822",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:51+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:51 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_api_messages.md--771602ed.md",
+      "size": 3182,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/api/messages.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "9b40dfa905be98e36642fc799720b8fb2605d0c64f10335afc85b5e66f43c965",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:51+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:51 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_api_responses.md--c7a1aad9.md",
+      "size": 2890,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/api/responses.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "76d2c437cb19410876b1338f46870fb57790c05e2b404a4bea9528291d89b9bd",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:46+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:46 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_day-one.md--695df18f.md",
+      "size": 8661,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/day-one.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "9cde5c74105484ada8824d454f1890a2c2780817b458ae4ce767255c9c318de9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:49+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:49 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_index.md--273c101a.md",
+      "size": 2640,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "58124350e4ee4e5d77d0a3db55182a418e8650c09fb01f6e8aea3b37dff155a3",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:45+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:45 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_introduction.md--ab57b704.md",
+      "size": 6105,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt",
+        "config"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/introduction.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "3e15a7deac4d49491d5d53d2035cd8c2b1d01e0b2851867a9e9c1c8ce4b810a1",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:48+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:48 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_models.md--e65839de.md",
+      "size": 3264,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt",
+        "config"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/models.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "09dda97ea77e209602f4b9b2e377b76dcb9db02cfc539f2b901faa98b28dd8ba",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:47+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:47 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_playground.md--f8708879.md",
+      "size": 1593,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/playground.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "ddb2b19031336863a77e345a8afdd57d8525b047da1c271338b59d92567d1110",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:07+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:07 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_research.md--e71e220a.md",
+      "size": 2803,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/research.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "a4c5b7c3516fa40bf6d04772b708906537bbee60bda39fe974216e3f8190d6e6",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:06+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:06 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_sdk-integration.md--daaa5c9f.md",
+      "size": 6047,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/sdk-integration.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "c8533051733ee3d0bc671a780309b4824728ad3fd1be9d1f22262ee94e1ba995",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:07+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:07 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_sdk-migration.md--d339a763.md",
+      "size": 10240,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/sdk-migration.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "72d36005b3f92fef8cd2f15eeb5ded2c71576c55376a7054015ae95c91cf5bdb",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:47+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:47 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tools.md--d51e1dcb.md",
+      "size": 16285,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tools.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "a371b2e0661df150d5b4f94d5e589c04f8f0258335b43a09a4912960197f540d",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:48+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:48 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials.md--77049f3e.md",
+      "size": 905,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "b8801f14c387b835716722c52d2e634d562a49d7badb70e807c9ff0ba0fdcc2f",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:54+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:54 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_account.md--84966893.md",
+      "size": 1110,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/account.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "825ce75da573ea2cd298685eca8d086618d3b904ff8fe555baf8d523935c268d",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:04+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:04 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_choose-an-endpoint.md--a694fb49.md",
+      "size": 1207,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/choose-an-endpoint.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "29e5514a3a5eabc12e27b20607624effef59d4ca3f9eb4da84db26861f9f0084",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:58+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:58 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_content-filter.md--4142772c.md",
+      "size": 2484,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/content-filter.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "60301af1b0ad3aca6c5cc66d7cd71d42c88ccca16d03b900531eb2be2995104e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:54+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:54 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_credits-and-api-keys.md--3e58b2d2.md",
+      "size": 1299,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/credits-and-api-keys.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "da2e04be7ee600a577fea20d7757810ff8b6000271c9909a31a4820660b4e4cf",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:56+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:56 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_first-request.md--8fc1ff19.md",
+      "size": 1730,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/first-request.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "4e3b5eef248ca9489e5694e12751da9566c178bfe878a66707fbc8f9d8ae73e7",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:53+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:53 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_index.md--66607450.md",
+      "size": 3405,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "c26802feeff432a59c7016a2ae6116305c8389b00753b5d3fdfa7af9b97b2dad",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:03+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:02 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_kronos.md--79c3a046.md",
+      "size": 2388,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/kronos.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "0b8bac484f2ea6a4ff4f1e228b666a995cbc0b623d7623fef6dfed0d132b362e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:05+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:05 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_migrate-existing-integration.md--1866fae6.md",
+      "size": 1226,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/migrate-existing-integration.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "6e7c20f23127982cb149d923bb9867dfddebf07b48f19923734cea618df4e5a5",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:03+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:03 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_multipath.md--301d4862.md",
+      "size": 2683,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/multipath.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "5c802ea368bcc3a0a802d26a3ae5a3eee01a3da5c5fa7524ba82565719de1142",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:56+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:55 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_playground.md--b6afc7dd.md",
+      "size": 1168,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/playground.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "43864cceb9d5475c7d2bae896cce0f467aaf7baadae75a3b742ecae4a037ba70",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:01+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:01 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_prompt-caching.md--25df8f94.md",
+      "size": 2187,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/prompt-caching.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "279e37b7f1893152f03f06f5577aa955b1f5f7a3467eeca47852b80750bef0ea",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:57+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:57 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_prompt-guard.md--516ee9e8.md",
+      "size": 2387,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/prompt-guard.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "dca622c391a239174f5f8a135ddb9b88ff7750f24bb168abdb77d9be4d3d8f2e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:00+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:00 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_reasoning-effort.md--6521f064.md",
+      "size": 1088,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/reasoning-effort.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "06bb3376dc584435aff5bd40dff807f09fa99fb9d1949da22f29c7ef7e28ab0d",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:59+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:58 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_shadow-agent.md--acfda711.md",
+      "size": 2961,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/shadow-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "8f2f710bde618808cbf3981909c44b1c0343d0bd613455d9f1c32af57dd7525c",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:01+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:00 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_streaming.md--ace8ded8.md",
+      "size": 1245,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/streaming.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "85417eed690bed20e508efd5d1d60cc5c78d6afd5366eb8af874edc8ab359607",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:59+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:59 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_structured-outputs.md--0f903aa0.md",
+      "size": 1822,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/structured-outputs.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "56386761e143a12436c21976343d9dcf0b3cd95823542e1b78203126f4556f09",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:02+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:02 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_tools.md--5674f813.md",
+      "size": 3277,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/tools.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2dca03ba037bc5031bf3e6c7cec526047ebebb7dd2f124de85caaead70124c3e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:05+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:05 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_tutorials_usage-and-billing.md--1da3463c.md",
+      "size": 1843,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/tutorials/usage-and-billing.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2db398dbbf9b414565b06d41abee4d082d5ce3e0b5c5979d782e7975b924e657",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:45+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:45 GMT",
+      "path": "pages/openserv/docs.openserv.ai_serv-reasoning_why.md--3ba7b4f2.md",
+      "size": 2809,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/serv-reasoning/why.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "5af8efd92d1f18ec380783d5ec65b528e07e820fca25127f5086132b9e784524",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:29+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:29 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_any-ide.md--61612006.md",
+      "size": 7299,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/any-ide.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "7df83fa24c7c0440634d2aed530ca85fdfab4e5d04fa50f477d491d97e694d1c",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:38+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:38 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_build-custom-agent.md--c6b9e72f.md",
+      "size": 1721,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/build-custom-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "9494722a1e2d9bb47ef87df90c04d2140872552d579f7c487e32dda69105b4c1",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:39+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:39 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_build-fullstack-app.md--01962f92.md",
+      "size": 1628,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/build-fullstack-app.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "a5807cad46e0b75d03c986be060d4665ba1d4a08a4f15565005935b400335c2a",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:41+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:41 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_examples_hyperliquid-agent.md--903262d2.md",
+      "size": 382,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/examples/hyperliquid-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2dde2309c81255d0eb7613023dfcc69b093983dc0393439c78e06a1bd64e9429",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:42+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:41 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_examples_polymarket-agent.md--5991fd87.md",
+      "size": 380,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/examples/polymarket-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "77caeca269b1c07cb0f3596ebcc1dae4fd6fcd01b474c1d8fc58742f9c20b5d3",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:40+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:40 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_examples_trading-data-agent.md--6826911f.md",
+      "size": 384,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/examples/trading-data-agent.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "74319679cbb6cf542c88280aeb9e7d41f3b155f51f68bde721510892766ccf65",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:27+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:27 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_index.md--9a596262.md",
+      "size": 844,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "0706f5a63b1b10b1025d2b546837b969587c2d7ab40449d35b5630bb9d11f17e",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:36+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:36 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_erc8004-identity.md--806da75f.md",
+      "size": 7092,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/erc8004-identity.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "70671a042d5d680c05fa87baeb0cbd6fdd13cde5597d89dd118ad5f23fb6e91f",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:35+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:35 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_fullstack-app.md--530377a6.md",
+      "size": 7497,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/fullstack-app.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f6bd44c4f05608e37ccc6a50c47c2e06c145d0bc7402812bba715759db3c7eef",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:30+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:29 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_index.md--c6a9f2c3.md",
+      "size": 2948,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "b11fca6d0c807e61c18d81e1b71eff0cd05a1bae4a4e0727fcbd64b2dcfafde9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:32+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:32 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_marketplace-agents-x402.md--fdf3dcc3.md",
+      "size": 13335,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/marketplace-agents-x402.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "70fd7f66431139bdc5ba4adbaf568fe718763df595b298766d423ed8f3e1df05",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:31+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:31 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_marketplace-workflows.md--d62e028e.md",
+      "size": 17756,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/marketplace-workflows.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "3ef46258e6aee358efa3f8c1af575ad4c5452c8827d4b1ec2f84472500d5c9ea",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:32+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:32 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_openserv-client.md--6bda5729.md",
+      "size": 19532,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/openserv-client.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "94ae54f271ce59d9115f69512a4331478b8d26699a731482c47ab44afec3a024",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:33+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:33 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_openserv-sdk.md--6429e6dc.md",
+      "size": 19861,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/openserv-sdk.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "7045f2d24d2e1b9bbeac71f412bda3d50a14f3c0ebb617210a5cdb32772294f8",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:30+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:30 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_quickstart.md--8d5142ff.md",
+      "size": 34369,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/quickstart.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "a71a1cf85619981b6fad90e16329ea22641503d4d2fd72345627876973b4aec3",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:34+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:34 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_telegram-integration.md--0e28fcfb.md",
+      "size": 11574,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/telegram-integration.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "c7de9267cb5eb745aeaaef2b5ceba939fe365771a73049c77176c2d360a33ba8",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:35+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:35 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_openclaw_twitter-integration.md--aa8cfbac.md",
+      "size": 11532,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/openclaw/twitter-integration.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "222736adc14445380e009a69c5a7ce34493fd4f7bb3ee167df61dc7bceb18d97",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:37+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:37 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_sdk_index.md--4061464f.md",
+      "size": 616,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/sdk/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "cfeaf951c95acdbacd8987b9351fb57ca3e168f3e756e1b7d7bd5de3e7ab9310",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:37+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:37 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_sdk_typescript.md--aa700d2d.md",
+      "size": 15155,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/sdk/typescript.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "d4a6f18ba9226c583af088415a9e594196ab6132cfe54a8c83dd5eeb066378e0",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:27+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:27 GMT",
+      "path": "pages/openserv/docs.openserv.ai_vibecode_skills.md--9ccd9a56.md",
+      "size": 9078,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/vibecode/skills.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "0739ea5cc19a6561e1a1e1295ff80361b76faeb773e885114b970ac265168c93",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:43+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:43 GMT",
+      "path": "pages/openserv/docs.openserv.ai_what-is-serv_index.md--c9b9dfde.md",
+      "size": 8510,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/what-is-serv/index.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "828497ebc66f7db9f0cddf0d094156b39102745f2591e9c3af04a7ccb8c280eb",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "openserv",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:37:44+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:37:44 GMT",
+      "path": "pages/openserv/docs.openserv.ai_what-is-serv_the-serv-token.md--49857509.md",
+      "size": 3894,
+      "sources": [
+        "index:https://docs.openserv.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.openserv.ai/what-is-serv/the-serv-token.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "84b98b1004d0ba1aee100e2b1a2ad3cb9d00fba9afe8acfca3496aa460d00d36",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:14+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:14 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_agent_auth.md--f7d3f66b.md",
+      "size": 4962,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/agent/auth.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "ed6d98a55e721f24c2bbef131b1e120d876b2a2bb039797435126abde6a5f078",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:14+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:14 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_agent_chat.md--ad91b711.md",
+      "size": 5095,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/agent/chat.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "faf3123470c8dcd12caa717a0bb9fc4f43345c89960d70f732162642e7047dff",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:15+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:15 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_agent_custom-agents.md--580622e0.md",
+      "size": 11449,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/agent/custom-agents.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2fbe83d950998bab1c3d0ce7cdd1ac96a7754047cbf356e304d5223436cddf87",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:15+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:15 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_agent_minting.md--30dcebd0.md",
+      "size": 8020,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/agent/minting.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "4b47291790f5885ca98216edc6a0be991f5001d3ca72f065d11bff4a0563bf29",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:10+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:10 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_datanets.md--bc21b5fc.md",
+      "size": 13071,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/datanets.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "ae090d38798217f27dfc8494726e9a14418cbdf1ab1b61ebe49900097f9f4828",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:11+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:11 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_engagement.md--1dbaa359.md",
+      "size": 5951,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/engagement.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "6b3800a39a929d801a1b74594dc2aa8be27691419e470d59f69d4fcda5b9ffda",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:17+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:17 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_eval_evaluations.md--b9dde0f6.md",
+      "size": 9512,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/eval/evaluations.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "1fcf5dceef2c6faf7ba9e3e21d24386e5768fbed0761bbb31a184ff472719413",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:16+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:16 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_eval_overview.md--d8d09420.md",
+      "size": 4198,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt",
+        "config"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/eval/overview.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "174179595b648d8044bb9a4fcaca4894911bf2c22b86d4a47cd3bfea3afb8d95",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:17+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:17 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_eval_peer-assessments.md--253ccd25.md",
+      "size": 4184,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/eval/peer-assessments.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "995b7d11a8df62e673836610d9702fde877d658e76517b15b519d8bcd46f8e88",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:12+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:12 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_locks.md--8f4e6aa9.md",
+      "size": 1934,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/locks.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "bb9de3f312b5ade232756730a2e675cff4fe900014dcf2a179a26e64356b50bb",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:09+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:09 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_overview.md--38718f99.md",
+      "size": 3924,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/overview.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "bfa7fb9cadad4707eef552f14573a9ee96fbffc081664f847460b012440b2c92",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:10+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:10 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_pods.md--69a87e7b.md",
+      "size": 9692,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/pods.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "5f16be7538027aff126fb2aa8d14cdadf1ec31788cdb2cb17572bf116299677b",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:12+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:12 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_stakes.md--6ea1083f.md",
+      "size": 2020,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/stakes.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "5ff86fa050e9577862f0bef90e55aed4e34b7be2880c47963656e0015eefabfb",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:13+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:13 GMT",
+      "path": "pages/reppo/docs.reppo.ai_api_stats.md--d214893f.md",
+      "size": 7114,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/api/stats.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "05d31a28c85cfaf481ea8048fca2ab2c49f34530e3467a6e1ae631e17bdb6822",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:52+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:52 GMT",
+      "path": "pages/reppo/docs.reppo.ai_authentication.md--335002e1.md",
+      "size": 5933,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/authentication.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "65dc260b094168328e77eb06eed9eb1425377039a1f2b66e2e6acc5f963b80ee",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:54+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:54 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_datanets.md--b4f173db.md",
+      "size": 3545,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/datanets.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "f1ba1e1293591f082815dbcf5111abc35525c4678b3a4aacde2bf52aee913da5",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:57+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:57 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_evaluation-api.md--b125713d.md",
+      "size": 5246,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt",
+        "config"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/evaluation-api.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "80ea7e5136e280917bf346f3b014ce203335526453f02597cd0b3c08f7cd9fee",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:56+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:56 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_evof.md--1ef9263e.md",
+      "size": 7642,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/evof.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "825aabe1503d7279ef1a039acc84d807b16217a40e5f8e5ec2d500211fe92c4d",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:53+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:53 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_how-reppo-works.md--814f02b4.md",
+      "size": 4288,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/how-reppo-works.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "ecfea053842c7438379be62fe40c6b9141491c20c39f562ca1086de9f4d24b46",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:57+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:57 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_orquestra.md--116fe1f7.md",
+      "size": 6512,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/orquestra.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "54f153ee13269e2b0580f00f782b19cde810ace5d0200b3b454da744be5cfda9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:54+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:54 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_pods.md--bd4fb10b.md",
+      "size": 4781,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/pods.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "cc0eaa9aa9e4e1391610982e8612a6ff37abbf5cfb986fc4c59d21351c14c169",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:55+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:55 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_staking-emissions.md--09d65a2b.md",
+      "size": 5488,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/staking-emissions.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "ca73e73812e5d33ac39a9253e9c05c1bef86f2cb3771a76e85d4c08d3cb89db9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:55+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:55 GMT",
+      "path": "pages/reppo/docs.reppo.ai_concepts_votes-curation.md--1fe2d1d9.md",
+      "size": 5732,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/concepts/votes-curation.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2a022f4e340c2b5a20ed12c3dd25e7baad103a631f3d2bda8f31f975b9ca536b",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:02+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:02 GMT",
+      "path": "pages/reppo/docs.reppo.ai_guides_claim-emissions.md--503cb277.md",
+      "size": 5391,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/guides/claim-emissions.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "bf44c671b9d30acb689133a409dd363fa8b95d4be7f112f68efe4c9fc31921c9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:00+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:00 GMT",
+      "path": "pages/reppo/docs.reppo.ai_guides_create-datanet.md--8631dd1d.md",
+      "size": 7477,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/guides/create-datanet.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "815a20dad7229f7d0fff719b6d4d1195aa92ecd3ed1b691cb6ac3db36e993f5c",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:01+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:01 GMT",
+      "path": "pages/reppo/docs.reppo.ai_guides_mint-tweet.md--ffde38f7.md",
+      "size": 4061,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/guides/mint-tweet.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "a76c595646c138e1db7289c949614e1d297bfa5e54626e126893a45535949d88",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:00+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:00 GMT",
+      "path": "pages/reppo/docs.reppo.ai_guides_publish-pod.md--04e8a507.md",
+      "size": 5591,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/guides/publish-pod.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "c73254334252c9570701309b408e256c232a18a6c490deacda14cecd34f7fab7",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:02+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:02 GMT",
+      "path": "pages/reppo/docs.reppo.ai_guides_run-orquestra.md--05ddfe30.md",
+      "size": 12404,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/guides/run-orquestra.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "53af5d736fdf44cef36627aee2b57ec65365cfd786f42b001ba71e633301a0f5",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:50+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:50 GMT",
+      "path": "pages/reppo/docs.reppo.ai_introduction.md--7188fefa.md",
+      "size": 5535,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/introduction.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "af77bff486636ab6fb3f2c8b5b8f4635494a8021d8db9d59ca905d987ed30454",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:52+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:52 GMT",
+      "path": "pages/reppo/docs.reppo.ai_quickstart.md--3083fff8.md",
+      "size": 8241,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/quickstart.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "aa91f5dc85bcc215d81f4c3a9618df3aeca0be8033a198519a0c517c6fb8308b",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:09+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:09 GMT",
+      "path": "pages/reppo/docs.reppo.ai_resources_audit-reports.md--8d10bdd8.md",
+      "size": 788,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/resources/audit-reports.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "0747415875444676c1a6d7ec301f0ec51ed7f92253715d7d1163295fecc50552",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:06+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:06 GMT",
+      "path": "pages/reppo/docs.reppo.ai_resources_faq.md--44053ce4.md",
+      "size": 5135,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/resources/faq.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "a2db68151bee884da5d025a95514245313dce333a7309f296ee0c754d2504ef1",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:07+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:07 GMT",
+      "path": "pages/reppo/docs.reppo.ai_resources_glossary.md--6f448cff.md",
+      "size": 4738,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/resources/glossary.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "5ca13d2878f9356766a9cb389f71b0417aa8722bef0b092b9d178f8a4ffd7dbf",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:07+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:07 GMT",
+      "path": "pages/reppo/docs.reppo.ai_resources_team.md--7b060a93.md",
+      "size": 1096,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/resources/team.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "6515709e5c2a87429af66b7fd3c61dec778e8bd1664fb343e5d0ae7fe05ca055",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:08+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:08 GMT",
+      "path": "pages/reppo/docs.reppo.ai_resources_whitepapers.md--2e8e1fd3.md",
+      "size": 707,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/resources/whitepapers.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2e8f89797067da4768787a7ac7f6f2992e3b0b0d6f0c5b7833347fc683b0ac3c",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:06+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:06 GMT",
+      "path": "pages/reppo/docs.reppo.ai_roadmap_data-exchange.md--1473567e.md",
+      "size": 1226,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/roadmap/data-exchange.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "737119607470bb0bb64e76227d90c85ce78d1078549e239425b7672033b9bcba",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:05+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:05 GMT",
+      "path": "pages/reppo/docs.reppo.ai_roadmap_product-roadmap.md--2a3dafec.md",
+      "size": 4391,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/roadmap/product-roadmap.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "183beac4567d886791ae48baefcf4c193857936a1f6b5fc3c8834b89b6c067ed",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:04+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:04 GMT",
+      "path": "pages/reppo/docs.reppo.ai_tokenomics_revenue-model.md--bf98e5ce.md",
+      "size": 2174,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/tokenomics/revenue-model.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "db8f9a9518ca7af61f7be56fabe53a34978425d04bc0fcdd365de37c0c8237e9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:04+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:04 GMT",
+      "path": "pages/reppo/docs.reppo.ai_tokenomics_token-distribution.md--d0966b0c.md",
+      "size": 1710,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/tokenomics/token-distribution.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "447b6373fdd350a535a25ba12222ccc6b9848cda09e43d84611a34127888f9d9",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:03+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:39:03 GMT",
+      "path": "pages/reppo/docs.reppo.ai_tokenomics_token-utility.md--671aff5a.md",
+      "size": 3059,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/tokenomics/token-utility.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "18a12dad3dbefbb5f1a4fba4c8e2eb287a273c067c33665326675a7462ab4024",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:58+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:58 GMT",
+      "path": "pages/reppo/docs.reppo.ai_trust-security_adversarial-robustness.md--f4797ff7.md",
+      "size": 7095,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/trust-security/adversarial-robustness.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "45988cea9ce39c035c4fb48438ea9f0477d3fd3e75860b455a273fcf9e559b5b",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:59+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:59 GMT",
+      "path": "pages/reppo/docs.reppo.ai_trust-security_privacy-security.md--f786eec6.md",
+      "size": 4936,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/trust-security/privacy-security.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "2ae72214bf42db55638dfd8a9039efb574b1b9715d4929da532b5806504712fa",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:58+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:58 GMT",
+      "path": "pages/reppo/docs.reppo.ai_trust-security_verification-provenance.md--872c2482.md",
+      "size": 7697,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/trust-security/verification-provenance.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "9d3169fbc70d00fac3c9f2f5cd3f9294347968abed48d6f696a921f05e3dbc5b",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:38:51+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": "Sun, 15 Nov 2026 09:38:51 GMT",
+      "path": "pages/reppo/docs.reppo.ai_why-reppo.md--65474968.md",
+      "size": 4730,
+      "sources": [
+        "index:https://docs.reppo.ai/llms.txt"
+      ],
+      "status": "fetched",
+      "url": "https://docs.reppo.ai/why-reppo.md"
+    },
+    {
+      "attempts": 1,
+      "content_sha256": "6bddba74b3e74967659d29805b838c4c118ba508740ff7e62ed532201bdefcfa",
+      "content_type": "text/markdown; charset=utf-8",
+      "corpus": "reppo",
+      "error": null,
+      "etag": null,
+      "fetched_at": "2026-11-15T09:39:19+00:00",
+      "http_status": 200,
+      "kind": "page",
+      "last_attempt": null,
+      "last_modified": null,
+      "path": "pages/reppo/eval.reppo.xyz_agents.md--94438fe7.md",
+      "size": 17819,
+      "sources": [
+        "config"
+      ],
+      "status": "fetched",
+      "url": "https://eval.reppo.xyz/agents.md"
+    }
+  ],
+  "schema": 1,
+  "snapshot_date": "2026-11-15",
+  "started_at": "2026-11-15T09:37:41+00:00",
+  "truncated": {},
+  "truncated_corpora": []
+}

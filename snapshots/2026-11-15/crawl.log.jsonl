@@ -1,0 +1,6 @@
+{"level": "info", "msg": "crawl_start", "run_id": "1ec92ef46d69", "snapshot_date": "2026-11-15", "ts": "2026-11-15T09:37:41+00:00", "version": "0.1.0"}
+{"corpus": "openserv", "level": "info", "msg": "corpus_start", "pages": 87, "run_id": "1ec92ef46d69", "ts": "2026-11-15T09:37:43+00:00"}
+{"corpus": "openserv", "fetched": 87, "level": "info", "msg": "corpus_done", "run_id": "1ec92ef46d69", "ts": "2026-11-15T09:38:48+00:00"}
+{"corpus": "reppo", "level": "info", "msg": "corpus_start", "pages": 45, "run_id": "1ec92ef46d69", "ts": "2026-11-15T09:38:50+00:00"}
+{"corpus": "reppo", "fetched": 45, "level": "info", "msg": "corpus_done", "run_id": "1ec92ef46d69", "ts": "2026-11-15T09:39:19+00:00"}
+{"complete": true, "corpus_hash": "c3bb782764de4c21ce907dccd768bb69ecacea132cead8e35fce79ef095b0eff", "counts": {"fetched": 132}, "level": "info", "msg": "crawl_done", "problems": 0, "run_id": "1ec92ef46d69", "ts": "2026-11-15T09:39:19+00:00"}

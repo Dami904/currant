@@ -80,6 +80,11 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="RUN_ID",
         help="carry on an interrupted run: skip pages it finished, retry pages that failed",
     )
+    extract.add_argument(
+        "--only-changed-since",
+        metavar="DATE",
+        help="only pages whose content differs from the snapshot of DATE (already ingested)",
+    )
     extract.add_argument("--results-dir", type=Path, default=Path("results/extract"))
     extract.add_argument("--dotenv", type=Path, default=DEFAULT_DOTENV)
 
@@ -294,6 +299,19 @@ def build_parser() -> argparse.ArgumentParser:
     which = rres.add_mutually_exclusive_group(required=True)
     which.add_argument("--eval-id", help="the evalId the console shows for it")
     which.add_argument("--none", action="store_true", help="the console shows no such evaluation")
+
+    cdiff = sub.add_parser(
+        "crawl-diff",
+        help="record supersessions seen between two crawls of the same page (no model)",
+    )
+    cdiff.add_argument("--db", type=Path, default=Path("data/currant.db"))
+    cdiff.add_argument("--old-run", type=positive_int, required=True, help="extract run, older")
+    cdiff.add_argument("--new-run", type=positive_int, required=True, help="extract run, newer")
+
+    asof = sub.add_parser("as-of", help="what Currant had seen for a URL on a given date")
+    asof.add_argument("url")
+    asof.add_argument("--date", required=True, help="e.g. 2026-11-08")
+    asof.add_argument("--db", type=Path, default=Path("data/currant.db"))
 
     verify = sub.add_parser("verify", help="check a snapshot against its manifest")
     verify.add_argument("snapshot", type=Path, help="e.g. snapshots/2026-11-05")

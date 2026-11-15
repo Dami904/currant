@@ -67,6 +67,20 @@ MUTANTS = (
         ("tests/test_detect.py",),
     ),
     Mutant(
+        "detect: candidate blocking keeps every pair that could reach the threshold",
+        "src/currant/detect.py",
+        "prefix = len(ordered) - math.floor(min_score * len(ordered)) + 1",
+        "prefix = len(ordered) - math.floor(min_score * len(ordered))",
+        ("tests/test_blocking.py",),
+    ),
+    Mutant(
+        "crawl-diff: a statement still on the new page is not an edit",
+        "src/currant/crawldiff.py",
+        "if older.quote in new_text or newer.quote in old_text:",
+        "if False:",
+        ("tests/test_crawldiff.py",),
+    ),
+    Mutant(
         "ground: a claim's quote is re-checked against the stored text",
         "src/currant/ground.py",
         "if text[claim.start_char : claim.end_char] != claim.quote:",

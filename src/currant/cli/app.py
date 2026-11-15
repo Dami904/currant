@@ -15,6 +15,7 @@ from currant.cli.evaluation import (
     cmd_score,
     cmd_score_arms,
 )
+from currant.cli.history import cmd_as_of, cmd_crawl_diff
 from currant.cli.parser import build_parser
 from currant.cli.pipeline import cmd_extract, cmd_ground, cmd_relate, cmd_replay, cmd_serve
 from currant.cli.real import cmd_drift_report, cmd_real_import, cmd_real_label, cmd_real_worksheet
@@ -87,4 +88,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return cmd_reppo_status(args)
     if args.command == "reppo-resolve":
         return cmd_reppo_resolve(args)
+    if args.command == "crawl-diff":
+        return cmd_crawl_diff(args)
+    if args.command == "as-of":
+        return cmd_as_of(args)
     return cmd_verify(args)

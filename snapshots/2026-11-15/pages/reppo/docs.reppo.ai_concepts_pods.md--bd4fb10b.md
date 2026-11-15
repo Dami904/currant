@@ -1,0 +1,89 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.reppo.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# What is a Pod? Content on the Reppo Network
+
+> Pods are the atomic content units on Reppo — tweets, images, videos, annotations, and more — that publishers submit to datanets for curation.
+
+A pod is a unit of content submitted to a datanet. It can be a tweet, image, video, piece of writing, annotation, or any other media the datanet accepts. Pods are the atomic data units that flow through the Reppo curation network — everything voters evaluate, everything that earns emissions, and everything that AI teams ultimately access as training data is organized around pods.
+
+## Pay-to-publish and Sybil resistance
+
+Publishing a pod uses a **pay-to-publish** mechanism. Before your content becomes visible to voters, you pay the datanet's publishing fee in REPPO. This upfront cost is intentional: it makes submitting spam or low-quality content economically costly at scale, creating meaningful Sybil resistance without requiring identity verification.
+
+The fee goes into the datanet's Performance Pool, where it is redistributed to stakers and datanet owners every third epoch.
+
+## Publishing flow
+
+**1. Pay the publishing fee**
+
+Send the datanet's required REPPO publishing fee. The amount is set by the datanet owner and visible in the datanet's configuration.
+
+**2. Pod becomes visible to voters**
+
+Once the fee transaction is confirmed, your pod is listed in the datanet and available for voters to evaluate during the current epoch.
+
+**3. Voters allocate veREPPO**
+
+During the 48-hour epoch window, voters cast for or against votes using their veREPPO. Earlier votes carry more weight due to time decay.
+
+**4. Emissions are calculated**
+
+At epoch end, the network calculates your pod's share of emissions based on its net voting performance. High-quality pods earn more; weak pods earn less or nothing.
+
+## Minting a pod as an NFT
+
+There are two minting paths depending on your content type:
+
+**For X/Twitter posts** — use the Chat Server's single-step endpoint `POST /pods/mint` on `https://api.reppo.xyz`. The server handles everything end-to-end. See the [Mint a Tweet guide](https://docs.reppo.ai/guides/mint-tweet.md).
+
+**For all other content types** (articles, PDFs, videos, etc.) — use the Platform API two-step flow: create a draft with `POST /api/v1/me/pods`, call the `PodManager` contract directly on Base to mint the NFT, then record the transaction hash with `POST /api/v1/me/pods/{id}/mint`. See the [Publish a Pod guide](https://docs.reppo.ai/guides/publish-pod.md).
+
+The Chat Server minting flow for tweets runs automatically:
+
+1. The server fetches the tweet from X/Twitter
+2. AI runs slop detection to filter AI-generated content (unless `skipSlopCheck: true`)
+3. Metadata is generated and the NFT is minted via the `PodManager` contract
+4. Pod metadata is submitted to the Reppo platform for indexing and display
+
+The `PodManager` contract address on Base (chain ID 8453) is `0x5C563f853eb4db33005A5C1aD9290e8560254A80`.
+
+Once minted, your pod NFT lives in your wallet on Base, generates REPPO emissions each epoch, and can be listed and traded.
+
+> [!WARNING]
+>
+> The `skipSlopCheck` flag bypasses AI-content detection. Use this only when you are certain the content is human-generated — submitting AI-generated content may result in a ban.
+
+## Pod engagement types
+
+Pods support three forms of engagement:
+
+| Type | Endpoint | Description |
+| - | - | - |
+| **Votes** | `POST /pods/{podId}/votes` | veREPPO-backed quality signal, for or against |
+| **Comments** | `POST /pods/{podId}/comments` | Written qualitative feedback |
+| **Vote feedback** | `POST /feedback/pods/{id}` | Structured written feedback attached to a vote |
+
+All engagement endpoints require Privy cookie authentication.
+
+## Claiming emissions
+
+Each pod earns REPPO emissions epoch by epoch based on its curation performance. Use these Chat Server endpoints to check and claim:
+
+```bash theme={null}
+# Check claimable emissions for a pod
+GET https://api.reppo.xyz/pods/{podId}/emissions
+
+# Execute on-chain claim for pending epochs
+POST https://api.reppo.xyz/pods/{podId}/emissions/claim
+```
+
+Both endpoints require a wallet session token obtained through the `POST /auth/nonce` → `POST /auth/verify` authentication flow. Claims settle on-chain via `PodManager` on Base. Each request scans and claims up to 50 epochs at a time.
+
+> [!TIP]
+>
+> Call `GET /pods/{podId}/emissions` first to see per-epoch breakdowns and your total claimable REPPO before executing the claim transaction.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
