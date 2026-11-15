@@ -204,7 +204,7 @@ uv run currant drift-report --db data/mine.db \
       <li><b>Retrieval is not wired in.</b> Page retrieval is built and tested, but <code>currant ground</code> still takes the pages you name.</li>
       <li><b>Receipts are unsigned.</b> They prove the context, not who produced it.</li>
       <li><b>One model.</b> Every measured effect is with <code>gpt-6-luna</code>, on synthetic items.</li>
-      <li><b>A contested answer names neither value.</b> That cost us points in the Reppo audit; fixing it would change frozen code, so it waits.</li>
+      <li><b>A contested answer named neither value.</b> That cost us points in the Reppo audit. Fixed afterwards in <code>answer-v2</code>, which lists each value the notice quotes; it has not been re-audited yet.</li>
       <li><b>Not built at all:</b> detecting supersession from crawl-to-crawl diffs, as-of queries, and a paid x402 endpoint.</li>
       <li><b>HTML pages are refused.</b> The crawler reads markdown and <code>llms.txt</code> indexes only.</li>
     </ul>

@@ -185,7 +185,9 @@ def test_the_pages_do_not_name_the_second_vendor_trialled() -> None:
 def test_both_pages_state_what_is_not_built() -> None:
     page = HOW.read_text(encoding="utf-8").lower()
     assert 'id="not-built"' in page and "receipts are unsigned" in page
-    assert "names neither value" in page
+    # The contested-answer gap was fixed after the audit; the page must say so and that the fix
+    # has not been re-audited, rather than drop the item.
+    assert "named neither value" in page and "answer-v2" in page and "re-audited" in page
 
 
 def test_the_how_page_reads_its_receipt_from_the_committed_demo_copy() -> None:

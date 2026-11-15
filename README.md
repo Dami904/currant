@@ -393,10 +393,11 @@ judgement per question):
 | **3 real conflicts**   | **66.7** | **59.0**         | **-7.7**, interval -45 to +18 over 3 questions: no conclusion        |
 
 **Why we lost points on cost:** when two pages disagree and nothing orders them, the answer says
-only that the documentation is contested. It names neither value; the judges marked it incomplete
-and preferred a confident "440" that matched the live charge. The fix is clear (a contested answer
-should quote both values), but it changes code, which would break the link to the frozen results,
-so it hasn't been made.
+only that the documentation is contested. It named neither value; the judges marked it incomplete
+and preferred a confident "440" that matched the live charge. Since fixed in `answer-v2`: a
+contested answer now lists every value the CONTESTED notice quotes, and our code drops any value
+not written in those verified quotes. The scores above are `answer-v1`'s and stay as recorded;
+v2 has not been re-audited on Reppo yet.
 
 ---
 

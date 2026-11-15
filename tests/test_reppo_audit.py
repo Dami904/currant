@@ -8,9 +8,11 @@ import httpx
 import pytest
 
 from currant import cli
+from currant.harness.answer import Answer, ContestedValue
 from currant.reppo_audit import (
     AuditError,
     Question,
+    answer_text,
     compose_input,
     load_questions,
     prepare,
@@ -168,3 +170,16 @@ def test_the_report_gives_each_arms_mean_and_the_paired_difference(tmp_path: Pat
         "2 rows skipped" in text and "4 completed verdicts" in text
     )  # null and NaN are not scores
     assert "'ship': 1" in text and report(tmp_path / "missing.jsonl") == "no settled verdicts yet"
+
+
+def test_a_contested_answer_names_every_verified_value_and_its_source() -> None:
+    contested = (
+        ContestedValue(25.0, "MB", "https://docs.example.com/faq.md"),
+        ContestedValue(10.0, "MB", None),
+    )
+    text = answer_text(Answer("contested", None, None, None, contested))
+    assert "contested" in text and "25 MB" in text and "10 MB" in text
+    assert "https://docs.example.com/faq.md" in text
+    # With no verified values it says only that the sources disagree.
+    bare = answer_text(Answer("contested", None, None, None))
+    assert "contested" in bare and "MB" not in bare

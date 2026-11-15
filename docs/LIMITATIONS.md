@@ -198,8 +198,10 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
     documentation is contested: the sources disagree and nothing shows which is current". It names
     neither value nor quote, although the plan promises "CONTESTED with both quotes". The judges
     scored that as incomplete (cost: factual accuracy 13) and preferred a confident "440", which
-    matches what the live service charged. Fixing it needs a code change, which would change the
-    code fingerprint, so it has not been made.
+    matches what the live service charged. Fixed after the audit in `answer-v2` (2026-11-15): a
+    contested answer lists every value the notice quotes, and values not written in the notice's
+    verified quotes are dropped by our code. These audit scores are `answer-v1`'s and are not
+    rewritten; v2 has not been re-audited on Reppo.
   - *Our other miss:* the detector did not find the attachment-size conflict, so both arms gave the
     stale "2 MB" (the judges flagged the 2 MB vs 1.25 MB conflict themselves).
   - *The documentation's side:* all three conflicts are real. The judges found each from the

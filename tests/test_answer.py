@@ -8,9 +8,11 @@ import pytest
 
 from currant.harness.answer import (
     ANSWER_SCHEMA,
+    PROMPT_VERSION,
     SCHEMA_NAME,
     SYSTEM_PROMPT,
     Answer,
+    ContestedValue,
     ask,
     build_user_message,
     parse_answer,
@@ -63,11 +65,84 @@ def test_a_valid_answer_parses() -> None:
 def test_contested_and_unknown_carry_no_value() -> None:
     for verdict in ("contested", "unknown"):
         parsed = parse_answer(
-            json.dumps({"verdict": verdict, "value": 7, "unit": "x", "evidence": None})
-        )
+            json.dumps(
+                {"verdict": verdict, "value": 7, "unit": "x", "evidence": None,
+                 "contested_values": []}
+            )
+        )  # fmt: skip
         assert parsed == Answer(
             verdict, None, None, None
         )  # a value with no verdict of answer is dropped
+
+
+NOTICE_CONTEXT = (
+    "<<<NOTICE: CONTESTED>>>\n"
+    "These sources disagree and nothing in them shows which is current. Do not pick a winner; "
+    "report both.\n"
+    '- https://docs.example.com/faq.md: "Uploads can be up to 25 MB."\n'
+    '- https://docs.example.com/limits.md: "Uploads can be up to 10 MB."\n'
+    "<<<END NOTICE>>>\n"
+    "<<<DOCUMENT 1: https://docs.example.com/other.md>>>\nThe API allows 99 requests.\n"
+)
+
+
+def contested_reply(values: list[Any]) -> dict[str, Any]:
+    return {"verdict": "contested", "value": None, "unit": None, "evidence": None,
+            "contested_values": values}  # fmt: skip
+
+
+def test_a_contested_answer_keeps_each_value_the_notice_quotes() -> None:
+    values = [
+        {"value": 25, "unit": "MB", "source": "https://docs.example.com/faq.md"},
+        {"value": 10, "unit": "MB", "source": "https://docs.example.com/limits.md"},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", NOTICE_CONTEXT,
+                 sleep=no_sleep)  # fmt: skip
+    assert result.status == "ok" and result.answer is not None
+    assert result.answer.verdict == "contested" and result.answer.value is None
+    assert result.answer.contested == (
+        ContestedValue(25.0, "MB", "https://docs.example.com/faq.md"),
+        ContestedValue(10.0, "MB", "https://docs.example.com/limits.md"),
+    )
+
+
+def test_a_contested_value_not_written_in_the_notice_is_dropped() -> None:
+    # 99 is in the context, but in a document, not in the CONTESTED notice's verified quotes;
+    # 42 is nowhere. The model proposes; only values the notice quotes are kept.
+    values = [
+        {"value": 25, "unit": "MB", "source": None},
+        {"value": 99, "unit": None, "source": None},
+        {"value": 42, "unit": "MB", "source": None},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", NOTICE_CONTEXT,
+                 sleep=no_sleep)  # fmt: skip
+    assert result.answer is not None
+    assert [v.value for v in result.answer.contested] == [25.0]
+
+
+def test_contested_values_without_a_notice_are_all_dropped() -> None:
+    values = [{"value": 25, "unit": "MB", "source": None}]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q",
+                 "<<<DOCUMENT 1: x>>>\nUploads can be up to 25 MB.\n", sleep=no_sleep)  # fmt: skip
+    assert result.answer is not None and result.answer.contested == ()
+
+
+def test_malformed_contested_entries_are_skipped_not_fatal() -> None:
+    values: list[Any] = [
+        {"value": "25", "unit": "MB", "source": None},
+        {"value": True, "unit": None, "source": None},
+        "25 MB",
+        {"value": 10, "unit": "MB", "source": None},
+    ]
+    parsed = parse_answer(json.dumps(contested_reply(values)))
+    assert isinstance(parsed, Answer)
+    assert [v.value for v in parsed.contested] == [10.0]
+
+
+def test_the_prompt_asks_for_both_values_and_is_versioned() -> None:
+    assert PROMPT_VERSION == "answer-v2"
+    assert "contested_values" in SYSTEM_PROMPT
+    assert "contested_values" in ANSWER_SCHEMA["properties"]
 
 
 @pytest.mark.parametrize(
