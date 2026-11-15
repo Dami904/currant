@@ -55,8 +55,11 @@ def prepare_item(
     *,
     retries: int = DEFAULT_RETRIES,
     sleep: Callable[[float], None] = time.sleep,
+    relate_model: Any = None,
 ) -> Prepared:
-    """Load an item's pages, extract claims and detect relations. Only the item's spec is used."""
+    """Load an item's pages, extract claims and detect relations. Only the item's spec is used.
+    `relate_model`, if given, does relation detection while `model` still extracts: this holds
+    the claims fixed (through the cache) and swaps only the detector's model."""
     pages = item.spec["pages"]
     store = ClaimStore(":memory:")
     ingest = store.ingest_pages(f"item-{item.item_id[:12]}", [(p["url"], p["text"]) for p in pages])
@@ -67,7 +70,12 @@ def prepare_item(
                 page_of_doc[stored.doc_id] = page["id"]
     extraction = run_extraction(store, ingest.snapshot_id, model, retries=retries, sleep=sleep)
     detection, _ = run_detection(
-        store, extraction.run_id, ingest.snapshot_id, model, retries=retries, sleep=sleep
+        store,
+        extraction.run_id,
+        ingest.snapshot_id,
+        model if relate_model is None else relate_model,
+        retries=retries,
+        sleep=sleep,
     )
     return Prepared(store, ingest.snapshot_id, page_of_doc, extraction, detection)
 
@@ -78,9 +86,10 @@ def run_item(
     *,
     retries: int = DEFAULT_RETRIES,
     sleep: Callable[[float], None] = time.sleep,
+    relate_model: Any = None,
 ) -> dict[str, Any]:
     """The prediction for one item. Only the item's spec is used."""
-    prepared = prepare_item(item, model, retries=retries, sleep=sleep)
+    prepared = prepare_item(item, model, retries=retries, sleep=sleep, relate_model=relate_model)
     store, page_of_doc = prepared.store, prepared.page_of_doc
     extraction, detection = prepared.extraction, prepared.detection
     claims = {c.claim_id: c for c in store.claims(extraction.run_id)}
@@ -247,12 +256,13 @@ def run_items(
     sleep: Callable[[float], None] = time.sleep,
     progress: Callable[[int, int, str], None] | None = None,
     meta: dict[str, Any] | None = None,
+    relate_model: Any = None,
 ) -> int:
     """Run the pipeline on items and append one JSON line per item to `out_path` (resumable; see
     `run_resumable`). Returns the number of items run now."""
     return run_resumable(
         items,
-        lambda item: run_item(item, model, retries=retries, sleep=sleep),
+        lambda item: run_item(item, model, retries=retries, sleep=sleep, relate_model=relate_model),
         out_path,
         limit=limit,
         progress=progress,

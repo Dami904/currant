@@ -149,6 +149,10 @@ def build_parser() -> argparse.ArgumentParser:
     runi.add_argument("--cache", type=Path, default=Path("data/llm_cache.db"))
     runi.add_argument("--limit", type=positive_int)
     runi.add_argument("--model", default=DEFAULT_MODEL)
+    runi.add_argument(
+        "--relate-model",
+        help="a different model for relation detection only (extraction keeps --model)",
+    )
     runi.add_argument("--dotenv", type=Path, default=DEFAULT_DOTENV)
 
     scorer = sub.add_parser("score", help="score predictions against sealed labels")

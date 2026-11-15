@@ -324,6 +324,19 @@ def test_an_item_with_a_failed_pair_is_marked_unknown(
     assert run_item(explicit, Oracle(), sleep=no_sleep)["status"] == "complete"
 
 
+def test_a_separate_relate_model_handles_detection_and_only_detection(
+    items_world: tuple[EvalStore, list[ItemRow]],
+) -> None:
+    evals, items = items_world
+    evals.freeze("inspect")
+    explicit = next(i for i in items if evals.label(i.item_id)["scenario"] == "supersedes_explicit")
+    # Extraction stays on the first model; relation detection goes to the second.
+    swapped = run_item(explicit, FailingRelate(), relate_model=Oracle(), sleep=no_sleep)
+    assert swapped["status"] == "complete"
+    broken = run_item(explicit, Oracle(), relate_model=FailingRelate(), sleep=no_sleep)
+    assert broken["status"] == "unknown"
+
+
 def test_a_legacy_prediction_without_a_status_is_judged_by_its_counts() -> None:
     assert is_unknown({"detection": {"failed": 1}, "extraction": {"pages_failed": 0}})
     assert is_unknown({"detection": {"failed": 0}, "extraction": {"pages_failed": 2}})

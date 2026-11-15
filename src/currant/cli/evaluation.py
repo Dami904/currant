@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from contextlib import ExitStack
 from pathlib import Path
 
 import httpx
@@ -123,14 +124,26 @@ def cmd_run_items(args: argparse.Namespace) -> int:
         caching = open_model(http, key, args, raw_log)
         if caching is None:
             return 2
-        with caching as model:
+        relate_model = None
+        if args.relate_model is not None:
+            relate_args = argparse.Namespace(cache=args.cache, model=args.relate_model)
+            relate_model = open_model(http, key, relate_args, raw_log)
+            if relate_model is None:
+                caching.close()
+                return 2
+        with caching as model, ExitStack() as stack:
+            if relate_model is not None:
+                stack.enter_context(relate_model)
 
             def progress(number: int, total: int, item_id: str) -> None:
                 cache = f"cache {model.hits} hit / {model.misses} miss"
+                if relate_model is not None:
+                    cache += f"; relate {relate_model.hits} hit / {relate_model.misses} miss"
                 print(f"  {number}/{total} {item_id[:12]}  {cache}", flush=True)
 
             meta = {
                 "model": args.model,
+                "relate_model": args.relate_model or args.model,
                 "split": args.split,
                 "extract_prompt": EXTRACT_PROMPT,
                 "relate_prompt": RELATE_PROMPT,
@@ -142,7 +155,10 @@ def cmd_run_items(args: argparse.Namespace) -> int:
                 "raw_log": raw_log.name,
             }
             try:
-                ran = run_items(items, model, out, limit=args.limit, progress=progress, meta=meta)
+                ran = run_items(
+                    items, model, out, limit=args.limit, progress=progress, meta=meta,
+                    relate_model=relate_model,
+                )  # fmt: skip
             except (StoreError, OSError, ValueError) as exc:
                 print(f"error: {exc}", file=sys.stderr)
                 return 2
