@@ -204,7 +204,7 @@ uv run currant drift-report --db data/mine.db \
       <li><b>Retrieval is not wired in.</b> Page retrieval is built and tested, but <code>currant ground</code> still takes the pages you name.</li>
       <li><b>Signing is optional and has no key directory.</b> Receipts can be signed, but there is no revocation, no expiry, and no published registry of keys.</li>
       <li><b>One model for the held-out result.</b> Every measured effect on answers is with <code>gpt-6-luna</code>, on synthetic items. A second detector (<code>claude-haiku-4.5</code>) was tried on dev items only, and it made 2 wrong cuts that the verbatim checks cannot catch.</li>
-      <li><b>A contested answer named neither value.</b> That cost us points in the Reppo audit. Fixed afterwards in <code>answer-v2</code>, which lists each value the notice quotes; it has not been re-audited yet.</li>
+      <li><b>A contested answer named neither value.</b> That cost us points in the Reppo audit. Fixed afterwards in <code>answer-v2</code>, which lists each value the notice quotes. Re-audited on 2026-11-15 over 4 conflicts: +7.5 against baseline, interval -11 to +26, so still no conclusion.</li>
       <li><b>Crawl-to-crawl diffs are small.</b> <code>currant crawl-diff</code> and <code>currant as-of</code> work across three snapshots but found one verified change so far, and they do not feed <code>ground</code> yet.</li>
       <li><b>Not built at all:</b> a paid x402 endpoint.</li>
       <li><b>HTML pages are refused.</b> The crawler reads markdown and <code>llms.txt</code> indexes only.</li>

@@ -185,9 +185,10 @@ def test_the_pages_do_not_name_the_second_vendor_trialled() -> None:
 def test_both_pages_state_what_is_not_built() -> None:
     page = HOW.read_text(encoding="utf-8").lower()
     assert 'id="not-built"' in page and "no key directory" in page
-    # The contested-answer gap was fixed after the audit; the page must say so and that the fix
-    # has not been re-audited, rather than drop the item.
+    # The contested-answer gap was fixed after the audit and re-audited on 2026-11-15; the page must
+    # keep the v1 loss and give the v2 re-audit with its inconclusive interval, not drop either.
     assert "named neither value" in page and "answer-v2" in page and "re-audited" in page
+    assert "+7.5" in page and "-11 to +26" in page
 
 
 VERIFY = ROOT / "site" / "verify.html"

@@ -403,8 +403,24 @@ judgement per question):
 only that the documentation is contested. It named neither value; the judges marked it incomplete
 and preferred a confident "440" that matched the live charge. Since fixed in `answer-v2`: a
 contested answer now lists every value the CONTESTED notice quotes, and our code drops any value
-not written in those verified quotes. The scores above are `answer-v1`'s and stay as recorded;
-v2 has not been re-audited on Reppo yet.
+not written in those verified quotes. The scores above are `answer-v1`'s and stay as recorded.
+
+**Re-audit of `answer-v2`** (2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`). The same three
+Reppo conflicts plus one in the OpenServ docs (default `PORT`, 7380 vs 7378). This time each
+submission also showed the judges both quoted pages as the reference, so the setup differs from
+v1 and the two runs are not directly comparable.
+
+| Question                | Baseline | Currant (`pull`) | Judges' reason, in short                                        |
+| ----------------------- | -------- | ---------------- | --------------------------------------------------------------- |
+| Cost per evaluation     | 91       | 77               | **Lost again:** they preferred "440", which matches the live charge |
+| Sign-up bonus           | 78       | 100 (`ship`)     | Credited for surfacing both values                              |
+| Attachment size         | 66       | 58               | **Lost:** detector found it this time, but the answer still named no value |
+| OpenServ default `PORT` | 70       | 100              | Credited for surfacing both values                              |
+| **4 conflicts**         | **76.2** | **83.8**         | **+7.5**, interval -11 to +26 over 4 questions: no conclusion   |
+
+Better on 2, worse on 2. Listing both values fixed the questions where neither page is backed by
+anything else; it still loses when one value matches what the live service does, which text alone
+cannot know.
 
 ---
 

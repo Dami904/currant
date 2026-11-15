@@ -279,7 +279,15 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
     matches what the live service charged. Fixed after the audit in `answer-v2` (2026-11-15): a
     contested answer lists every value the notice quotes, and values not written in the notice's
     verified quotes are dropped by our code. These audit scores are `answer-v1`'s and are not
-    rewritten; v2 has not been re-audited on Reppo.
+    rewritten.
+  - *Re-audit of `answer-v2` (2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`, 8 evaluations,
+    3,520 credits):* the same three conflicts plus the OpenServ default `PORT` (7380 vs 7378). Each
+    submission now also showed the judges both quoted pages, so this is not the v1 setup. Baseline
+    76.2, Currant 83.8, +7.5 (95% interval -11 to +26, 4 questions: no conclusion), better on 2,
+    worse on 2. Per question: cost 91 vs 77 (still lost: the judges prefer the value the live
+    service charges, which text cannot know), sign-up bonus 78 vs 100, attachment size 66 vs 58
+    (the contested answer still named no value, so the judges marked it incomplete), `PORT` 70
+    vs 100.
   - *Our other miss:* the detector did not find the attachment-size conflict, so both arms gave the
     stale "2 MB" (the judges flagged the 2 MB vs 1.25 MB conflict themselves).
   - *The documentation's side:* all three conflicts are real. The judges found each from the
