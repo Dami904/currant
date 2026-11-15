@@ -30,6 +30,27 @@ Limits:
   `ground` plans from one run. They feed `currant as-of` and the record only.
 - **Too few changes to measure precision.** One pair, checked by hand, is an anecdote.
 
+## A second detector model (dev only, 2026-11-15)
+
+`run-items --relate-model` keeps extraction on `gpt-6-luna` (every extraction call came from the
+cache, so the claims are identical) and swaps only the relation detector. On the 109 dev items,
+`detect-v3` (`results/items/dev-v4*.jsonl`):
+
+| Detector         | Precision | Recall | Implicit items marked CONTESTED | Wrong cuts on implicit or clean items |
+|------------------|-----------|--------|---------------------------------|---------------------------------------|
+| gpt-6-luna       | 1.000     | 0.892  | 13 of 18                        | 0                                     |
+| claude-haiku-4.5 | 0.941     | 0.865  | 14 of 18                        | 0                                     |
+
+Under `detect-v2`, the Haiku run (committed as evidence) also cut 2 implicit items, retiring
+"1 at a time" in favour of "Only one evaluation may be in flight". That is the same value, and
+nothing checked that a supersession changes the value. `detect-v3` adds that check, with a test
+and a mutant. Haiku's 2 remaining wrong cuts pair the wrong attribute: "Claims up to 50 epochs"
+retired by "Scans up to 250 epochs", with a real ordering quote that is verbatim. The verbatim
+checks cannot catch a right quote attached to the wrong claim. **Detection quality depends on the
+model, and the guards bound what a wrong model can do (verbatim evidence, same kind, a changed
+value), not whether it pairs the right attributes.** Dev items only; the test split was not run
+with the second model.
+
 ## Candidate pairing at scale (2026-11-15)
 
 Candidate pairs are found by prefix-filter blocking, proven equal to the old all-pairs search by

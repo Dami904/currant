@@ -463,6 +463,10 @@ v2 has not been re-audited on Reppo yet.
 - **Receipts are unsigned.** Replay proves the context matches what was recorded, not who recorded it.
 - **Retrieval isn't wired into `currant ground`,** which takes the pages you name (the proxy does
   retrieve). A paid x402 endpoint isn't built.
+- **A second detector model does worse, and the guards don't fully catch it.** On dev items,
+  `claude-haiku-4.5` as the detector (same claims) scored precision 0.941 against 1.000 for
+  `gpt-6-luna`. Its 2 wrong cuts used verbatim quotes attached to the wrong attribute. It also
+  exposed a missing guard (a "supersession" between equal values), fixed in `detect-v3`.
 - **Crawl-diff is small.** `currant crawl-diff` and `currant as-of` work across three snapshots,
   but they found one verified change (Reppo's decision values), and recall is capped by extraction.
 - **Pairing still grows about quadratically** on synthetic claims with common words (161 s at
