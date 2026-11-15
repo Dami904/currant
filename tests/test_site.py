@@ -127,7 +127,7 @@ def test_the_demo_context_hashes_to_the_receipt() -> None:
 
 def test_the_page_scripts_make_no_network_calls_and_write_no_html() -> None:
     sources = list(SITE_SRC.glob("*.ts"))
-    assert {p.name for p in sources} >= {"main.ts", "hero.ts", "demo.ts"}
+    assert {p.name for p in sources} >= {"main.ts", "hero.ts", "demo.ts", "verify.ts"}
     for path in sources:
         code = path.read_text(encoding="utf-8")
         for banned in ("fetch(", "XMLHttpRequest", "sendBeacon", "WebSocket", "innerHTML", "eval("):
@@ -188,6 +188,31 @@ def test_both_pages_state_what_is_not_built() -> None:
     # The contested-answer gap was fixed after the audit; the page must say so and that the fix
     # has not been re-audited, rather than drop the item.
     assert "named neither value" in page and "answer-v2" in page and "re-audited" in page
+
+
+VERIFY = ROOT / "site" / "verify.html"
+
+
+def test_the_receipt_check_page_uses_a_byte_identical_copy_of_the_real_receipt() -> None:
+    # The page preloads examples/real/; if the copy drifted, "MATCH" would be about other text.
+    import hashlib
+
+    for name in ("context.txt", "receipt.json"):
+        assert (SITE_SRC / "real" / name).read_bytes() == (
+            ROOT / "examples" / "real" / name
+        ).read_bytes()
+    receipt = json.loads((SITE_SRC / "real" / "receipt.json").read_text(encoding="utf-8"))
+    context = (SITE_SRC / "real" / "context.txt").read_bytes()
+    assert hashlib.sha256(context).hexdigest() == receipt["context_sha256"]
+    assert b"\r" not in context  # a textarea would turn CRLF into LF and break the match
+
+
+def test_the_receipt_check_page_loads_only_its_own_script() -> None:
+    page = VERIFY.read_text(encoding="utf-8")
+    assert re.search(r"<script[^>]*\bsrc\s*=\s*[\"']/src/verify\.ts", page, re.I)
+    assert len(re.findall(r"<script\b", page, re.I)) == 1
+    assert not re.search(r"(src|href)\s*=\s*[\"']?https?:", page, re.I)
+    assert "stri" + "pe" not in page.lower()
 
 
 def test_the_how_page_reads_its_receipt_from_the_committed_demo_copy() -> None:

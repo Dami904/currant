@@ -471,3 +471,7 @@ td.loss { color: var(--bad); } td.win { color: var(--ok); }
   .window-main, .window-side { padding: 14px; }
   .ctx { padding: 14px; font-size: .78rem; }
 }
+
+/* Receipt check page: the context and receipt are editable textareas styled like the context box. */
+textarea.ctx { display: block; width: 100%; box-sizing: border-box; height: auto; min-height: 220px; resize: vertical; border: 0; margin-bottom: 14px; }
+#verify .window-main label.cap { display: block; margin: 0 0 8px; }

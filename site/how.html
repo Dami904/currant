@@ -205,7 +205,8 @@ uv run currant drift-report --db data/mine.db \
       <li><b>Receipts are unsigned.</b> They prove the context, not who produced it.</li>
       <li><b>One model.</b> Every measured effect is with <code>gpt-6-luna</code>, on synthetic items.</li>
       <li><b>A contested answer named neither value.</b> That cost us points in the Reppo audit. Fixed afterwards in <code>answer-v2</code>, which lists each value the notice quotes; it has not been re-audited yet.</li>
-      <li><b>Not built at all:</b> detecting supersession from crawl-to-crawl diffs, as-of queries, and a paid x402 endpoint.</li>
+      <li><b>Crawl-to-crawl diffs are small.</b> <code>currant crawl-diff</code> and <code>currant as-of</code> work across three snapshots but found one verified change so far, and they do not feed <code>ground</code> yet.</li>
+      <li><b>Not built at all:</b> a paid x402 endpoint.</li>
       <li><b>HTML pages are refused.</b> The crawler reads markdown and <code>llms.txt</code> indexes only.</li>
     </ul>
   </div>
@@ -304,6 +305,7 @@ uv run currant replay examples/demo/receipt.json \
       <a href="#receipt">Receipt anatomy</a>
       <a href="#not-built">Not built yet</a>
       <a href="#faq">FAQ</a>
+      <a href="verify.html">Check a receipt</a>
     </nav>
     <nav class="footer-col" aria-label="Project">
       <p>Project</p>

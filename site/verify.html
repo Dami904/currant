@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check a Currant receipt</title>
+<meta name="description" content="Paste a Currant receipt and the context it covers; this page recomputes the SHA-256 of the context in your browser and says whether they match. Preloaded with a receipt built from real documentation.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23072a29'/%3E%3Crect x='6' y='6' width='9' height='9' rx='2.5' fill='%23f0b46e'/%3E%3Crect x='17' y='6' width='9' height='9' rx='2.5' fill='%232a8a79'/%3E%3Crect x='6' y='17' width='9' height='9' rx='2.5' fill='%23ec8a72'/%3E%3Crect x='17' y='17' width='9' height='9' rx='2.5' fill='%23dfe2dc'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="page-how">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head" id="head">
+  <div class="brand-card">
+    <a class="brand" href="./" aria-label="Currant, home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>
+      <span class="wordmark">Currant</span>
+    </a>
+  </div>
+  <nav class="top-nav" aria-label="Primary">
+    <a href="./">Overview</a>
+    <a href="how.html">How it works</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="sec sec-alt" id="verify" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Receipt check</p>
+        <h2>Check a receipt in your browser.</h2>
+      </div>
+      <p class="sub">A receipt records the SHA-256 of the exact text a model was shown. Paste the receipt and the context; this page hashes the context here, with nothing sent anywhere, and compares. It starts with a receipt built from <b>real</b> documentation: Reppo's 100-credit and 440-credit pages, where neither says which is current, so Currant marks the conflict CONTESTED and cuts nothing. The same check runs in CI with <code>currant replay</code>.</p>
+    </div>
+    <div class="window">
+      <div class="window-bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="window-title">examples/real &middot; receipt and context</span>
+      </div>
+      <div class="window-body">
+        <div class="window-main">
+          <label class="cap" for="context">Context: the text the model was shown</label>
+          <textarea class="ctx" id="context" rows="16" spellcheck="false"></textarea>
+          <label class="cap" for="receipt">Receipt (JSON)</label>
+          <textarea class="ctx" id="receipt" rows="10" spellcheck="false"></textarea>
+        </div>
+        <aside class="window-side" aria-label="The result">
+          <div class="receipt">
+            <p class="receipt-label">Receipt says &middot; context sha256</p>
+            <code class="hash" id="claimed"></code>
+            <p class="receipt-label">Receipt id</p>
+            <code class="hash" id="rid"></code>
+            <div class="row">
+              <button type="button" class="btn" id="check">Recompute in this browser</button>
+              <button type="button" class="btn ghost" id="reset">Reload the real receipt</button>
+            </div>
+            <p class="result" id="verdict" aria-live="polite"></p>
+            <p class="cap">This checks the context against the receipt only. Re-deriving the context from the pages and the claim store, and checking the receipt id against its body, is what <code>currant replay</code> adds.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script type="module" src="/src/verify.ts"></script>
+</body>
+</html>
