@@ -51,3 +51,8 @@ results/relate/
 # Internal working notes, not part of the submission
 Currant plan.md
 docs/DEMO_SCRIPT.md
+
+# coverage data from pytest-cov
+.coverage
+.coverage.*
+.hypothesis/

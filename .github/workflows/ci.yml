@@ -61,7 +61,8 @@ jobs:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run pytest
+      # Branch coverage measured 94% on 2026-11-15; the floor leaves room for platform branches.
+      - run: uv run pytest --cov=currant --cov-branch --cov-report=term --cov-fail-under=92
       # A broken argparse wiring in a subcommand the tests do not reach would otherwise ship.
       - run: uv run currant --help
       # The committed demo needs no key and no network: a stranger can do exactly this.
@@ -80,6 +81,20 @@ jobs:
       - name: The wheel carries the receipt viewer
         run: |
           python -c "import zipfile,glob; names=zipfile.ZipFile(glob.glob('dist/*.whl')[0]).namelist(); need={'currant/web/index.html','currant/web/viewer.js','currant/web/viewer.css'}; missing=need-set(names); assert not missing, missing"
+
+  audit:
+    # Known vulnerabilities in every locked dependency (runtime and dev). This job reads the
+    # public PyPI advisory database; it needs no secret.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv export --format requirements-txt --no-hashes --no-emit-project -o requirements-audit.txt
+      - run: uvx pip-audit==2.9.0 -r requirements-audit.txt
 
   guardrails:
     runs-on: ubuntu-latest
