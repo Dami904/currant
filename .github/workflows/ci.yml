@@ -82,6 +82,19 @@ jobs:
         run: |
           python -c "import zipfile,glob; names=zipfile.ZipFile(glob.glob('dist/*.whl')[0]).namelist(); need={'currant/web/index.html','currant/web/viewer.js','currant/web/viewer.css'}; missing=need-set(names); assert not missing, missing"
 
+  mutants:
+    # Break each named guard (Python checks and SQLite triggers) and require a test to fail.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run python scripts/mutation_check.py
+
   audit:
     # Known vulnerabilities in every locked dependency (runtime and dev). This job reads the
     # public PyPI advisory database; it needs no secret.
