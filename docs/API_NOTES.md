@@ -194,6 +194,29 @@ Not yet measured: what a timeout means (did the request arrive), behaviour on 42
 with no idempotency key, so a blind retry can double the cost but cannot move money or state;
 retries are acceptable for them, but must be logged with the request id.
 
+### Other models (2026-11-15)
+
+`scripts/live_models.py`, records in `results/smoke/20261115T090040Z-models.json` (list) and
+`results/smoke/20261115T090131Z-models.json` (probe).
+
+- **`GET /v1/models` lists 38 models** from four providers: anthropic, google, openai and
+  serv. The shape is `{"items": [{"modelId", "provider", "pricing", "specs", "endpoints"}]}`,
+  not OpenAI's `{"data": [{"id"}]}`. Every listed model has the `chatCompletions` endpoint.
+- **`pricing` is in US cents per million tokens**: `gpt-6-luna` is listed as 13/65, matching
+  the $0.13/$0.65 on the models page.
+- **Eleven models accepted the exact request the pipeline sends** (system prompt, strict
+  `json_schema`, `serv_prompt_guard` tool), one call each, all HTTP 200 with schema-valid
+  JSON: `gpt-6-luna`, `gpt-5.6-luna`, `gpt-5.4-nano`, `gpt-6-sol`, `claude-haiku-4.5`,
+  `claude-sonnet-5.5`, `gemini-3.1-flash-lite`, `gemini-3.5-flash`, `serv-nano`,
+  `serv-mini`, `serv-swift`. Latency 2.1 to 5.1 s.
+- **Models format values differently from the same text.** Asked for the value in "120
+  requests per minute", eight answered `120 requests per minute` and three answered `120`. A
+  second model can change claim values, and so candidate pairing, before any detection
+  difference; compare models on detection with the claims held fixed.
+- Not measured: whether `serv_prompt_guard` actually screens input for the non-OpenAI models
+  (the response carries no guard outcome, as above), behaviour on long pages, and rate limits
+  per model.
+
 ## The grounding proxy (our own server, not an external API)
 
 `currant serve` forwards chat requests to SERV `/chat/completions` after grounding them.
