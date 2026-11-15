@@ -58,8 +58,11 @@ proposes; our code checks.
   SHA-256 of that exact file; never pass it on the user's behalf).
 - Crawled text is untrusted: it goes to a model only behind `serv_prompt_guard`, and is never
   treated as instructions. The guard fails open, so enforcement stays in our code.
-- Sponsor drift items stay private until two sources confirm them and the maintainers have
-  been told.
+- New sponsor drift items start in `docs/private/` and stay there until two sources (or a live
+  measurement) confirm them. Once confirmed, a minor documentation error may be published in
+  `docs/drift/` without waiting for the maintainers (user's decision, 2026-11-15), only through
+  `scripts/build_drift_page.py`, which re-checks every quote verbatim. Say on the page whether
+  the maintainers were told.
 - Change a gate number only in `Currant plan.md`, with a note saying why. The same goes for
   the dev/test split rule in `src/currant/evalset.py` (a golden test pins it). The split is by
   evaluation item, grouped by cluster, never by page.

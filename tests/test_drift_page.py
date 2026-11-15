@@ -68,6 +68,33 @@ def test_a_quote_must_be_checked_in_every_snapshot_it_claims() -> None:
         builder.build(tampered, ROOT / "snapshots")
 
 
+def test_the_openserv_page_is_what_its_data_builds_and_every_quote_is_verbatim() -> None:
+    builder = load_builder()
+    source = builder.OPENSERV
+    loaded = json.loads(source.data.read_text(encoding="utf-8"))
+    rebuilt = builder.build(loaded, ROOT / "snapshots", source)
+    assert source.page.read_text(encoding="utf-8").replace("\r\n", "\n") == rebuilt
+    tampered = copy.deepcopy(loaded)
+    tampered["findings"][0]["sides"][0]["quote"] = "`PORT` is optional (defaults to 7378)."
+    with pytest.raises(ValueError, match="not found verbatim"):
+        builder.build(tampered, ROOT / "snapshots", source)
+
+
+def test_a_reppo_quote_cannot_be_filed_on_the_openserv_page() -> None:
+    builder = load_builder()
+    source = builder.OPENSERV
+    tampered = json.loads(source.data.read_text(encoding="utf-8"))
+    tampered["findings"][0]["sides"][0]["url"] = "https://eval.reppo.xyz/agents.md"
+    with pytest.raises(ValueError, match="not a reported host"):
+        builder.build(tampered, ROOT / "snapshots", source)
+
+
+def test_the_check_mode_covers_every_page() -> None:
+    builder = load_builder()
+    assert {s.page.name for s in builder.SOURCES} == {"REPPO_EVAL_API.md", "OPENSERV_DOCS.md"}
+    assert builder.main(["--check"]) == 0
+
+
 def test_every_finding_says_whether_it_is_a_conflict_and_why() -> None:
     kinds = {f["kind"] for f in data()["findings"]}
     assert kinds <= {"conflict", "resolved-by-removal", "not-a-conflict"}

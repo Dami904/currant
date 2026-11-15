@@ -1,12 +1,12 @@
-"""Build the public drift page from docs/drift/reppo-eval-api.json.
+"""Build the public drift pages from the data files in docs/drift/.
 
 Offline and deterministic. Every quote is re-checked, verbatim, against the committed snapshot
 pages (the same rule as everything else in Currant: the data file proposes, this code checks), and
-only pages on the hosts that were reported to the maintainers are allowed, so an unreported
-sponsor item cannot slip into the public page.
+each page accepts only quotes from its own vendor's hosts, so an item cannot be filed under the
+wrong vendor.
 
-    python scripts/build_drift_page.py           # rewrites docs/drift/REPPO_EVAL_API.md
-    python scripts/build_drift_page.py --check   # exits 1 if the page is not what the data builds
+    python scripts/build_drift_page.py           # rewrites every page in docs/drift/
+    python scripts/build_drift_page.py --check   # exits 1 if a page is not what its data builds
 """
 
 from __future__ import annotations
@@ -15,12 +15,36 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, NamedTuple
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "docs" / "drift" / "reppo-eval-api.json"
-PAGE = ROOT / "docs" / "drift" / "REPPO_EVAL_API.md"
-REPORTED_HOSTS = ("https://docs.reppo.ai/", "https://eval.reppo.xyz/")  # reported in issue #11
+DRIFT = ROOT / "docs" / "drift"
+
+
+class Source(NamedTuple):
+    data: Path
+    page: Path
+    title: str
+    hosts: tuple[str, ...]
+
+
+REPPO = Source(
+    DRIFT / "reppo-eval-api.json",
+    DRIFT / "REPPO_EVAL_API.md",
+    "Reppo Evaluation API: where the documentation disagrees with itself",
+    ("https://docs.reppo.ai/", "https://eval.reppo.xyz/"),
+)
+OPENSERV = Source(
+    DRIFT / "openserv-docs.json",
+    DRIFT / "OPENSERV_DOCS.md",
+    "OpenServ and SERV: where the documentation disagrees with itself",
+    ("https://docs.openserv.ai/",),
+)
+SOURCES = (REPPO, OPENSERV)
+# Kept for callers that only build the Reppo page.
+DATA = REPPO.data
+PAGE = REPPO.page
+REPORTED_HOSTS = REPPO.hosts
 KINDS = {
     "conflict": "Conflict",
     "resolved-by-removal": "Resolved by removal (not a live conflict)",
@@ -37,9 +61,9 @@ def page_text(snapshots: Path, date: str, url: str) -> str:
     raise ValueError(f"{url} is not in snapshot {date}")
 
 
-def check_side(snapshots: Path, side: dict[str, Any]) -> None:
+def check_side(snapshots: Path, side: dict[str, Any], hosts: tuple[str, ...]) -> None:
     url = side["url"]
-    if not url.startswith(REPORTED_HOSTS):
+    if not url.startswith(hosts):
         raise ValueError(f"{url} is not a reported host")
     for date in side["snapshots"]:
         if side["quote"] not in page_text(snapshots, date, url):
@@ -48,9 +72,9 @@ def check_side(snapshots: Path, side: dict[str, Any]) -> None:
             )
 
 
-def build(data: dict[str, Any], snapshots: Path) -> str:
+def build(data: dict[str, Any], snapshots: Path, source: Source = REPPO) -> str:
     out = [
-        "# Reppo Evaluation API: where the documentation disagrees with itself",
+        f"# {source.title}",
         "",
         data["intro"],
         "",
@@ -63,13 +87,15 @@ def build(data: dict[str, Any], snapshots: Path) -> str:
     ]
     for kind, label in KINDS.items():
         found = [f for f in data["findings"] if f["kind"] == kind]
+        if not found and kind != "conflict":
+            continue
         out.append(f"## {label} ({len(found)})")
         out.append("")
         for finding in found:
             out.append(f"### {finding['title']}")
             out.append("")
             for side in finding["sides"]:
-                check_side(snapshots, side)
+                check_side(snapshots, side, source.hosts)
                 out.append(f"- “{side['quote']}”  ")
                 out.append(f"  {side['url']} (snapshots {', '.join(side['snapshots'])})")
             out.append("")
@@ -85,17 +111,23 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
-    data = json.loads(DATA.read_text(encoding="utf-8"))
-    text = build(data, ROOT / "snapshots")
-    if args.check:
-        current = PAGE.read_text(encoding="utf-8").replace("\r\n", "\n") if PAGE.exists() else ""
-        if current != text:
-            print("docs/drift/REPPO_EVAL_API.md is out of date", file=sys.stderr)
-            return 1
-        return 0
-    PAGE.write_text(text, encoding="utf-8", newline="\n")
-    print(f"wrote {PAGE.relative_to(ROOT)}")
-    return 0
+    stale = False
+    for source in SOURCES:
+        data = json.loads(source.data.read_text(encoding="utf-8"))
+        text = build(data, ROOT / "snapshots", source)
+        name = source.page.relative_to(ROOT).as_posix()
+        if args.check:
+            exists = source.page.exists()
+            current = (
+                source.page.read_text(encoding="utf-8").replace("\r\n", "\n") if exists else ""
+            )
+            if current != text:
+                print(f"{name} is out of date", file=sys.stderr)
+                stale = True
+            continue
+        source.page.write_text(text, encoding="utf-8", newline="\n")
+        print(f"wrote {name}")
+    return 1 if stale else 0
 
 
 if __name__ == "__main__":

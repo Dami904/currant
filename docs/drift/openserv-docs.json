@@ -1,0 +1,47 @@
+{
+  "intro": "Two places where the OpenServ documentation (docs.openserv.ai, which also hosts the SERV Reasoning docs) disagrees with itself. Both are minor: a stale code sample and a stale model list. The PORT pair was found by Currant's detector (relate run 4, 2026-11-05 snapshot); the DeepSeek pair was spotted by a person while reading the crawl, and the extractor captured only the changelog side of it. Both are still present in the 2026-11-15 crawl.",
+  "reported": "not reported through a maintainer channel; published here on 2026-11-15 as minor documentation errors. The PORT conflict was also posted publicly in a Reppo evaluation on 2026-11-15 (`results/audit/reppo-conflicts-v2.jsonl`).",
+  "findings": [
+    {
+      "id": "default-port",
+      "kind": "conflict",
+      "title": "Default PORT of an agent built with the OpenServ SDK: 7380 or 7378",
+      "sides": [
+        {
+          "url": "https://docs.openserv.ai/vibecode/build-custom-agent.md",
+          "quote": "`PORT` is optional (defaults to 7380).",
+          "snapshots": ["2026-11-05", "2026-11-11", "2026-11-15"]
+        },
+        {
+          "url": "https://docs.openserv.ai/vibecode/sdk/typescript.md",
+          "quote": "| `PORT` | Server port | No | 7378 |",
+          "snapshots": ["2026-11-05", "2026-11-11", "2026-11-15"]
+        }
+      ],
+      "note": "Not measured: we did not run the SDK to see which port it binds, so this page does not say which side is right. Currant answers this question CONTESTED and quotes both values."
+    },
+    {
+      "id": "deepseek-models",
+      "kind": "conflict",
+      "title": "SERV model list: DeepSeek V4 removed, but still listed in the quickstart",
+      "sides": [
+        {
+          "url": "https://docs.openserv.ai/changelog/overview.md",
+          "quote": "Grok 4.5, DeepSeek V4 Flash, DeepSeek V4 Pro, Kimi K2.6",
+          "snapshots": ["2026-11-05", "2026-11-11", "2026-11-15"]
+        },
+        {
+          "url": "https://docs.openserv.ai/serv-reasoning/introduction.md",
+          "quote": "deepseek-v4-pro, deepseek-v4-flash",
+          "snapshots": ["2026-11-05", "2026-11-11", "2026-11-15"]
+        },
+        {
+          "url": "https://docs.openserv.ai/serv-reasoning/sdk-migration.md",
+          "quote": "deepseek-v4-pro, deepseek-v4-flash",
+          "snapshots": ["2026-11-05", "2026-11-11", "2026-11-15"]
+        }
+      ],
+      "note": "The changelog's \"Model catalog trimmed\" entry (dated September 11, 2026) removes both DeepSeek V4 models, but the SERV introduction and the SDK migration guide still list their ids inside an embedded model list. Measured: the live `GET /v1/models` on 2026-11-15 listed 11 models and no DeepSeek (`results/smoke/20261115T090131Z-models.json`), so the changelog is right and the two pages are stale."
+    }
+  ]
+}

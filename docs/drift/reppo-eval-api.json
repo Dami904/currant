@@ -1,5 +1,5 @@
 {
-  "intro": "Currant's detector flagged 7 pairs of sentences in the sponsor documentation as disagreeing (relate run 7 over the 2026-11-05 snapshot, and the same pairs came back from a wider run). 6 are on the Reppo Evaluation API pages and are listed here; 1 is on another sponsor's documentation and is not listed. A person then read each pair against both sources. Of the 6, two are live conflicts. A third live conflict (attachment size) was found by hand because the detector missed it. The rest are not live conflicts, and are shown so the detector's real precision on documentation is visible.",
+  "intro": "Currant's detector flagged 7 pairs of sentences in the sponsor documentation as disagreeing (relate run 7 over the 2026-11-05 snapshot, and the same pairs came back from a wider run). 6 are on the Reppo Evaluation API pages and are listed here; 1 is on OpenServ's documentation and is listed in OPENSERV_DOCS.md. A person then read each pair against both sources. Of the 6, two are live conflicts. A third live conflict (attachment size) was found by hand because the detector missed it. The rest are not live conflicts, and are shown so the detector's real precision on documentation is visible.",
   "reported": "https://github.com/Reppo-Labs/docs/issues/11 (opened 2026-11-12), with a fix proposed in https://github.com/Reppo-Labs/docs/pull/12.",
   "findings": [
     {
@@ -55,6 +55,24 @@
         }
       ],
       "note": "Found by hand: the detector missed this pair (it is its recall limit on real documentation)."
+    },
+    {
+      "id": "removed-api",
+      "kind": "conflict",
+      "title": "Which API exists: docs.reppo.ai documents endpoints that agents.md lists as removed",
+      "sides": [
+        {
+          "url": "https://docs.reppo.ai/api/eval/evaluations.md",
+          "quote": "`POST https://eval.reppo.xyz/api/v1/agents/eval-requests/submit`",
+          "snapshots": ["2026-11-11", "2026-11-15"]
+        },
+        {
+          "url": "https://eval.reppo.xyz/agents.md",
+          "quote": "## 8. Removed endpoints (deprecated)",
+          "snapshots": ["2026-11-11", "2026-11-15"]
+        }
+      ],
+      "note": "Found by a live probe, not by the detector, and not part of issue #11 (it appeared after the 2026-11-11 re-crawl; published here 2026-11-15). Measured: the old endpoints returned 404 on 2026-11-11 (`results/smoke/20261111T113818Z-reppo-probe.json`), so agents.md is right and the docs.reppo.ai API pages are stale."
     },
     {
       "id": "peer-cap",

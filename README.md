@@ -143,11 +143,20 @@ All three are reported: [Reppo-Labs/docs issue #11](https://github.com/Reppo-Lab
 and a proposed fix, [pull request #12](https://github.com/Reppo-Labs/docs/pull/12). Neither has a
 maintainer reply yet.
 
-The detector flagged 7 pairs in all. Of the 6 on Reppo's pages: 2 live conflicts, 2 already resolved
-by removal, 2 false positives. The reasoning for each is in
-[`docs/drift/REPPO_EVAL_API.md`](docs/drift/REPPO_EVAL_API.md), which
-`scripts/build_drift_page.py` rebuilds and refuses to write if a quote isn't verbatim in the
-committed snapshots.
+Three more, found later and published on 2026-11-15 (all still in that day's crawl):
+
+| Fact                                  | Stale side                                                                 | Current side, and what confirms it                                                     | Found by          |
+| ------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------- |
+| Which Reppo API exists                | `docs.reppo.ai` documents `POST …/agents/eval-requests/submit`             | `agents.md` lists it under "Removed endpoints"; the live server returns 404 for it     | Live probe        |
+| SERV DeepSeek V4 models               | The SERV introduction and SDK migration pages still list `deepseek-v4-pro, deepseek-v4-flash` | The changelog removed them; the live `/v1/models` list has no DeepSeek (2026-11-15) | Hand              |
+| OpenServ SDK default `PORT`           | "`PORT` is optional (defaults to 7380)."                                   | "\| `PORT` \| Server port \| No \| 7378 \|" (which is right is not measured)            | Currant           |
+
+All are minor documentation errors, not security issues. The detector flagged 7 pairs in all on
+the 2026-11-05 snapshot. Of the 6 on Reppo's pages: 2 live conflicts, 2 already resolved by
+removal, 2 false positives; the 7th is the OpenServ `PORT` pair. The reasoning for each is in
+[`docs/drift/REPPO_EVAL_API.md`](docs/drift/REPPO_EVAL_API.md) and
+[`docs/drift/OPENSERV_DOCS.md`](docs/drift/OPENSERV_DOCS.md), which `scripts/build_drift_page.py`
+rebuilds and refuses to write if a quote isn't verbatim in the committed snapshots.
 
 ---
 
@@ -604,7 +613,7 @@ SHA-256 of the exact submissions file you reviewed.
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md): who is trusted, and what each compromised key allows
 - [`docs/API_NOTES.md`](docs/API_NOTES.md): measured behaviour of SERV and Reppo
 - [`docs/CLAIM_STORE.md`](docs/CLAIM_STORE.md): the claim store's design
-- [`docs/drift/`](docs/drift): the public list of Reppo documentation conflicts
+- [`docs/drift/`](docs/drift): the public lists of documentation conflicts found in the Reppo and OpenServ docs
 - [`docs/brand/`](docs/brand): the logo files
 
 ## Attribution

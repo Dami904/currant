@@ -1,6 +1,6 @@
 # Reppo Evaluation API: where the documentation disagrees with itself
 
-Currant's detector flagged 7 pairs of sentences in the sponsor documentation as disagreeing (relate run 7 over the 2026-11-05 snapshot, and the same pairs came back from a wider run). 6 are on the Reppo Evaluation API pages and are listed here; 1 is on another sponsor's documentation and is not listed. A person then read each pair against both sources. Of the 6, two are live conflicts. A third live conflict (attachment size) was found by hand because the detector missed it. The rest are not live conflicts, and are shown so the detector's real precision on documentation is visible.
+Currant's detector flagged 7 pairs of sentences in the sponsor documentation as disagreeing (relate run 7 over the 2026-11-05 snapshot, and the same pairs came back from a wider run). 6 are on the Reppo Evaluation API pages and are listed here; 1 is on OpenServ's documentation and is listed in OPENSERV_DOCS.md. A person then read each pair against both sources. Of the 6, two are live conflicts. A third live conflict (attachment size) was found by hand because the detector missed it. The rest are not live conflicts, and are shown so the detector's real precision on documentation is visible.
 
 Every quote below was checked verbatim against the committed snapshot page named
 next to it (`snapshots/<date>/`, verifiable with `currant verify`). Whether two quotes
@@ -8,7 +8,7 @@ describe the same fact is a judgement, so each finding says which it is and why.
 
 Reported to the maintainers: https://github.com/Reppo-Labs/docs/issues/11 (opened 2026-11-12), with a fix proposed in https://github.com/Reppo-Labs/docs/pull/12.
 
-## Conflict (3)
+## Conflict (4)
 
 ### Cost of a text-only evaluation: 100 credits or 440 credits
 
@@ -36,6 +36,15 @@ Whether a new account gets the larger or smaller bonus is unsettled in this repo
   https://eval.reppo.xyz/agents.md (snapshots 2026-11-05, 2026-11-11)
 
 Found by hand: the detector missed this pair (it is its recall limit on real documentation).
+
+### Which API exists: docs.reppo.ai documents endpoints that agents.md lists as removed
+
+- “`POST https://eval.reppo.xyz/api/v1/agents/eval-requests/submit`”  
+  https://docs.reppo.ai/api/eval/evaluations.md (snapshots 2026-11-11, 2026-11-15)
+- “## 8. Removed endpoints (deprecated)”  
+  https://eval.reppo.xyz/agents.md (snapshots 2026-11-11, 2026-11-15)
+
+Found by a live probe, not by the detector, and not part of issue #11 (it appeared after the 2026-11-11 re-crawl; published here 2026-11-15). Measured: the old endpoints returned 404 on 2026-11-11 (`results/smoke/20261111T113818Z-reppo-probe.json`), so agents.md is right and the docs.reppo.ai API pages are stale.
 
 ## Resolved by removal (not a live conflict) (1)
 
