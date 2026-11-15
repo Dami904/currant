@@ -334,6 +334,21 @@ def build_parser() -> argparse.ArgumentParser:
     asof.add_argument("--date", required=True, help="e.g. 2026-11-08")
     asof.add_argument("--db", type=Path, default=Path("data/currant.db"))
 
+    kgen = sub.add_parser("keygen", help="make an Ed25519 key for signing receipts")
+    kgen.add_argument("--out", type=Path, default=Path("data/signing-key.hex"))
+
+    sgn = sub.add_parser("sign", help="sign a receipt with CURRANT_SIGNING_KEY")
+    sgn.add_argument("receipt", type=Path)
+    sgn.add_argument("--out", type=Path, help="default: <receipt>.sig.json")
+    sgn.add_argument("--dotenv", type=Path, default=DEFAULT_DOTENV)
+
+    vsig = sub.add_parser(
+        "verify-signature", help="check a receipt's signature against a public key you trust"
+    )
+    vsig.add_argument("receipt", type=Path)
+    vsig.add_argument("--public-key", required=True, help="64 hex characters")
+    vsig.add_argument("--sig", type=Path, help="default: <receipt>.sig.json")
+
     verify = sub.add_parser("verify", help="check a snapshot against its manifest")
     verify.add_argument("snapshot", type=Path, help="e.g. snapshots/2026-11-05")
     verify.add_argument(

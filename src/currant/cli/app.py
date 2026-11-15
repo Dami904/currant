@@ -26,6 +26,7 @@ from currant.cli.reppo import (
     cmd_reppo_resolve,
     cmd_reppo_status,
 )
+from currant.cli.signing import cmd_keygen, cmd_sign, cmd_verify_signature
 
 
 def _tolerate_console_encoding() -> None:
@@ -88,6 +89,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         return cmd_reppo_status(args)
     if args.command == "reppo-resolve":
         return cmd_reppo_resolve(args)
+    if args.command == "keygen":
+        return cmd_keygen(args)
+    if args.command == "sign":
+        return cmd_sign(args)
+    if args.command == "verify-signature":
+        return cmd_verify_signature(args)
     if args.command == "crawl-diff":
         return cmd_crawl_diff(args)
     if args.command == "as-of":

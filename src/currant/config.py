@@ -21,7 +21,14 @@ SERV_KEY_NAME = "SERV_API_KEY"
 REPPO_KEY_NAME = "REPPO_API_KEY"
 WALLET_KEY_NAME = "WALLET_PRIVATE_KEY"
 PROXY_TOKEN_NAME = "CURRANT_PROXY_TOKEN"  # optional: the proxy's own access token
-SECRET_NAMES = (SERV_KEY_NAME, REPPO_KEY_NAME, WALLET_KEY_NAME, PROXY_TOKEN_NAME)
+SIGNING_KEY_NAME = "CURRANT_SIGNING_KEY"  # optional: Ed25519 seed (hex) for signing receipts
+SECRET_NAMES = (
+    SERV_KEY_NAME,
+    REPPO_KEY_NAME,
+    WALLET_KEY_NAME,
+    PROXY_TOKEN_NAME,
+    SIGNING_KEY_NAME,
+)
 # Other names a person may already have used. The canonical name always wins.
 ALIASES: dict[str, tuple[str, ...]] = {SERV_KEY_NAME: ("OPENSERV_API_KEY",)}
 
@@ -159,3 +166,11 @@ def proxy_token(
     only listen on loopback). It is separate from the SERV key, which callers send through."""
     value, _source, _found_as = _lookup(PROXY_TOKEN_NAME, env, dotenv_path)
     return Secret(PROXY_TOKEN_NAME, value) if value else None
+
+
+def signing_key(
+    *, env: Mapping[str, str] | None = None, dotenv_path: Path | None = DEFAULT_DOTENV
+) -> Secret | None:
+    """The Ed25519 seed for signing receipts, or None when it is not set."""
+    value, _source, _found_as = _lookup(SIGNING_KEY_NAME, env, dotenv_path)
+    return Secret(SIGNING_KEY_NAME, value) if value else None

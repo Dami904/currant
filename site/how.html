@@ -163,7 +163,7 @@ uv run currant drift-report --db data/mine.db \
     <dl class="fields" id="anatomy-fields"></dl>
     <h3 class="acts-title">Actions: each one cites verbatim quotes, with where they sit in the stored page</h3>
     <ol class="acts" id="anatomy-actions"></ol>
-    <p class="fine">The receipt is not signed. Replaying it proves the context matches what was recorded; it does not prove who recorded it.</p>
+    <p class="fine">Replaying a receipt proves the context matches what was recorded. Who recorded it is a separate, optional check: <code>currant sign</code> adds an Ed25519 signature, and <code>currant verify-signature</code> checks it against a public key you trust.</p>
   </div>
 </section>
 
@@ -202,7 +202,7 @@ uv run currant drift-report --db data/mine.db \
     </div>
     <ul class="gaps">
       <li><b>Retrieval is not wired in.</b> Page retrieval is built and tested, but <code>currant ground</code> still takes the pages you name.</li>
-      <li><b>Receipts are unsigned.</b> They prove the context, not who produced it.</li>
+      <li><b>Signing is optional and has no key directory.</b> Receipts can be signed, but there is no revocation, no expiry, and no published registry of keys.</li>
       <li><b>One model for the held-out result.</b> Every measured effect on answers is with <code>gpt-6-luna</code>, on synthetic items. A second detector (<code>claude-haiku-4.5</code>) was tried on dev items only, and it made 2 wrong cuts that the verbatim checks cannot catch.</li>
       <li><b>A contested answer named neither value.</b> That cost us points in the Reppo audit. Fixed afterwards in <code>answer-v2</code>, which lists each value the notice quotes; it has not been re-audited yet.</li>
       <li><b>Crawl-to-crawl diffs are small.</b> <code>currant crawl-diff</code> and <code>currant as-of</code> work across three snapshots but found one verified change so far, and they do not feed <code>ground</code> yet.</li>

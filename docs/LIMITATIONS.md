@@ -208,7 +208,7 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
 - A CONTESTED notice is not raised for a sentence a verified supersession already put in order,
   even if another claim of that sentence was contested (dev showed three claims in one sentence
   turning a resolved update into an abstention).
-- Receipts are unsigned and tamper-evident only against someone without the store (THREAT_MODEL).
+- Receipts are tamper-evident only against someone without the store (THREAT_MODEL). Signing (`currant sign`, 2026-11-15) is optional: it adds who vouched for a receipt, checked against a public key the verifier supplies, with no revocation or expiry.
 - Replay needs the SQLite store; a receipt alone cannot be replayed.
 - The context format (delimiters, marker text) is fixed by the code and untested against any
   model's behaviour.

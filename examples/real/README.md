@@ -16,6 +16,7 @@ CI runs that command on every push.
 - `receipt.json`: the receipt for "How many credits does a text-only Reppo evaluation cost?" over
   `docs.reppo.ai/api/eval/evaluations.md` and `eval.reppo.xyz/agents.md`, in `redact_pull` mode.
 - `context.txt`: the exact text a model would be shown.
+- `receipt.sig.json`: an Ed25519 signature over the receipt, by the key in `signing-public-key.txt`. CI checks it with `currant verify-signature examples/real/receipt.json --public-key <that key>`. The private key is not in the repository.
 
 What the context shows: one page says 100 credits and the other says 440, and neither says which
 is current, so Currant cuts nothing and marks the conflict CONTESTED with both quotes. (The live

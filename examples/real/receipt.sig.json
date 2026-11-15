@@ -1,0 +1,7 @@
+{
+  "alg": "ed25519",
+  "public_key": "177db5fae6753b10c138cf82bb120d63ab3beba5c8d627d8a7cdeb07ed26f0ac",
+  "receipt_id": "348c8eecb44e9eac6126f98b8bd6441c7159deea759250d3d7a0cba300d1802e",
+  "signature": "813ad590bd00ac8e435d70bc79d54e20c34ab662aa68047f5292acead0fca3684f760c0d973f66a83bd970469559e9c56dceff6a4f946362868712e594ec3505",
+  "signed_at": "2026-11-15T10:57:51Z"
+}

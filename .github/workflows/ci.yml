@@ -68,6 +68,7 @@ jobs:
       # The committed demo needs no key and no network: a stranger can do exactly this.
       - run: uv run currant replay examples/demo/receipt.json --db examples/demo/store.db
       - run: uv run currant replay examples/real/receipt.json --db examples/real/store.db
+      - run: uv run currant verify-signature examples/real/receipt.json --public-key "$(cat examples/real/signing-public-key.txt)"
 
   build:
     runs-on: ubuntu-latest

@@ -34,6 +34,7 @@ string is committed. `.claude/settings.json` denies Claude's Read tool on `.env`
 | `REPPO_API_KEY` | Attacker submits public evaluations on our account and burns free credits. |
 | `WALLET_PRIVATE_KEY` | Attacker drains the Base wallet. Keep it to the ~$30 budget; use no other funds. |
 | `CURRANT_PROXY_TOKEN` (optional) | Attacker can read every proxy receipt (which holds questions and page text) and send chat calls through the proxy, but only with a SERV key of their own: the proxy holds none. The token cannot change the store, the runs or the rate limit. |
+| `CURRANT_SIGNING_KEY` (optional; the project key is in `data/signing-key.hex`, git-ignored) | Attacker can sign receipts that verify under our public key. They still cannot make a forged receipt *replay*: `replay` re-derives the context from the store. There is no revocation, so a leaked key stays valid until verifiers stop trusting it. It grants nothing else. |
 
 ## Defended (and tested)
 

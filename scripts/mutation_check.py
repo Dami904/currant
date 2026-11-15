@@ -151,6 +151,27 @@ MUTANTS = (
         ("tests/test_proxy_gate.py",),
     ),
     Mutant(
+        "signing: the verifier's trusted key, not the sidecar's, decides",
+        "src/currant/signing.py",
+        'if str(sidecar.get("public_key", "")).lower() != trusted_public_key_hex.strip().lower():',
+        "if False:",
+        ("tests/test_signing.py",),
+    ),
+    Mutant(
+        "signing: the signature must verify",
+        "src/currant/signing.py",
+        "trusted.verify(bytes.fromhex(signature), message(rid, signed_at))",
+        "pass",
+        ("tests/test_signing.py",),
+    ),
+    Mutant(
+        "signing: a receipt whose id does not match its body is never signed",
+        "src/currant/signing.py",
+        'raise SigningError("the receipt id does not match its body; refusing to sign it")',
+        "pass",
+        ("tests/test_signing.py",),
+    ),
+    Mutant(
         "guardrails: pipeline code may not import the evaluation store",
         "src/currant/guardrails.py",
         "if relative.startswith(LABEL_ISOLATED) and EVALSET_IMPORT.search(text):",
