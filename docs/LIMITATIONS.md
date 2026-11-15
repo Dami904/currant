@@ -62,7 +62,7 @@ person's labels stay independent. Until those labels exist, there is no measured
 Currant does on a documentation site it was not built against.
 
 Detection was then run once (`relate-v1`, `gpt-6-luna`, 229 pairs, 228 model calls, one pair
-failed and one was blocked by the prompt guard; raw log `results/relate/kite-20261115T105450Z-extract1.raw.jsonl`).
+failed and one was blocked by the prompt guard; raw log kept locally, as `results/relate/` is git-ignored).
 It verified 33 contradictions and 0 supersessions. Read by eye (not labelled), **32 of the 33 are
 changelog entries**: each dated release page names that release's versions, which is history,
 not a conflict. The pages are dated only in their URLs (`changelog/2026/2026-11-13-release.md`),
