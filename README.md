@@ -9,7 +9,7 @@
 When the documentation disagrees with itself, Currant checks which claim won.
 
 [![CI](https://github.com/Dami904/currant/actions/workflows/ci.yml/badge.svg)](https://github.com/Dami904/currant/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-%20passing-22C55E?style=flat)](#tested-not-claimed)
+[![Tests](https://img.shields.io/badge/tests-1117%20passing-22C55E?style=flat)](#tested-not-claimed)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live](https://img.shields.io/badge/live-currant--firewall.vercel.app-000000?style=flat)](https://currant-firewall.vercel.app)
 [![Python](https://img.shields.io/badge/python-3.12-1f1f23?style=flat)](pyproject.toml)
@@ -343,7 +343,7 @@ END;
 
 ## Tested, not claimed
 
-** tests pass, all offline.** A `conftest.py` makes any socket call fail, so no test can reach
+**1117 tests pass, all offline.** A `conftest.py` makes any socket call fail, so no test can reach
 the network; every external API is exercised through `httpx` mock transports and scripted replies.
 Every guard ships with a test that fails when the guard is removed.
 
@@ -490,7 +490,7 @@ compromised key allows is in [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 - **Storage:** SQLite, with triggers that enforce the claim-store invariants; FTS5 for retrieval
 - **Model:** SERV Reasoning by OpenServ (`gpt-6-luna`) with `serv_prompt_guard`
 - **Verdicts:** Reppo Evaluation API
-- **Checks:** `ruff` · `mypy --strict` · `pytest` ( tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
+- **Checks:** `ruff` · `mypy --strict` · `pytest` (1117 tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
 - **Site:** Vite · TypeScript · pnpm; no runtime dependencies, no external requests; hosted on Vercel
 
 ---
