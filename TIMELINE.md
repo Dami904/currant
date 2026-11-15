@@ -15,5 +15,6 @@ carry the timestamp, so it can be checked without trusting this page.
 | 2026-11-14 | This repository's history begins. | `git log` |
 | 2026-11-15 | Third crawl. Crawl-diff supersession and as-of view (one verified change). Exact candidate blocking. A second detector model on dev, which exposed a missing guard (`detect-v3`). A third documentation site crawled and extracted. A receipt from real docs replayed in CI. A receipt check page. | `snapshots/2026-11-15/`, `results/crawldiff/`, `results/scale/pairing.json`, `results/items/dev-v4*.jsonl`, `results/extract/kite-*`, `examples/real/` |
 
-What is not on this timeline: the Reppo audit runs are dated inside `results/audit/`, and the
-labels for real items and for the third site have not been written yet.
+The 202 frozen labels were published on 2026-11-15 (`results/labels/`); their commit root equals the
+one posted in issue #1 before the freeze. What is not on this timeline: the Reppo audit runs are
+dated inside `results/audit/`, and the labels for the third site have not been written yet.

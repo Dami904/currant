@@ -380,7 +380,9 @@ Every guard ships with a test that fails when the guard is removed.
 Dev numbers are optimistic: each detector rule was written after reading a dev failure. The test
 labels stayed sealed until a public freeze on 2026-11-11 (commit root and code fingerprint in
 [issue #1](https://github.com/Dami904/currant/issues/1)), and the held-out result is a miss against
-dev, reported as one.
+dev, reported as one. All 202 labels are now published with their salts in
+[`results/labels/`](results/labels/), and `tests/test_published_labels.py` recomputes every
+commit and the root posted in issue #1, so a label changed after the freeze fails CI.
 
 ---
 
