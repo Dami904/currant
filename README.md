@@ -158,7 +158,7 @@ Both do real work, and each row points at the code and at evidence you can open.
 | Tool                                  | What Currant uses it for                                                                                                                                                                                                    | Code                                                                                                         | Evidence                                                                                |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
 | **SERV Reasoning, by OpenServ**       | Every model call: proposing claims, proposing which claim replaced which, and answering, with one model, `gpt-6-luna`. Crawled text reaches it only behind `serv_prompt_guard`; the guard can fail open, so the checks that matter run in our code. | [`serv.py`](src/currant/serv.py) · [`extract.py`](src/currant/extract.py) · [`detect.py`](src/currant/detect.py) | 132 pages read, 1,011 claims stored of 1,160 proposed ([`results/`](results/))           |
-| **Reppo Evaluation API**              | Independent verdicts: Reppo's judges scored our answers against a baseline with no firewall, 21 public evaluations on 2026-11-12 (9,240 credits). A submission goes out only from a file a person reviewed, matched by its SHA-256. | [`reppo.py`](src/currant/reppo.py) · [`reppo_audit.py`](src/currant/reppo_audit.py)                           | the verdicts, raw ([`results/audit/`](results/audit/))                                   |
+| **Reppo Evaluation API**              | Independent verdicts: Reppo's judges scored our answers against a baseline with no firewall, 21 public evaluations on 2026-11-12 (9,240 credits), and a re-audit of the fixed contested answer on 2026-11-15 (8 more, 3,520 credits). A submission goes out only from a file a person reviewed, matched by its SHA-256. | [`reppo.py`](src/currant/reppo.py) · [`reppo_audit.py`](src/currant/reppo_audit.py)                           | the verdicts, raw ([`results/audit/`](results/audit/))                                   |
 
 ---
 
@@ -455,12 +455,20 @@ cannot know.
   controls), plus 3 real-documentation items from Reppo's docs, labelled by a separate AI session
   that saw only the quoted text and checked by a person. Those 3 are dev items.
 - **Everything else is a live run.** The crawl (132 pages, 0 errors), the extraction (1,011 claims
-  stored of 1,160 proposed), the relation runs, the held-out scoring and the Reppo audit (21
-  evaluations, 9,240 credits) ran against the real services. Raw outputs are in `results/` with keys
+  stored of 1,160 proposed), the relation runs, the held-out scoring and the Reppo audits (21
+  evaluations, 9,240 credits, then an 8-evaluation re-audit, 3,520 credits) ran against the real
+  services. Raw outputs are in `results/` with keys
   scrubbed; the raw logs of the relation step stay local (`results/relate/` is git-ignored).
-- **A second vendor's public docs** ran with no code change: 59 pages, 463 claims verified of 611
-  proposed, and no real documentation error found. That shows it runs elsewhere, not that it works
-  there.
+- **A slice of Stripe's public docs** (2026-11-12) ran with no code change: 59 pages, 463 claims
+  verified of 611 proposed, and no real documentation error found. That shows it runs elsewhere,
+  not that it works there.
+- **The Kite docs** (`docs.gokite.ai`, 2026-11-15) also ran with no code change: 76 pages, 484
+  claims verified of 526 proposed. Detection there **failed, safely**: 33 contradictions, 32 of them
+  dated changelog pages naming each release's versions (history, not conflict) and one a testnet
+  against a mainnet chain ID. Nothing was cut, but an agent would see false CONTESTED notices. The
+  49 candidate pairs were labelled by two separate model sessions, not a person; both found no real
+  conflict, so Kite gave no evaluation items. Not tuned away; details in
+  [LIMITATIONS](docs/LIMITATIONS.md#a-third-documentation-site-2026-11-15).
 
 ---
 

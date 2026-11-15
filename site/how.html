@@ -184,7 +184,7 @@ uv run currant drift-report --db data/mine.db \
       <article class="sponsor">
         <p class="stack-label">Judging</p>
         <h3>Reppo, for independent verdicts</h3>
-        <p>Reppo&rsquo;s judges scored our answers against a baseline with no firewall: 21 public evaluations on 2026-11-12, 9,240 credits. Submissions go out only from a file a person reviewed, matched by its SHA-256. Currant also found three conflicts in Reppo&rsquo;s own docs and proposed a fix.</p>
+        <p>Reppo&rsquo;s judges scored our answers against a baseline with no firewall: 21 public evaluations on 2026-11-12, 9,240 credits, and an 8-evaluation re-audit on 2026-11-15. Submissions go out only from a file a person reviewed, matched by its SHA-256. Currant also found three conflicts in Reppo&rsquo;s own docs and proposed a fix.</p>
         <p><a class="inline" href="./#results">See the scores, including where we lost</a></p>
       </article>
     </div>
@@ -241,7 +241,8 @@ uv run currant drift-report --db data/mine.db \
       </details>
       <details>
         <summary>Does it work on documentation other than Reppo&rsquo;s?</summary>
-        <p>It ran with no code change on a second vendor&rsquo;s public docs and verified 463 of 611 proposed claims. It found nothing worth reporting there, so that shows it runs elsewhere, not that it works there.</p>
+        <p>It ran with no code change on a slice of Stripe&rsquo;s public docs and verified 463 of 611 proposed claims. It found nothing to report there, so that shows it runs elsewhere, not that it works there.</p>
+        <p>It also ran unchanged on the Kite docs (76 pages, 484 of 526 claims verified), and detection failed there, safely: 32 of 33 contradictions were dated changelog pages naming each release&rsquo;s versions, and one was testnet against mainnet. Nothing was cut, but an agent would see false &ldquo;contested&rdquo; notices. It was left untuned so a later measurement stays honest.</p>
       </details>
       <details>
         <summary>Can a crawled page tell the model what to do?</summary>

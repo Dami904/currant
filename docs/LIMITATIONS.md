@@ -509,10 +509,10 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
 - **Dead links are data, not errors.** A discovered link that returns 404 counts as a complete
   crawl. Only a missing page we configured explicitly is a problem.
 
-## A second vendor's documentation (public trial, 2026-11-12)
+## A second vendor's documentation: Stripe (public trial, 2026-11-12)
 
-An unlabelled trial of the pipeline, unchanged, on a hand-picked slice of public docs that are not
-Reppo's or OpenServ's. It tests that the pipeline runs elsewhere, not how accurate it is: there are
+An unlabelled trial of the pipeline, unchanged, on a hand-picked slice of Stripe's public docs
+(named from 2026-11-15; it found no documentation error, so there was nothing to tell them first). It tests that the pipeline runs elsewhere, not how accurate it is: there are
 no labels, so there is no precision or recall. The pages and model replies stay in git-ignored
 folders (`data/external*`, `results/external/`, and a trial config that is not committed), because
 redistribution of their text is unchecked; only counts are recorded here.

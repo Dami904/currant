@@ -15,7 +15,7 @@ All calls are read-only `GET`s, so retrying is safe and no idempotency key is ne
 | Does `llms.txt` list every page? | **Unknown.** Both indexes were fetched, but nothing checks for pages they omit. `eval.reppo.xyz/agents.md` is in neither index and was fetched only because we seed it. |
 | What do 429 / 5xx look like, and is `Retry-After` sent? | **Not observed.** The crawl saw no 4xx or 5xx and needed no retry, so retry behaviour is still tested only against the mock. |
 | Does `https://docs.reppo.ai/concepts/evaluation-api.md` exist? | **Yes** (5,246 bytes, and listed in the Reppo index). The `.md` guess was right. |
-| Is `https://docs.gokite.ai/llms.txt` real? | **Unknown.** Kite is disabled in `corpora.toml` and was not requested. |
+| Is `https://docs.gokite.ai/llms.txt` real? | **Yes** (probed 2026-11-15: 200, 73 `.md` pages listed). Crawled once with `--corpus kite`: 76 pages fetched, the root page refused as HTML, one listed URL returned 404. Kite stays `enabled = false` in `corpora.toml`, so a default crawl skips it. See `docs/LIMITATIONS.md`, "A third documentation site". |
 
 Client behaviour (tested against a mock, not the live hosts): 200 = fetched; 404/410 =
 `not_found`; other 4xx = `failed`; 429 and 5xx retried then `unknown`; timeouts and corrupt
@@ -32,7 +32,8 @@ First live crawl, 2026-11-05 (`snapshots/2026-11-05/`, run `47765f4d2f75`):
 - Pages carry no dev/test label. An earlier page-level split (57% dev) was removed on 2026-11-06
   because it separated the halves of the flagship pair; the split now lives on evaluation items.
 - `corpus_hash`: `df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c`.
-- The plan estimated about 200 pages including Kite. Without Kite it is 132.
+- The plan estimated about 200 pages including Kite. Without Kite it is 132; Kite alone was 76
+  pages when crawled separately on 2026-11-15.
 
 Documentation conflicts seen in the crawled text are kept in `docs/private/DRIFT_NOTES.md`,
 which is git-ignored: they stay private until a second source confirms them and the

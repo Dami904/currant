@@ -276,7 +276,8 @@
         <ul>
           <li>It does not show a lift on real documentation. The lift is measured only on synthetic items, with one model.</li>
           <li>It does not show recall on real docs: the detector missed one of three conflicts, and we have no labels.</li>
-          <li>On a second vendor&rsquo;s public docs (59 pages, 463 claims verified of 611 proposed) it ran with no code change and found nothing to report. That shows it runs elsewhere, not that it works there.</li>
+          <li>On a slice of Stripe&rsquo;s public docs (59 pages, 463 claims verified of 611 proposed) it ran with no code change and found nothing to report. That shows it runs elsewhere, not that it works there.</li>
+          <li>On the Kite docs (76 pages, 484 claims verified of 526 proposed) it also ran unchanged, and detection failed safely: 32 of its 33 contradictions were dated changelog pages naming each release&rsquo;s versions, and the last was testnet against mainnet. Nothing was cut, but an agent would see false &ldquo;contested&rdquo; notices. Left untuned.</li>
         </ul>
       </div>
     </div>

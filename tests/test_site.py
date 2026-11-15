@@ -174,12 +174,14 @@ def test_every_figure_on_the_how_page_is_also_written_in_the_repository_docs() -
         assert number in docs, f"{number!r} is on the how page but not in README or LIMITATIONS"
 
 
-def test_the_pages_do_not_name_the_second_vendor_trialled() -> None:
-    # A trial on another vendor's docs stays unnamed until that vendor has been told (CLAUDE.md).
-    # The name is split so that a search of the repository for it finds nothing.
-    vendor = "stri" + "pe"
+def test_the_pages_name_the_other_sites_with_their_outcome() -> None:
+    # The Stripe trial found no documentation error, so there is nothing to disclose first and the
+    # user lifted the anonymity on 2026-11-15. Naming a vendor is only allowed next to the plain
+    # outcome, so the name never reads as an accusation; Kite's safe failure must stay visible.
     for path in (PAGE, HOW):
-        assert vendor not in path.read_text(encoding="utf-8").lower(), path.name
+        page = path.read_text(encoding="utf-8").lower()
+        assert "stripe" in page and "found nothing to report" in page, path.name
+        assert "kite" in page and "changelog" in page, path.name
 
 
 def test_both_pages_state_what_is_not_built() -> None:
