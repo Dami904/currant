@@ -67,6 +67,13 @@ MUTANTS = (
         ("tests/test_detect.py",),
     ),
     Mutant(
+        "detect: two claims with the same number are never related",
+        "src/currant/detect.py",
+        "and math.isclose(a.value_number, b.value_number)",
+        "and False",
+        ("tests/test_detect.py",),
+    ),
+    Mutant(
         "detect: candidate blocking keeps every pair that could reach the threshold",
         "src/currant/detect.py",
         "prefix = len(ordered) - math.floor(min_score * len(ordered)) + 1",

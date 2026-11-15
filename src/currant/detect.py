@@ -37,7 +37,7 @@ from currant.store_schema import NUMERIC_VALUE_TYPES
 PROMPT_VERSION = "relate-v1"
 # The code that turns a model answer into a relation. Bumped when a rule changes, so a relate run
 # records which rules made it (v2: line-context pairing, unit-compatible types, one value each).
-DETECTOR_VERSION = "detect-v2"
+DETECTOR_VERSION = "detect-v3"  # v3: two claims with the same number are never related
 SCHEMA_NAME = "claim_relation"
 MAX_PAGE_CHARS = 9000
 COMPETING_STANCES = ("current", "historical")
@@ -405,6 +405,16 @@ def decide(answer: dict[str, Any], a: ClaimRow, b: ClaimRow, text_a: str, text_b
         # same kind of value (a duration for a duration), else any changed sentence on a newer
         # page would retire any older claim that happens to sit nearby.
         return _different_kinds(a, b)
+    if (
+        a.value_number is not None
+        and b.value_number is not None
+        and math.isclose(a.value_number, b.value_number)
+    ):
+        # Two wordings of one number ("1 at a time", "only one"): nothing changed, so there is
+        # nothing to retire and nothing to contest, whatever the model says.
+        return Decision(
+            "unrelated", None, "none", (), "both claims state the same value", downgraded=True
+        )
     if relation == "contradicts":
         return Decision("contradicts", None, "none", (), "conflict with no established order")
 

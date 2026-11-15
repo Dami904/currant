@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Callable
+from dataclasses import replace
 from typing import Any
 
 import pytest
@@ -168,6 +169,18 @@ def test_an_explicit_replacement_makes_the_page_with_the_quote_the_newer_one() -
     # Swap which claim is A and which is B: the direction follows the evidence, not the order.
     swapped = decide(explicit_answer(), ctx.new, ctx.old, ctx.new_text, ctx.old_text)
     assert (swapped.kind, swapped.newer) == ("supersedes", "a")
+
+
+def test_two_claims_with_the_same_number_are_never_a_supersession_or_a_conflict() -> None:
+    # Seen on dev with a second detector model: "1 at a time" was "superseded" by "Only one
+    # evaluation may be in flight", which states the same value. Nothing changed, so nothing
+    # may be cut and there is nothing to contest.
+    ctx = Ctx(TEXT_OLD, TEXT_EXPLICIT)
+    same = replace(ctx.new, value_number=ctx.old.value_number)
+    for answer in (explicit_answer(), {"relation": "contradicts"}):
+        decision = decide(answer, ctx.old, same, ctx.old_text, ctx.new_text)
+        assert (decision.kind, decision.downgraded) == ("unrelated", True)
+        assert "same value" in decision.reason
 
 
 def test_the_model_cannot_choose_the_direction() -> None:
