@@ -130,6 +130,27 @@ MUTANTS = (
         ("tests/test_answer.py", "tests/test_fuzz.py"),
     ),
     Mutant(
+        "proxy: with a token set, data routes deny a request without it",
+        "src/currant/proxy_http.py",
+        "if needs_token and not _token_matches(given_token, token):",
+        "if False:",
+        ("tests/test_proxy_gate.py",),
+    ),
+    Mutant(
+        "proxy: chat calls are rate-limited per client",
+        "src/currant/proxy_http.py",
+        "if len(log) >= self.per_minute:",
+        "if False:",
+        ("tests/test_proxy_gate.py",),
+    ),
+    Mutant(
+        "proxy: a non-loopback server needs a token",
+        "src/currant/proxy_http.py",
+        "if not loopback and token is None:",
+        "if False:",
+        ("tests/test_proxy_gate.py",),
+    ),
+    Mutant(
         "guardrails: pipeline code may not import the evaluation store",
         "src/currant/guardrails.py",
         "if relative.startswith(LABEL_ISOLATED) and EVALSET_IMPORT.search(text):",

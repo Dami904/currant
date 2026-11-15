@@ -18,6 +18,7 @@ from currant.cli._common import (
 from currant.config import (
     DotenvError,
     MissingSecret,
+    proxy_token,
     serv_api_key,
 )
 from currant.crawldiff import changed_pages
@@ -28,7 +29,7 @@ from currant.extract import run_extraction
 from currant.ground import Retrieved, ground
 from currant.obs import utc_now
 from currant.proxy import GroundingProxy
-from currant.proxy_http import make_server
+from currant.proxy_http import TOKEN_HEADER, RateLimiter, make_server
 from currant.receipt import build_receipt, replay
 from currant.retrieve import PageIndex
 from currant.serv import ServClient
@@ -254,10 +255,17 @@ def cmd_replay(args: argparse.Namespace) -> int:
 
 
 def cmd_serve(args: argparse.Namespace) -> int:
-    if args.host not in ("127.0.0.1", "localhost", "::1") and not args.allow_remote:
+    try:
+        token = proxy_token(dotenv_path=args.dotenv)
+    except DotenvError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    remote = args.host not in ("127.0.0.1", "localhost", "::1")
+    if remote and (not args.allow_remote or token is None):
         print(
-            "error: the proxy has no login of its own (anyone who can reach it can read receipts, "
-            "which contain questions); pass --allow-remote to listen on a non-loopback host",
+            "error: on a non-loopback host anyone who can reach the proxy could read "
+            "receipts, which contain questions. Set CURRANT_PROXY_TOKEN (callers then send it "
+            f"in {TOKEN_HEADER}) and pass --allow-remote.",
             file=sys.stderr,
         )
         return 2
@@ -276,8 +284,16 @@ def cmd_serve(args: argparse.Namespace) -> int:
                 top_k=args.top_k,
                 upstream=args.upstream,
             )
-            server = make_server(proxy, args.host, args.port)
+            server = make_server(
+                proxy,
+                args.host,
+                args.port,
+                token=token.reveal() if token is not None else None,
+                limiter=RateLimiter(args.rate_limit),
+            )
             print(f"grounding proxy on http://{args.host}:{args.port}/v1  (mode {args.mode})")
+            gate = f"token required ({TOKEN_HEADER})" if token is not None else "no token, loopback"
+            print(f"access:       {gate}; at most {args.rate_limit} chat calls a minute per client")
             print(
                 f"receipt viewer on http://{args.host}:{args.port}/   receipts in {args.receipts}"
             )

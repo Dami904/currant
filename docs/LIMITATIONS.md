@@ -280,15 +280,22 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
   Only the last user message is the question; earlier turns are forwarded untouched.
 - **Single-threaded.** One request at a time, because the claim store is not shared across threads.
   Fine for a demo, not for load.
-- **No login of its own.** It listens on loopback unless `--allow-remote` is given, and then anyone
-  who can reach it can list receipts (which contain questions). It holds no key, so it is not an
-  open relay to your account: each caller supplies their own.
+- **One shared token, not accounts.** With `CURRANT_PROXY_TOKEN` set, every route that holds data
+  needs that token in `X-Currant-Token` (2026-11-15). A non-loopback host refuses to start without
+  it. There is one token for everyone: no users, no per-user receipts, no rotation without a
+  restart. The receipt viewer page cannot send the header, so with a token it shows nothing; use
+  the JSON routes. The proxy holds no SERV key, so it is not an open relay to your account: each
+  caller supplies their own.
+- **The rate limit is per address and in memory.** At most `--rate-limit` chat calls a minute per
+  client address (default 30), reset on restart. Behind a reverse proxy every caller shares one
+  address.
 - **Receipts hold questions.** They are written under `data/proxy-receipts/` (git-ignored); keep
   them private. The directory is never pruned; the viewer lists the newest 200.
 - **A timeout is recorded, not resolved.** After a 504 the receipt's `<id>.upstream.json` says
   `unknown`; nothing reconciles it later, and the proxy never retries.
 - **Loopback only by default, and it checks the Host header** so a web page cannot reach it through
-  a DNS name it controls. With `--allow-remote` that check is off and there is still no login.
+  a DNS name it controls. With `--allow-remote` that check is off, and the token is what keeps
+  others out.
 - **The drift report and its privacy guard are relative to the working directory.** Run
   `currant drift-report` from the repository root, or `docs/private/` is a different folder that may
   not be git-ignored. Quotes from crawled pages go into the markdown unescaped (the file is private).

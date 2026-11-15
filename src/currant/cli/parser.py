@@ -216,7 +216,19 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument("--top-k", type=positive_int, default=4)
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8787)
-    serve.add_argument("--allow-remote", action="store_true", help="listen on a non-loopback host")
+    serve.add_argument(
+        "--allow-remote",
+        action="store_true",
+        help="listen on a non-loopback host (also needs CURRANT_PROXY_TOKEN)",
+    )
+    serve.add_argument(
+        "--rate-limit",
+        type=positive_int,
+        default=30,
+        metavar="N",
+        help="at most N chat calls a minute per client address (default 30)",
+    )
+    serve.add_argument("--dotenv", type=Path, default=DEFAULT_DOTENV)
     serve.add_argument("--receipts", type=Path, default=DEFAULT_PROXY_RECEIPTS)
     serve.add_argument("--upstream", default=SERV_BASE)
 

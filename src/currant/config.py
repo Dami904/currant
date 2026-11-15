@@ -20,7 +20,8 @@ from pathlib import Path
 SERV_KEY_NAME = "SERV_API_KEY"
 REPPO_KEY_NAME = "REPPO_API_KEY"
 WALLET_KEY_NAME = "WALLET_PRIVATE_KEY"
-SECRET_NAMES = (SERV_KEY_NAME, REPPO_KEY_NAME, WALLET_KEY_NAME)
+PROXY_TOKEN_NAME = "CURRANT_PROXY_TOKEN"  # optional: the proxy's own access token
+SECRET_NAMES = (SERV_KEY_NAME, REPPO_KEY_NAME, WALLET_KEY_NAME, PROXY_TOKEN_NAME)
 # Other names a person may already have used. The canonical name always wins.
 ALIASES: dict[str, tuple[str, ...]] = {SERV_KEY_NAME: ("OPENSERV_API_KEY",)}
 
@@ -149,3 +150,12 @@ def serv_api_key(dotenv_path: Path | None = DEFAULT_DOTENV) -> Secret:
 
 def reppo_api_key(dotenv_path: Path | None = DEFAULT_DOTENV) -> Secret:
     return load_secret(REPPO_KEY_NAME, dotenv_path=dotenv_path)
+
+
+def proxy_token(
+    *, env: Mapping[str, str] | None = None, dotenv_path: Path | None = DEFAULT_DOTENV
+) -> Secret | None:
+    """The grounding proxy's own access token, or None when it is not set (then the proxy may
+    only listen on loopback). It is separate from the SERV key, which callers send through."""
+    value, _source, _found_as = _lookup(PROXY_TOKEN_NAME, env, dotenv_path)
+    return Secret(PROXY_TOKEN_NAME, value) if value else None

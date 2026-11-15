@@ -33,6 +33,7 @@ string is committed. `.claude/settings.json` denies Claude's Read tool on `.env`
 | `SERV_API_KEY` | Attacker spends SERV credits (capped by the $5 to $15 balance). |
 | `REPPO_API_KEY` | Attacker submits public evaluations on our account and burns free credits. |
 | `WALLET_PRIVATE_KEY` | Attacker drains the Base wallet. Keep it to the ~$30 budget; use no other funds. |
+| `CURRANT_PROXY_TOKEN` (optional) | Attacker can read every proxy receipt (which holds questions and page text) and send chat calls through the proxy, but only with a SERV key of their own: the proxy holds none. The token cannot change the store, the runs or the rate limit. |
 
 ## Defended (and tested)
 
@@ -79,6 +80,12 @@ string is committed. `.claude/settings.json` denies Claude's Read tool on `.env`
   `Authorization` header only to the configured upstream (which must be https, or loopback for
   tests), does not log requests, and fails closed. Receipt pages render untrusted crawled text with
   `textContent` only, under a CSP that forbids inline script and any outside request.
+- **Strangers reading receipts on a shared host (2026-11-15):** with `CURRANT_PROXY_TOKEN` set,
+  every route that holds data denies a request without the exact token (constant-time compare,
+  `X-Currant-Token`). Only the viewer's static files and `/healthz` stay open. A non-loopback
+  host refuses to start without a token. Chat calls are capped per client address
+  (`--rate-limit`, default 30 a minute), and a request with a wrong token does not use up the
+  budget. Each guard has a test and a mutant in `scripts/mutation_check.py`.
 
 ## Not defended, be explicit
 
