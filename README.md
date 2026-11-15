@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 <img src="docs/brand/currant-mark.svg" alt="Currant logo: four rounded tiles in amber, verdigris, coral and spruce" width="72" />
 
@@ -15,7 +15,7 @@ When the documentation disagrees with itself, Currant checks which claim won.
 [![Python](https://img.shields.io/badge/python-3.12-1f1f23?style=flat)](pyproject.toml)
 [![Model](https://img.shields.io/badge/model-SERV%20Reasoning-0e5a52?style=flat)](https://www.openserv.ai)
 
-**[Live site](https://currant-firewall.vercel.app)** Â· **[Demo in your browser](https://currant-firewall.vercel.app/#demo)** Â· **[How it works](https://currant-firewall.vercel.app/how.html)** Â· **[Judge it in 90 seconds](#judge-it-in-90-seconds)** Â· **[Found on real docs](#found-on-real-documentation)** Â· **[Where it lost](#where-it-lost)**
+**[Live site](https://currant-firewall.vercel.app)** · **[Demo in your browser](https://currant-firewall.vercel.app/#demo)** · **[How it works](https://currant-firewall.vercel.app/how.html)** · **[Judge it in 90 seconds](#judge-it-in-90-seconds)** · **[Found on real docs](#found-on-real-documentation)** · **[Where it lost](#where-it-lost)**
 
 Built from scratch for the OpenServ + Reppo hackathon.
 
@@ -147,7 +147,7 @@ Three more, found later and published on 2026-11-15 (all still in that day's cra
 
 | Fact                                  | Stale side                                                                 | Current side, and what confirms it                                                     | Found by          |
 | ------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------- |
-| Which Reppo API exists                | `docs.reppo.ai` documents `POST â€¦/agents/eval-requests/submit`             | `agents.md` lists it under "Removed endpoints"; the live server returns 404 for it     | Live probe        |
+| Which Reppo API exists                | `docs.reppo.ai` documents `POST …/agents/eval-requests/submit`             | `agents.md` lists it under "Removed endpoints"; the live server returns 404 for it     | Live probe        |
 | SERV DeepSeek V4 models               | The SERV introduction and SDK migration pages still list `deepseek-v4-pro, deepseek-v4-flash` | The changelog removed them; the live `/v1/models` list has no DeepSeek (2026-11-15) | Hand              |
 | OpenServ SDK default `PORT`           | "`PORT` is optional (defaults to 7380)."                                   | "\| `PORT` \| Server port \| No \| 7378 \|" (which is right is not measured)            | Currant           |
 
@@ -166,8 +166,8 @@ Both do real work, and each row points at the code and at evidence you can open.
 
 | Tool                                  | What Currant uses it for                                                                                                                                                                                                    | Code                                                                                                         | Evidence                                                                                |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| **SERV Reasoning, by OpenServ**       | Every model call: proposing claims, proposing which claim replaced which, and answering, with one model, `gpt-6-luna`. Crawled text reaches it only behind `serv_prompt_guard`; the guard can fail open, so the checks that matter run in our code. | [`serv.py`](src/currant/serv.py) Â· [`extract.py`](src/currant/extract.py) Â· [`detect.py`](src/currant/detect.py) | 132 pages read, 1,011 claims stored of 1,160 proposed ([`results/`](results/))           |
-| **Reppo Evaluation API**              | Independent verdicts: Reppo's judges scored our answers against a baseline with no firewall, 21 public evaluations on 2026-11-12 (9,240 credits), and a re-audit of the fixed contested answer on 2026-11-15 (8 more, 3,520 credits). A submission goes out only from a file a person reviewed, matched by its SHA-256. | [`reppo.py`](src/currant/reppo.py) Â· [`reppo_audit.py`](src/currant/reppo_audit.py)                           | the verdicts, raw ([`results/audit/`](results/audit/))                                   |
+| **SERV Reasoning, by OpenServ**       | Every model call: proposing claims, proposing which claim replaced which, and answering, with one model, `gpt-6-luna`. Crawled text reaches it only behind `serv_prompt_guard`; the guard can fail open, so the checks that matter run in our code. | [`serv.py`](src/currant/serv.py) · [`extract.py`](src/currant/extract.py) · [`detect.py`](src/currant/detect.py) | 132 pages read, 1,011 claims stored of 1,160 proposed ([`results/`](results/))           |
+| **Reppo Evaluation API**              | Independent verdicts: Reppo's judges scored our answers against a baseline with no firewall, 21 public evaluations on 2026-11-12 (9,240 credits), and a re-audit of the fixed contested answer on 2026-11-15 (8 more, 3,520 credits). A submission goes out only from a file a person reviewed, matched by its SHA-256. | [`reppo.py`](src/currant/reppo.py) · [`reppo_audit.py`](src/currant/reppo_audit.py)                           | the verdicts, raw ([`results/audit/`](results/audit/))                                   |
 
 ---
 
@@ -227,12 +227,12 @@ Uploads can be up to 25 MB.
 ```mermaid
 flowchart TD
   subgraph Sources["Public docs: untrusted"]
-    D["markdown pages Â· llms.txt indexes"]
+    D["markdown pages · llms.txt indexes"]
   end
   subgraph Currant["Currant: our code decides"]
     C["crawl<br/>dated snapshot + corpus_hash"]
-    S[("claim store Â· SQLite<br/>triggers refuse unverified quotes")]
-    G["ground<br/>redact Â· annotate Â· pull Â· CONTESTED"]
+    S[("claim store · SQLite<br/>triggers refuse unverified quotes")]
+    G["ground<br/>redact · annotate · pull · CONTESTED"]
     K["receipt<br/>SHA-256 of the exact context"]
     P["serve<br/>OpenAI-compatible proxy, fails closed"]
   end
@@ -240,7 +240,7 @@ flowchart TD
     M["SERV Reasoning<br/>proposes claims and relations, answers"]
     R["Reppo<br/>independent verdicts"]
   end
-  A["Your agent<br/>(base_url â†’ currant serve)"]
+  A["Your agent<br/>(base_url → currant serve)"]
   X["currant replay<br/>no key, no network"]
 
   D --> C --> S
@@ -495,9 +495,9 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
 | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | [`/`](https://currant-firewall.vercel.app)                                 | The problem, the three steps, the in-browser demo and receipt replay, guarantees, the real conflicts, results, integration, FAQ |
 | [`/how.html`](https://currant-firewall.vercel.app/how.html)                | The six-step pipeline, three ways to use it, the demo receipt field by field, what's not built, the full FAQ          |
-| `currant serve` â†’ `POST /v1/chat/completions`                              | The grounding proxy (localhost)                                                                                       |
-| `currant serve` â†’ `GET /`                                                  | The receipt viewer: every receipt, its exact context, and its replay result                                             |
-| `currant serve` â†’ `GET /receipts/<id>/replay`                              | Re-ground from the store and compare the context hash                                                                 |
+| `currant serve` → `POST /v1/chat/completions`                              | The grounding proxy (localhost)                                                                                       |
+| `currant serve` → `GET /`                                                  | The receipt viewer: every receipt, its exact context, and its replay result                                             |
+| `currant serve` → `GET /receipts/<id>/replay`                              | Re-ground from the store and compare the context hash                                                                 |
 
 ---
 
@@ -529,12 +529,12 @@ compromised key allows is in [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 
 ## Tech stack
 
-- **Core:** Python 3.12 Â· `uv` (lockfile committed) Â· `httpx` (the only runtime dependency)
+- **Core:** Python 3.12 · `uv` (lockfile committed) · `httpx` (the only runtime dependency)
 - **Storage:** SQLite, with triggers that enforce the claim-store invariants; FTS5 for retrieval
 - **Model:** SERV Reasoning by OpenServ (`gpt-6-luna`) with `serv_prompt_guard`
 - **Verdicts:** Reppo Evaluation API
-- **Checks:** `ruff` Â· `mypy --strict` Â· `pytest` (1128 tests) Â· `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
-- **Site:** Vite Â· TypeScript Â· pnpm; no runtime dependencies, no external requests; hosted on Vercel
+- **Checks:** `ruff` · `mypy --strict` · `pytest` (1128 tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
+- **Site:** Vite · TypeScript · pnpm; no runtime dependencies, no external requests; hosted on Vercel
 
 ---
 
@@ -542,26 +542,26 @@ compromised key allows is in [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 
 ```text
 currant/
-â”œâ”€ src/currant/
-â”‚  â”œâ”€ cli/                the commands, one module per group (currant --help lists them)
-â”‚  â”œâ”€ config.py           the only file that reads API keys
-â”‚  â”œâ”€ crawl/              urls, config, index, fetch, snapshot, runner
-â”‚  â”œâ”€ store.py            the claim store; store_schema.py holds its triggers
-â”‚  â”œâ”€ extract.py          claim extraction; serv.py is the SERV client
-â”‚  â”œâ”€ detect.py           relation detector: candidates, model verdict, our verification
-â”‚  â”œâ”€ ground.py           redact / annotate / pull / CONTESTED; receipt.py makes receipts
-â”‚  â”œâ”€ retrieve.py         BM25 page retrieval over a snapshot
-â”‚  â”œâ”€ proxy.py            the grounding proxy; proxy_http.py serves it; web/ is the viewer
-â”‚  â”œâ”€ reppo*.py           Reppo client, ledger, audit runner and report
-â”‚  â”œâ”€ evalset.py          sealed evaluation items; harness/ runs and scores them
-â”‚  â””â”€ guardrails.py       repo rules that fail CI
-â”œâ”€ tests/                 offline tests (sockets blocked)
-â”œâ”€ examples/demo/         a small deterministic store and receipt anyone can replay
-â”œâ”€ site/                  the landing site
-â”œâ”€ snapshots/             crawled third-party docs, hashed (not MIT; see its README)
-â”œâ”€ results/               raw outputs of live runs, keys scrubbed; audit/ holds Reppo's verdicts
-â”œâ”€ scripts/               live_* smoke tests (never run by CI), build_demo.py, build_drift_page.py
-â””â”€ docs/                  API notes, claim store, limitations, threat model, drift/, brand/
+├─ src/currant/
+│  ├─ cli/                the commands, one module per group (currant --help lists them)
+│  ├─ config.py           the only file that reads API keys
+│  ├─ crawl/              urls, config, index, fetch, snapshot, runner
+│  ├─ store.py            the claim store; store_schema.py holds its triggers
+│  ├─ extract.py          claim extraction; serv.py is the SERV client
+│  ├─ detect.py           relation detector: candidates, model verdict, our verification
+│  ├─ ground.py           redact / annotate / pull / CONTESTED; receipt.py makes receipts
+│  ├─ retrieve.py         BM25 page retrieval over a snapshot
+│  ├─ proxy.py            the grounding proxy; proxy_http.py serves it; web/ is the viewer
+│  ├─ reppo*.py           Reppo client, ledger, audit runner and report
+│  ├─ evalset.py          sealed evaluation items; harness/ runs and scores them
+│  └─ guardrails.py       repo rules that fail CI
+├─ tests/                 offline tests (sockets blocked)
+├─ examples/demo/         a small deterministic store and receipt anyone can replay
+├─ site/                  the landing site
+├─ snapshots/             crawled third-party docs, hashed (not MIT; see its README)
+├─ results/               raw outputs of live runs, keys scrubbed; audit/ holds Reppo's verdicts
+├─ scripts/               live_* smoke tests (never run by CI), build_demo.py, build_drift_page.py
+└─ docs/                  API notes, claim store, limitations, threat model, drift/, brand/
 ```
 
 ---
