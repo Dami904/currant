@@ -1,0 +1,56 @@
+{
+  "real": [
+    {
+      "run": 1,
+      "claims": 1011,
+      "pairs": 433,
+      "identical": true,
+      "blocked_s": 0.909,
+      "all_pairs_s": 5.054
+    },
+    {
+      "run": 8,
+      "claims": 63,
+      "pairs": 0,
+      "identical": true,
+      "blocked_s": 0.006,
+      "all_pairs_s": 0.01
+    },
+    {
+      "run": 10,
+      "claims": 122,
+      "pairs": 0,
+      "identical": true,
+      "blocked_s": 0.012,
+      "all_pairs_s": 0.015
+    }
+  ],
+  "synthetic": [
+    {
+      "claims": 1000,
+      "pairs": 240,
+      "blocked_s": 2.203,
+      "all_pairs_s": 4.125,
+      "identical": true
+    },
+    {
+      "claims": 2000,
+      "pairs": 721,
+      "blocked_s": 8.007,
+      "all_pairs_s": 14.717,
+      "identical": true
+    },
+    {
+      "claims": 5000,
+      "pairs": 3042,
+      "blocked_s": 48.649,
+      "all_pairs_s": 112.414,
+      "identical": true
+    },
+    {
+      "claims": 10000,
+      "pairs": 8204,
+      "blocked_s": 160.619
+    }
+  ]
+}

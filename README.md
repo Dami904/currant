@@ -462,7 +462,11 @@ v2 has not been re-audited on Reppo yet.
   real conflict, threw out the false positives, and found the one it missed.
 - **Receipts are unsigned.** Replay proves the context matches what was recorded, not who recorded it.
 - **Retrieval isn't wired into `currant ground`,** which takes the pages you name (the proxy does
-  retrieve). Crawl-diff supersession, as-of queries and a paid x402 endpoint aren't built.
+  retrieve). A paid x402 endpoint isn't built.
+- **Crawl-diff is small.** `currant crawl-diff` and `currant as-of` work across three snapshots,
+  but they found one verified change (Reppo's decision values), and recall is capped by extraction.
+- **Pairing still grows about quadratically** on synthetic claims with common words (161 s at
+  10,000 claims); on the real run blocking is 0.9 s against 5.1 s for all pairs, with identical output.
 - **The crawler reads markdown and `llms.txt` indexes only;** HTML pages are refused.
 - **Streaming isn't supported** by the proxy, and only the last user message is grounded.
 

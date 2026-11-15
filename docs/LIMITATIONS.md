@@ -4,14 +4,40 @@ What is not handled yet, stated plainly. Last reconciled with the code on 2026-1
 
 ## Not built yet
 
-Crawl-diff supersession (dated ordering
-from daily snapshots), as-of queries and the x402-priced endpoint are not built and are cut first
-by the plan's own order. Live runs so far: 21 Reppo evaluations through the audit runner
+The x402-priced endpoint is not built. Crawl-diff supersession and as-of queries are built
+(2026-11-15) but small; see "Crawl-diff" below. Live runs so far: 21 Reppo evaluations through the audit runner
 (`results/audit/`, see "The audit" below), one earlier through the current API and two
 questions through the proxy (`results/smoke/`); the `review` loop and the drift report are
 tested only against scripted responses. The
 held-out result (next section) is on synthetic items. **There is no held-out result on real
 documentation**: the 3 real items are dev items, so no real-documentation item was held out.
+
+## Crawl-diff (2026-11-15)
+
+`currant crawl-diff` compares two extract runs on two snapshots of the same URLs and records a
+`supersedes` relation (basis `crawl_diff`, no model) when a `current` value left a page and a
+same-kind value replaced it. The database still checks both quotes verbatim. Three snapshots
+exist (2026-11-05, 11-11, 11-15): 2 pages changed between the first two and 2 between the last
+two. Result, in `results/crawldiff/2026-11-15.json`: **one verified change**, the Reppo
+`agents.md` decision values going from "`accept`, `revise`, `reject`" to "accept or reject".
+Limits:
+
+- **Recall is capped by extraction.** Run 10 (the 11-15 snapshot) did not extract the decision
+  claim at all, so the 11-05 to 11-15 comparison found nothing although the change is still
+  there. Other real edits on these pages (one evaluation in flight became several; the submit
+  endpoint moved) were not paired because no matching pair of claims was extracted.
+- **`ground` does not use these relations yet.** They link claims from two extract runs, and
+  `ground` plans from one run. They feed `currant as-of` and the record only.
+- **Too few changes to measure precision.** One pair, checked by hand, is an anecdote.
+
+## Candidate pairing at scale (2026-11-15)
+
+Candidate pairs are found by prefix-filter blocking, proven equal to the old all-pairs search by
+a property test (1,500 random cases) and on every real extract run (`results/scale/pairing.json`).
+On the real 1,011-claim run it takes 0.9 s against 5.1 s. On synthetic claims with a Zipf
+vocabulary it is only about 2x faster (48.6 s against 112.4 s at 5,000 claims; 160.6 s at
+10,000), so it still grows roughly quadratically when common words dominate: it is not ready for
+corpora of 50,000 claims.
 
 ## Held-out result (test split, detector `detect-v2`, 2026-11-11 to 12)
 
@@ -398,8 +424,8 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
   interstitial page returned with a 200 is recorded the same way, although it is arguably
   `unknown`; it is retried on the next run either way.
 - **Sequential, no concurrency.** Fine for about 200 pages; slow for much more.
-- **Dates come from the snapshot day, not from the pages.** A crawl-diff (feature 4) that
-  turns two snapshots into dated changes is not written.
+- **Dates come from the snapshot day, not from the pages.** `currant crawl-diff` places a change
+  between two snapshot dates, never at a moment inside that window.
 - **Retry-After is only read in seconds form**; the HTTP-date form falls back to exponential
   backoff.
 - **The page cap cuts alphabetically by URL, not by relevance.** A cut is no longer silent: the
