@@ -58,8 +58,20 @@ fetched; the root page refused as HTML; one URL that their own `llms.txt` lists 
 `gpt-6-luna` extracted 484 claims (526 proposed) for about $0.07, and `currant real-worksheet`
 proposed 49 candidate pairs for a person to label. **Nothing is labelled or measured on this site
 yet**: the worksheet is private (`docs/private/`) and has no detector verdicts on it, so a
-person's labels stay independent. Until those labels exist, there is no claim about how Currant
-does on a documentation site it was not built against. The snapshot is kept out of the repository
+person's labels stay independent. Until those labels exist, there is no measured claim about how
+Currant does on a documentation site it was not built against.
+
+Detection was then run once (`relate-v1`, `gpt-6-luna`, 229 pairs, 228 model calls, one pair
+failed and one was blocked by the prompt guard; raw log `results/relate/kite-20261115T105450Z-extract1.raw.jsonl`).
+It verified 33 contradictions and 0 supersessions. Read by eye (not labelled), **32 of the 33 are
+changelog entries**: each dated release page names that release's versions, which is history,
+not a conflict. The pages are dated only in their URLs (`changelog/2026/2026-11-13-release.md`),
+and the detector accepts a date only as a quote from the page text, so it cannot order them and
+falls back to CONTESTED. The 33rd (chain ID 2368 against 2366) is most likely testnet against
+mainnet. **This is a real failure on an unseen site.** It fails safe: nothing was cut and nothing
+was retired. But an agent asking about versions would get false CONTESTED notices. It was not
+tuned away, so a later measurement on this site stays honest. The likely fixes are a URL date as
+an ordering source, or treating release-note claims as `historical`. The snapshot is kept out of the repository
 (`data/snapshots-kite/`) because two pages contain `0x` + 64-hex strings that the secret scanner
 cannot tell apart from wallet keys. The raw extraction log is
 `results/extract/kite-20261115T095906Z-run1.jsonl`.
