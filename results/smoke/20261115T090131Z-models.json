@@ -1,0 +1,2208 @@
+{
+  "mode": "models",
+  "prompt_version": "smoke-v1",
+  "model": null,
+  "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c",
+  "saved_at": "2026-11-15T09:01:31+00:00",
+  "calls": [
+    {
+      "name": "list_models",
+      "request": {
+        "method": "GET",
+        "url": "https://inference-api.openserv.ai/v1/models",
+        "body": null
+      },
+      "started_at": "2026-11-15T09:00:51+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 547,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "content-type": "application/json; charset=utf-8",
+        "etag": "W/\"2bc3-GhwU/pxoSdbhi/rnifrIrqWZ7/w\"",
+        "x-cloud-trace-context": "f385c0812ab38cd6c4c4cfb0a4218d3f",
+        "date": "Sun, 15 Nov 2026 09:00:52 GMT",
+        "server": "Google Frontend",
+        "content-length": "11203",
+        "via": "1.1 google",
+        "alt-svc": "h3=\":443\"; ma=2592000"
+      },
+      "response_json": {
+        "items": [
+          {
+            "modelId": "claude-fable-5",
+            "displayName": "Claude Fable 5",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 1300,
+              "output": 6500,
+              "cachedInput": 130,
+              "cacheWrite5mInput": 1500,
+              "cacheWrite1hInput": 2400
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": false
+            },
+            "modality": [
+              "text"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-fable-5-1",
+            "displayName": "Claude Fable 5.1",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 1200,
+              "output": 6000,
+              "cachedInput": 30,
+              "cacheWrite5mInput": 1500,
+              "cacheWrite1hInput": 2400
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-fable-5-2",
+            "displayName": "Claude Fable 5.2",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 1000,
+              "output": 5000,
+              "cachedInput": 25,
+              "cacheWrite5mInput": 1250,
+              "cacheWrite1hInput": 2000
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-haiku-4.5",
+            "displayName": "Claude Haiku 4.5",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 125,
+              "output": 650,
+              "cachedInput": 13,
+              "cacheWrite5mInput": 150,
+              "cacheWrite1hInput": 240
+            },
+            "specs": {
+              "contextWindow": "200K",
+              "maxOutput": "8K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-opus-4.6",
+            "displayName": "Claude Opus 4.6",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 650,
+              "output": 3250,
+              "cachedInput": 65,
+              "cacheWrite5mInput": 750,
+              "cacheWrite1hInput": 1200
+            },
+            "specs": {
+              "contextWindow": "200K",
+              "maxOutput": "32K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-opus-4.7",
+            "displayName": "Claude Opus 4.7",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 650,
+              "output": 3250,
+              "cachedInput": 65,
+              "cacheWrite5mInput": 750,
+              "cacheWrite1hInput": 1200
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-opus-4.8",
+            "displayName": "Claude Opus 4.8",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 650,
+              "output": 3250,
+              "cachedInput": 65,
+              "cacheWrite5mInput": 750,
+              "cacheWrite1hInput": 1200
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-opus-5",
+            "displayName": "Claude Opus 5",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 600,
+              "output": 3000,
+              "cachedInput": 60,
+              "cacheWrite5mInput": 750,
+              "cacheWrite1hInput": 1200
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-opus-5.5",
+            "displayName": "Claude Opus 5.5",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 480,
+              "output": 2400,
+              "cachedInput": 24,
+              "cacheWrite5mInput": 600,
+              "cacheWrite1hInput": 960
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-sonnet-4.6",
+            "displayName": "Claude Sonnet 4.6",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 400,
+              "output": 2000,
+              "cachedInput": 40,
+              "cacheWrite5mInput": 450,
+              "cacheWrite1hInput": 720
+            },
+            "specs": {
+              "contextWindow": "200K",
+              "maxOutput": "16K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-sonnet-5",
+            "displayName": "Claude Sonnet 5",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 260,
+              "output": 1300,
+              "cachedInput": 26,
+              "cacheWrite5mInput": 300,
+              "cacheWrite1hInput": 480
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "claude-sonnet-5.5",
+            "displayName": "Claude Sonnet 5.5",
+            "provider": "anthropic",
+            "pricing": {
+              "input": 240,
+              "output": 1200,
+              "cachedInput": 24,
+              "cacheWrite5mInput": 300,
+              "cacheWrite1hInput": 480
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-2.5-flash",
+            "displayName": "Gemini 2.5 Flash",
+            "provider": "google",
+            "pricing": {
+              "input": 40,
+              "output": 350,
+              "cachedInput": 4
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "audio",
+              "file",
+              "video"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3-flash-preview",
+            "displayName": "Gemini 3 Flash Preview",
+            "provider": "google",
+            "pricing": {
+              "input": 60,
+              "output": 400,
+              "cachedInput": 6
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file",
+              "audio",
+              "video"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.1-flash-lite",
+            "displayName": "Gemini 3.1 Flash Lite",
+            "provider": "google",
+            "pricing": {
+              "input": 30,
+              "output": 180,
+              "cachedInput": 3
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": false
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.1-pro-preview",
+            "displayName": "Gemini 3.1 Pro Preview",
+            "provider": "google",
+            "pricing": {
+              "input": 250,
+              "output": 1600,
+              "cachedInput": 25
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file",
+              "audio",
+              "video"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.5-flash",
+            "displayName": "Gemini 3.5 Flash",
+            "provider": "google",
+            "pricing": {
+              "input": 195,
+              "output": 1200,
+              "cachedInput": 20
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file",
+              "audio",
+              "video"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.5-flash-lite",
+            "displayName": "Gemini 3.5 Flash Lite",
+            "provider": "google",
+            "pricing": {
+              "input": 40,
+              "output": 300,
+              "cachedInput": 4
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": false
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.6-flash",
+            "displayName": "Gemini 3.6 Flash",
+            "provider": "google",
+            "pricing": {
+              "input": 100,
+              "output": 450,
+              "cachedInput": 10
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.7-flash",
+            "displayName": "Gemini 3.7 Flash",
+            "provider": "google",
+            "pricing": {
+              "input": 100,
+              "output": 450,
+              "cachedInput": 10
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gemini-3.8-flash",
+            "displayName": "Gemini 3.8 Flash",
+            "provider": "google",
+            "pricing": {
+              "input": 100,
+              "output": 450,
+              "cachedInput": 10
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "64K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "gpt-6-astra",
+            "displayName": "GPT 6 Astra",
+            "provider": "openai",
+            "pricing": {
+              "input": 1200,
+              "output": 6000,
+              "cachedInput": 120
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.4",
+            "displayName": "GPT-5.4",
+            "provider": "openai",
+            "pricing": {
+              "input": 325,
+              "output": 2000,
+              "cachedInput": 33
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.4-mini",
+            "displayName": "GPT-5.4 Mini",
+            "provider": "openai",
+            "pricing": {
+              "input": 100,
+              "output": 600,
+              "cachedInput": 10
+            },
+            "specs": {
+              "contextWindow": "400K",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.4-nano",
+            "displayName": "GPT-5.4 Nano",
+            "provider": "openai",
+            "pricing": {
+              "input": 25,
+              "output": 160,
+              "cachedInput": 3
+            },
+            "specs": {
+              "contextWindow": "128K",
+              "maxOutput": "16K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.5",
+            "displayName": "GPT-5.5",
+            "provider": "openai",
+            "pricing": {
+              "input": 650,
+              "output": 3900,
+              "cachedInput": 65
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.6-luna",
+            "displayName": "GPT-5.6 Luna",
+            "provider": "openai",
+            "pricing": {
+              "input": 25,
+              "output": 150,
+              "cachedInput": 3
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": false
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.6-sol",
+            "displayName": "GPT-5.6 Sol",
+            "provider": "openai",
+            "pricing": {
+              "input": 525,
+              "output": 2500,
+              "cachedInput": 50
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": false
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-5.6-terra",
+            "displayName": "GPT-5.6 Terra",
+            "provider": "openai",
+            "pricing": {
+              "input": 250,
+              "output": 1500,
+              "cachedInput": 25
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": false
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-6-luna",
+            "displayName": "GPT-6-Luna",
+            "provider": "openai",
+            "pricing": {
+              "input": 13,
+              "output": 65,
+              "cachedInput": 2
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-6-sol",
+            "displayName": "GPT-6-Sol",
+            "provider": "openai",
+            "pricing": {
+              "input": 260,
+              "output": 1300,
+              "cachedInput": 25
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "gpt-6.1-sol",
+            "displayName": "GPT-6.1 Sol",
+            "provider": "openai",
+            "pricing": {
+              "input": 240,
+              "output": 1200,
+              "cachedInput": 12
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "128K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "serv-mini",
+            "displayName": "serv-mini",
+            "provider": "serv",
+            "pricing": {
+              "input": 100,
+              "output": 600
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "16K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "serv-nano",
+            "displayName": "serv-nano",
+            "provider": "serv",
+            "pricing": {
+              "input": 25,
+              "output": 175
+            },
+            "specs": {
+              "contextWindow": "128K",
+              "maxOutput": "16K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "serv-pro",
+            "displayName": "serv-pro",
+            "provider": "serv",
+            "pricing": {
+              "input": 450,
+              "output": 2500
+            },
+            "specs": {
+              "contextWindow": "1M",
+              "maxOutput": "100K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "responses"
+            ]
+          },
+          {
+            "modelId": "serv-standard",
+            "displayName": "serv-standard",
+            "provider": "serv",
+            "pricing": {
+              "input": 375,
+              "output": 2000,
+              "cacheWrite5mInput": 450,
+              "cacheWrite1hInput": 720
+            },
+            "specs": {
+              "contextWindow": "200K",
+              "maxOutput": "16K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "serv-swift",
+            "displayName": "serv-swift",
+            "provider": "serv",
+            "pricing": {
+              "input": 125,
+              "output": 650
+            },
+            "specs": {
+              "contextWindow": "200K",
+              "maxOutput": "8K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          },
+          {
+            "modelId": "serv-ultra",
+            "displayName": "serv-ultra",
+            "provider": "serv",
+            "pricing": {
+              "input": 650,
+              "output": 3250
+            },
+            "specs": {
+              "contextWindow": "200K",
+              "maxOutput": "32K",
+              "reasoning": true
+            },
+            "modality": [
+              "text",
+              "image",
+              "file"
+            ],
+            "endpoints": [
+              "chatCompletions",
+              "messages"
+            ]
+          }
+        ]
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:gpt-6-luna",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "gpt-6-luna",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:00:52+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 3937,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "9f51cf7f-e240-4d8f-b4cd-3fef5db3db81",
+        "access-control-expose-headers": "X-Request-ID, CF-Ray, CF-Ray",
+        "alt-svc": "h3=\":443\"; ma=86400, h3=\":443\"; ma=2592000",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad117689bb22fa-CDG",
+        "content-type": "application/json",
+        "x-openai-proxy-wasm": "v0.1",
+        "date": "Sun, 15 Nov 2026 09:00:56 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "chatcmpl-EkQOVq8wFogCVjJeRdtrZwqJOxX7v",
+        "object": "chat.completion",
+        "created": 1794733255,
+        "model": "gpt-6-luna",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API request limit\",\"value\":\"120 requests per minute\"}",
+              "refusal": null,
+              "annotations": []
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 44,
+          "total_tokens": 349,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 18,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default"
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:gpt-5.6-luna",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "gpt-5.6-luna",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:00:56+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 4047,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "25ea17dc-0d74-4841-b24b-9f32cf188ab9",
+        "access-control-expose-headers": "X-Request-ID, CF-Ray, CF-Ray",
+        "alt-svc": "h3=\":443\"; ma=86400, h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad1193495a83e2-CDG",
+        "content-type": "application/json",
+        "x-openai-proxy-wasm": "v0.1",
+        "date": "Sun, 15 Nov 2026 09:01:00 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "chatcmpl-EkQOZJNistN7wGeU6YlRwcON4HI7e",
+        "object": "chat.completion",
+        "created": 1794733259,
+        "model": "gpt-5.6-luna",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API request limit\",\"value\":\"120 requests per minute\"}",
+              "refusal": null,
+              "annotations": []
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 20,
+          "total_tokens": 325,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default"
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:gpt-5.4-nano",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "gpt-5.4-nano",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:00+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 2860,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "d4c8966a-cb17-46fc-9585-a17ea445f0f4",
+        "access-control-expose-headers": "X-Request-ID, CF-Ray, CF-Ray",
+        "alt-svc": "h3=\":443\"; ma=86400, h3=\":443\"; ma=2592000",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad11a78d0222fa-CDG",
+        "content-type": "application/json",
+        "x-openai-proxy-wasm": "v0.1",
+        "date": "Sun, 15 Nov 2026 09:01:03 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "chatcmpl-EkQOcQTRoQMOMi33o8NvtrbqlGRoQ",
+        "object": "chat.completion",
+        "created": 1794733262,
+        "model": "gpt-5.4-nano-2026-03-17",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"requests per minute\",\"value\":\"120\"}",
+              "refusal": null,
+              "annotations": []
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 17,
+          "total_tokens": 322,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default"
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:gpt-6-sol",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "gpt-6-sol",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:03+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 3265,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "d6268624-4ec6-46d7-95a2-63c07496218f",
+        "access-control-expose-headers": "X-Request-ID, CF-Ray, CF-Ray",
+        "alt-svc": "h3=\":443\"; ma=86400, h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad11ba4e2d22fa-CDG",
+        "content-type": "application/json",
+        "x-openai-proxy-wasm": "v0.1",
+        "date": "Sun, 15 Nov 2026 09:01:06 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "chatcmpl-EkQOfJOLoJ2MGqrg2L8ZvleaVWIUI",
+        "object": "chat.completion",
+        "created": 1794733265,
+        "model": "gpt-6-sol",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API request limit\",\"value\":\"120 requests per minute\"}",
+              "refusal": null,
+              "annotations": []
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 47,
+          "total_tokens": 352,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 21,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default"
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:claude-haiku-4.5",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "claude-haiku-4.5",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:06+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 3797,
+      "response_headers": {
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "76dd2fd1-ed26-4211-87fd-5de3ebb32207",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad11ce0c175903-CDG",
+        "content-type": "application/json",
+        "server-timing": "x-originResponse;dur=1802",
+        "traceresponse": "00-0aaee78b230a36fa3c279a81b954b1f3-2492ff4a81ae6743-01",
+        "vary": "Accept-Encoding",
+        "x-robots-tag": "none",
+        "date": "Sun, 15 Nov 2026 09:01:10 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "msg_011Ch4SYiDL4iaCWdmvnY2wG",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\": \"API request rate limit\", \"value\": \"120 requests per minute\"}"
+            }
+          }
+        ],
+        "created": 1794733269,
+        "model": "claude-haiku-4-5-20251001",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 22,
+          "prompt_tokens": 464,
+          "total_tokens": 486
+        }
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:claude-sonnet-5.5",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "claude-sonnet-5.5",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:10+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 4844,
+      "response_headers": {
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "1ee90c1f-b6af-4060-abeb-5fafd0eec925",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad11e8d9bc5903-CDG",
+        "content-type": "application/json",
+        "server-timing": "x-originResponse;dur=2383",
+        "traceresponse": "00-c5ccc38065a6c9f4c47dc66d4134bdbc-7f69c18d8c9ae41d-01",
+        "vary": "Accept-Encoding",
+        "x-robots-tag": "none",
+        "date": "Sun, 15 Nov 2026 09:01:14 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "msg_011Ch4SZ29pzFu9mLr4Hmca2",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API requests allowed per minute\",\"value\":\"120\"}"
+            }
+          }
+        ],
+        "created": 1794733274,
+        "model": "claude-sonnet-5.5",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 609,
+          "total_tokens": 633
+        }
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:gemini-3.1-flash-lite",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "gemini-3.1-flash-lite",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:14+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 2140,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "faf03f24-0865-4686-aa43-65d02123fb6a",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000, h3=\":443\"; ma=2592000",
+        "content-type": "application/json",
+        "server-timing": "gfet4t7; dur=660",
+        "vary": "Origin, X-Origin, Referer",
+        "date": "Sun, 15 Nov 2026 09:01:17 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "content": "{\n  \"subject\": \"API request rate\",\n  \"value\": \"120 requests per minute\"\n}",
+              "extra_content": {
+                "google": {
+                  "thought_signature": "EnMKcQFpFH0TsPkXPsoCNLUN9bs7rugKaAyEBZ7m2ryaVYY82nho1nqYENcfbvP2nqG+HKeuABycStw/gVsOmDE8HsXWXoSV13I7lThSin7NqG9A3XwIwykoDcHVqoWto2N9aC8gNs84Mql0AksIYNP9YkBa"
+                }
+              },
+              "role": "assistant"
+            }
+          }
+        ],
+        "created": 1794733277,
+        "id": "3HT5arbJIqe6kdUPkNLYmAU",
+        "model": "gemini-3.1-flash-lite",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 26,
+          "prompt_tokens": 276,
+          "total_tokens": 302
+        }
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:gemini-3.5-flash",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "gemini-3.5-flash",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:17+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 5125,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "f38c3321-e34e-4412-8d18-5916f439b460",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000, h3=\":443\"; ma=2592000",
+        "content-type": "application/json",
+        "server-timing": "gfet4t7; dur=3090",
+        "vary": "Origin, X-Origin, Referer",
+        "date": "Sun, 15 Nov 2026 09:01:22 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "content": "{\"subject\":\"API rate limit\",\"value\":\"120 requests per minute\"}",
+              "extra_content": {
+                "google": {
+                  "thought_signature": "ErQQCrEQAWkUfRP9O+nm04V0EnDcUaVW7o2c8qgUWHdbMeSTShbbmFyfucm1ijRnYhle4nUgPhJvnfVctfS5b6dbbQghL/1rNbhRep2eIaTbIK5vaMcUH77I5O6/1fKQNYfb9QQPqbee1c/WRO/aHVuO0yGI+t0k3HGVOsqQsbjgfJI8+YJoFW6ryqGd82qw9VTmlgN9eosFHUP6zUcP5IOEtvo46lM/YKmupUeUDd+Nr5ln5bPiownmi7Ta4lviowwL2hInqtnP0c17bqZWZIWmerNnzKPq8RcDqF+KuXDRWE6DY27FLyXkK4XJTBb1ZOkCxZnlsyAscJfyHxSgO/0KBvA47sCVdfyVhMzeSwuUrtSRIWXoS9KMQkc4TXPc0WPkkvMKYJ3bXvBJmbZ9D5ci/o/gNU6aDrDd3kG0iicn41gJcK1Q3bT41DWn+2ioU2ae65QJgmZlkwpLxBxU45aiScT1cR77WMIBFCulCa+UbxxJURQSh3X1yR7rIC7qNRg09QGacCRKmjLkLeb4TXaiJX/fCDb/8tCb+IktpNXJXtPzrErvvMqV1Pkl6Wzi+tc8VHkw3pXHe5+QLssst5+1MlqStcIPtdb1lRptB49hSiOlZWJtqlcFBS5AQnj4EwABuLiC0/XEsiPM6Y/QyKVDZ2xZWKsQ1xjDV7jCwaU2a/wJNW2EDzWQqYaR2Z6wlafa9LxV8Sb3k7Z6MxMnyqlzrAaDMJbTwWE0IrhLbSA9MX3nDBCzlEzFguJ3rakzV6a4hgipxSZCj3POBPp5SMvHcRaPIeLrhy35X7JagLeVnLm8ixNvo64mBCeIQ3DFqdNk73NmtPsN2/AOUPP6WDECYWBrtcsNQ3xQHGAanPpCQj1u14lAgRMnqqNbHoODSIDlac93IEqsedXsrAxO2Ym7vUUj1CcH1D4qhn7YR2ceOtVbWfZo9iCuwHAkwgfTxvu/klgeNgBvp0XEWkTdrZlp/bIseS6/5n3nhypPcZ/eGSdHMm6zXDcz9/LqyX4GdmKzJZ4Rm1NIbdoK8TS35z8RJ+IKoLdMS8mFQ7HGswnyDDg07vvtMQ5tne9RE7UIXvHE4HevS325lZXw6re5EQjIrj2U0o9guRfZ0WfJkHEGZCHxoJgsLs4jvUeFivW0i8dNeaJqh+4Au9Phftw0IS258/jlKesE2QcbwtFYzjcMGZ9rXlxaHDl2nMOFFP+1FI2AlhEci7nXCTHF4FjlWdMxoMWg22h8chWxKmfKk7zijm0grDeJAcJC2nt9QzpXoyzbh9sZFfzt9xYk9f/a2EypvW2mK7V/VyAYHJshmYkxs6VG9xSCtd89zVg4lylGKLYkJnXjt4kQYGBH24zFkpS9u4cja52YEFdoMuH1R7ieX5zNV25IBbBlUtVrIcfogHklmIkNdXKIVgVtTqF55HOi5axyyMXW8edHaDJiLYFcfxkL3EojD1YHqcuA4fJJTYX+0Yxkh5BUvW285dZ9u4nrNEKSDgZnDzdzbps5Kk6VGw8vgJ0xFStoHYQ/WY2Aru66nb1aqdU4Y/DXBeK+9JZcwD0aOwRmE9/MEEqRr7QoMxMB2tPxx9zjteDOAfGYV06ZXjwclrVrTCzErqIg4vsgDOijjyQPZn9SvcEscZNDH7e03NJiTuR0BYxd4wM3HYHV+UtxLVrtp6vRfud5vchWukIzqYOVjMFyR+5kuFRGRrGjI3gt1t7GsYwUmtYuUv1rEnst+v2H+ws5rTNVY8tDKmownY0r8Oe9T9SYVIsilDaM6+95TdEsYv4mx1AK+8GHZvMDXe2WTU8X0zhiKuSYXmqRP2HNZWT8HYtensT7bHiB3vsmPQkOzckEsbZaAYxjFLm2pTxWLjHf6yxjpEGLeI0HbkYyLo/NuQFR8QXKZItHdFefE08rC+Wp3Drphq2NUJ7jkuoB0uK45ZLwAT9CbhEQuDmeEQUdqlELiy3UuYef5U9SjA9InbiaVRGyKoWuH2LHmfrAugwNMyWzX4lE6zN2P/HRTLVUrhpvISy40DgbDV/u7nRtoHKzPo0t47KGY1RRA61bDVop+dRIOa6ARxFkFpn1q9gH7X+3u6yjMwEBQsroKlc00M0+KDssmlJF362DROTQxJe7vp4TEBQddi55HjEdIADzytzj7p4SsYGFEMhdc+11DBlntpFrIKvkUnNo6tMYC46Bib6yFqMkGftBBruHjDs9LWCMHx7aM3yjAC/hCug+24qQptNcOt91WmuMcw4HUFPU/YnvPgQvkKN4oVVPrJWZtZhuPJwsTxixbSkE6V2C3FDq/FgF0GNKnD1KM91g76AlNlMZq9/NmxbJy7Fzdd1T3C2E60m67NIDD12BLxxsnmRT98/HVbn9fW59Y8tFNcll/4K5tUIRym8nWq/Hs2fOu2yNnihyIGhjZFjBKz7lJ6G5CbiEhroYJQfz5pKQfaW3bevpmD0vCmB7eC3KlT6fZQNI+3Mv5KVROTk0wx1SWVZOLiyH5lVTOr5A3FcBXy1gDlK0hLhzjVi+8y0QDvac2OyAWRyY7TnnxDJAbhN1yvi8bh9C7oCu1isG+em1c098G/1DCeHUBNYbgM3kAMThOKPxlDVNsN8I+DaYLBDgUiMblnO4vcakknCZCzeprDT3V0+MrgSE3uSjeSY2Nys48Lu7Zy0IdhtPvu4RWJqbWkCHkkRsQmMaypxozAms38xePGsM17N1IiyAn22sjq4RZVvC4c1pFkW/GtunGLwMeTKxJyp0JzXAL2NjzGXgnyOJUkVVp4ev4mAjOM8RIm/6Wu2pPjzg0Bmo6nSG"
+                }
+              },
+              "role": "assistant"
+            }
+          }
+        ],
+        "created": 1794733282,
+        "id": "33T5auGxEJC5kdUPuPe9kAU",
+        "model": "gemini-3.5-flash",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 16,
+          "prompt_tokens": 276,
+          "total_tokens": 863
+        }
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:serv-nano",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "serv-nano",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:22+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 2360,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "dd3fcf6f-220e-441a-8e50-29926055a2e3",
+        "access-control-expose-headers": "X-Request-ID, CF-Ray, CF-Ray",
+        "alt-svc": "h3=\":443\"; ma=86400, h3=\":443\"; ma=2592000",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad122f6d8024b9-CDG",
+        "content-type": "application/json",
+        "x-openai-proxy-wasm": "v0.1",
+        "date": "Sun, 15 Nov 2026 09:01:24 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "chatcmpl-EkQOyvddpSNIfyuoKSsUB8zdGya2v",
+        "object": "chat.completion",
+        "created": 1794733284,
+        "model": "serv-nano",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API allows requests per minute\",\"value\":\"120\"}",
+              "refusal": null,
+              "annotations": []
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 19,
+          "total_tokens": 324,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default"
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:serv-mini",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "serv-mini",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:24+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 2250,
+      "response_headers": {
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "2be1ccfc-ae76-46c8-8d63-73d945e50896",
+        "access-control-expose-headers": "X-Request-ID, CF-Ray, CF-Ray",
+        "alt-svc": "h3=\":443\"; ma=86400, h3=\":443\"; ma=2592000",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad123e2c0b24b9-CDG",
+        "content-type": "application/json",
+        "x-openai-proxy-wasm": "v0.1",
+        "date": "Sun, 15 Nov 2026 09:01:26 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "chatcmpl-EkQP0gsznNhSIKHBpS49qLxcapnRr",
+        "object": "chat.completion",
+        "created": 1794733286,
+        "model": "serv-mini",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API\",\"value\":\"120 requests per minute\"}",
+              "refusal": null,
+              "annotations": []
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 305,
+          "completion_tokens": 18,
+          "total_tokens": 323,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "service_tier": "default"
+      },
+      "response_text": null
+    },
+    {
+      "name": "probe:serv-swift",
+      "request": {
+        "method": "POST",
+        "url": "https://inference-api.openserv.ai/v1/chat/completions",
+        "body": {
+          "model": "serv-swift",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Extract the subject and value into the schema."
+            },
+            {
+              "role": "user",
+              "content": "Text: The API allows 120 requests per minute."
+            }
+          ],
+          "max_completion_tokens": 1000,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "claim",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subject",
+                  "value"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "serv_prompt_guard"
+              }
+            }
+          ]
+        }
+      },
+      "started_at": "2026-11-15T09:01:26+00:00",
+      "outcome": "confirmed",
+      "http_status": 200,
+      "latency_ms": 4640,
+      "response_headers": {
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-xss-protection": "0",
+        "x-openserv-request-id": "f09e9fe0-5011-4c32-9f18-6d5f7d9a6a64",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "a5ad125a99255903-CDG",
+        "content-type": "application/json",
+        "server-timing": "x-originResponse;dur=671",
+        "traceresponse": "00-6b99c34f19b4aedd30c343af53994f33-7063fecc4e3cd785-01",
+        "vary": "Accept-Encoding",
+        "x-robots-tag": "none",
+        "date": "Sun, 15 Nov 2026 09:01:31 GMT",
+        "server": "Google Frontend",
+        "via": "1.1 google",
+        "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+        "transfer-encoding": "chunked"
+      },
+      "response_json": {
+        "id": "msg_011Ch4SaMyE6ayhKX3QxQbBC",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"subject\":\"API request rate limit\",\"value\":\"120 requests per minute\"}"
+            }
+          }
+        ],
+        "created": 1794733291,
+        "model": "claude-haiku-4-5-20251001",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 19,
+          "prompt_tokens": 464,
+          "total_tokens": 483
+        }
+      },
+      "response_text": null
+    }
+  ]
+}
