@@ -473,6 +473,11 @@ redistribution of their text is unchecked; only counts are recorded here.
 - **Runs are not deterministic.** A 3-page A/B showed about 82-86% agreement between two runs by
   position and value; the rest is wording and marginal recall.
 - Stored `value_text` keeps the page's own markdown escapes; keys normalise them, text does not.
+- **Locating a quote is not strictly byte-exact.** The stored quote is always the page's own text
+  at the span, but the model's copy is matched up to whitespace runs and markdown backslash
+  escapes. Re-checking the full run's model outputs with today's code: 12 of 1,023 passing claims
+  (1.2%) matched only that way (`scripts/quote_exactness.py`). New runs flag them
+  `quote_matched_loosely`; the flag is in the run log, not yet in the claim store or receipts.
 
 ## Evaluation items and the split
 

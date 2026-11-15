@@ -303,6 +303,10 @@ def validate_proposal(text: str, proposal: object) -> Accepted | Rejected:
         return Rejected("number_not_in_quote", f"{number} is not written in the quote", quote_label)
 
     flags: list[str] = []
+    if not located.exact:
+        # The model's copy matched only up to whitespace or markdown escapes. The stored quote is
+        # still the page's own text at the span; this records that the copy was not exact.
+        flags.append("quote_matched_loosely")
     asserted_at = proposal.get("asserted_at")
     if asserted_at is not None and not (_real_iso_date(asserted_at) and asserted_at in text):
         asserted_at = None  # a date the page never states (or that is not a date) is not trusted

@@ -56,6 +56,15 @@ receipt.context_sha256                  ==      SHA-256 of the exact text the mo
 The first line is enforced twice: in Python, and again by SQLite triggers that refuse to store an
 unverified quote. The second is what `currant replay` recomputes, with no key and no network.
 
+"Word for word" needs one precise footnote. The quote Currant stores, shows and hashes is always the
+page's own bytes at the span, and that is re-checked every time a context is built. Finding *where*
+the model's copy sits in the page tolerates two differences: runs of whitespace and a markdown
+backslash escape (`\$` in the page, `$` in the copy). Re-checking the full extraction run's raw
+model outputs with today's code, 1,023 claims pass every check and 12 of them (1.2%) are found only
+that way; the rest are byte-for-byte copies. (The stored run kept 1,011: it predates the escape
+rule.) `scripts/quote_exactness.py` recomputes this offline, and new runs flag such claims
+`quote_matched_loosely`.
+
 - **The model proposes; our code checks.** A model suggests claims and which one replaced which.
   Every quote it cites is searched for in the stored page; one that isn't there is thrown away.
 - **Order comes from the text, never a guess.** A line saying one value replaced the other, or a

@@ -132,7 +132,8 @@ def test_a_good_proposal_is_accepted_with_the_pages_own_text_and_offsets() -> No
     verdict = validate_proposal(OLD_TEXT, good(quote="New accounts get 10  free evaluations."))
     assert isinstance(verdict, Accepted)
     assert OLD_TEXT[verdict.start : verdict.end] == OLD_QUOTE == verdict.fields["quote"]
-    assert verdict.fields["value_number"] == 10.0 and verdict.flags == ()
+    # The copy has a doubled space, so it matched loosely; the stored quote is still the page's.
+    assert verdict.fields["value_number"] == 10.0 and verdict.flags == ("quote_matched_loosely",)
 
 
 @pytest.mark.parametrize(
@@ -189,6 +190,23 @@ def test_a_date_must_be_real_and_stated_by_the_page() -> None:
         dropped = validate_proposal(text, good(quote=quote, asserted_at=bad))
         assert isinstance(dropped, Accepted) and dropped.fields["asserted_at"] is None
         assert "asserted_at_unsupported" in dropped.flags
+
+
+def test_a_loosely_matched_quote_is_flagged_and_the_page_text_is_what_is_stored() -> None:
+    # The model's copy differs from the page in whitespace and a markdown escape. The claim is
+    # kept, but flagged, and what is stored is the page's own text at the span, not the copy.
+    text = "Each   account gets \\$10 of\ncredit.\n"
+    copied = "Each account gets $10 of credit."
+    verdict = validate_proposal(text, good(quote=copied, value_text="$10", value_number=10))
+    assert isinstance(verdict, Accepted)
+    assert "quote_matched_loosely" in verdict.flags
+    assert verdict.fields["quote"] == "Each   account gets \\$10 of\ncredit."
+    assert text[verdict.start : verdict.end] == verdict.fields["quote"]
+
+    verbatim = validate_proposal(
+        text, good(quote="Each   account gets \\$10 of", value_text="$10", value_number=10)
+    )
+    assert isinstance(verbatim, Accepted) and "quote_matched_loosely" not in verbatim.flags
 
 
 def test_parse_claims_explains_unusable_output() -> None:
