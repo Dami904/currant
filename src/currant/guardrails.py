@@ -87,6 +87,7 @@ LABEL_ACCESS = re.compile(
 # source confirms them and the maintainers are told. They live in docs/private/ (ignored).
 NOT_FOR_PUBLICATION = re.compile(r"not for publication", re.IGNORECASE)
 PRIVATE_DIR = "docs/private"
+DATA_DIR = "data"  # the local claim store, model cache and Ed25519 signing key
 EVALSET_IMPORT = re.compile(
     r"^\s*(?:from\s+currant\.evalset\b|import\s+currant\.evalset\b"
     r"|from\s+currant\s+import\s+[^\n]*\bevalset\b)",
@@ -209,6 +210,10 @@ def scan(root: Path) -> ScanResult:
     if (root / PRIVATE_DIR).is_dir() and f"{PRIVATE_DIR}/" not in ignored:
         result.violations.append(
             f".gitignore: must ignore {PRIVATE_DIR}/ (private notes live there)"
+        )
+    if (root / DATA_DIR).is_dir() and f"{DATA_DIR}/" not in ignored:
+        result.violations.append(
+            f".gitignore: must ignore {DATA_DIR}/ (the claim store and the signing key live there)"
         )
     return result
 

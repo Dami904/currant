@@ -52,13 +52,14 @@ from extraction run 1 (`src/currant/harness/synth.py`), reproducible from the se
 - **What the pipeline sees** (`spec`): two neutrally labelled pages and a question. The scenario,
   expected state, values and stale span are only in the sealed label. Cluster ids are hashes, so
   they reveal nothing.
-- **Commit root of this set:** `58d84148ef3a568afd4048dbae89a30ac374edf5d10671640744b42d34b3210a`.
-  It has **not** been published yet; do that before any tuning, or the seal is only our own
-  word. Regenerating changes the root.
-- Still to build: the 40 real items (hand-checked against two sources, all held out; the two known
-  drift pairs are `dev` and demo material because we studied them).
+- **Commit root of the synthetic set alone:** `58d84148ef3a568afd4048dbae89a30ac374edf5d10671640744b42d34b3210a`.
+- **The frozen set (2026-11-11)** adds 3 real dev items from Reppo's docs (202 items: 109 dev, 93
+  test). Its commit root `d80501c25d50…` was posted in issue #1 before the freeze, and all 202
+  labels with their salts are in `results/labels/`; `tests/test_published_labels.py` recomputes
+  the root. The plan's 40 real items were not reached.
 
 ## Limits
 
-See `docs/LIMITATIONS.md`: the seal is a self-attested hash until the root is published, the lock
-guards the API and not the file, and tuning on synthetic items may not transfer to real docs.
+See `docs/LIMITATIONS.md`: the seal proves the labels did not change after the root was posted, not
+that they are right; the lock guards the API and not the file; and tuning on synthetic items may
+not transfer to real docs.

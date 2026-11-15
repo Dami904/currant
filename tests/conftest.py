@@ -8,9 +8,18 @@ through `httpx.MockTransport`, which never opens a socket.
 from __future__ import annotations
 
 import socket
+from pathlib import Path
 from typing import NoReturn
 
 import pytest
+
+# How many tests this run collected, and from which files: lets test_readme_count compare the
+# README's stated count with the real one, but only on a run of the whole suite.
+COLLECTED = pytest.StashKey[tuple[int, frozenset[Path]]]()
+
+
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    config.stash[COLLECTED] = (len(items), frozenset(item.path for item in items))
 
 
 @pytest.fixture(autouse=True)

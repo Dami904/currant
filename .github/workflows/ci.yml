@@ -69,6 +69,8 @@ jobs:
       - run: uv run currant replay examples/demo/receipt.json --db examples/demo/store.db
       - run: uv run currant replay examples/real/receipt.json --db examples/real/store.db
       - run: uv run currant verify-signature examples/real/receipt.json --public-key "$(cat examples/real/signing-public-key.txt)"
+      # The public drift pages must be exactly what their data builds, every quote verbatim.
+      - run: uv run python scripts/build_drift_page.py --check
 
   build:
     runs-on: ubuntu-latest
@@ -125,6 +127,28 @@ jobs:
       # in the cli/ package / live_* scripts, no skipped tests or suppressed type/lint failures.
       - run: uv run python -m currant.guardrails
 
+  site:
+    # The landing site deploys to Vercel; a broken page or type error must fail here first.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # No version: it reads `packageManager` from site/package.json.
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          package_json_file: site/package.json
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: site/.nvmrc
+          cache: pnpm
+          cache-dependency-path: site/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm build
+
   snapshots:
     # Re-hash every committed snapshot against its manifest. On Windows as well, which proves
     # .gitattributes keeps the crawled bytes intact through a CRLF-converting checkout.
@@ -144,6 +168,9 @@ jobs:
       - shell: bash
         run: |
           shopt -s nullglob
-          for dir in snapshots/*/; do
+          dirs=(snapshots/*/)
+          # An empty glob would pass vacuously; three snapshots are committed.
+          if [ "${#dirs[@]}" -lt 3 ]; then echo "expected >= 3 snapshots, found ${#dirs[@]}"; exit 1; fi
+          for dir in "${dirs[@]}"; do
             uv run currant verify "$dir"
           done

@@ -10,6 +10,14 @@ Currant's own code and docs only.
 | Folder | Sources | Fetched |
 | --- | --- | --- |
 | `2026-11-05/` | `docs.openserv.ai`, `docs.reppo.ai`, `eval.reppo.xyz/agents.md` | 2026-11-05 (UTC), see `manifest.json` for per-page times |
+| `2026-11-11/` | the same sources (132 pages, `corpus_hash` `1ae351e60c0f…`) | 2026-11-11 (UTC) |
+| `2026-11-15/` | the same sources (132 pages, `corpus_hash` `c3bb782764de…`) | 2026-11-15 (UTC) |
+
+The Kite docs (`docs.gokite.ai`, 2026-11-15) are **not** here: two of their pages contain
+`0x` + 64-hex strings the secret scanner cannot tell from wallet keys, so that snapshot stays in
+the git-ignored `data/snapshots-kite/`. The extraction log `results/extract/kite-*.jsonl` is
+committed and does quote Kite's pages verbatim (one quote per claim), under the same terms as
+this folder.
 
 - **Why it is committed:** a drift finding or a score is only checkable if the pages it was
   computed from are still available after the live docs change.

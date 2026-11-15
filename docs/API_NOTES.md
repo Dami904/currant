@@ -2,7 +2,7 @@
 
 Measured behaviour of every external service Currant depends on. **Only things observed
 against the real service belong under "Observed".** Everything else is marked as documented or
-unknown. Last updated 2026-11-06. Raw requests and responses are in `results/smoke/` (keys are
+unknown. Last updated 2026-11-15. Raw requests and responses are in `results/smoke/` (keys are
 scrubbed before saving).
 
 ## Doc hosts (crawler)
@@ -35,9 +35,9 @@ First live crawl, 2026-11-05 (`snapshots/2026-11-05/`, run `47765f4d2f75`):
 - The plan estimated about 200 pages including Kite. Without Kite it is 132; Kite alone was 76
   pages when crawled separately on 2026-11-15.
 
-Documentation conflicts seen in the crawled text are kept in `docs/private/DRIFT_NOTES.md`,
-which is git-ignored: they stay private until a second source confirms them and the
-maintainers have been told. This file records only how the tooling behaved.
+Documentation conflicts seen in the crawled text start in the git-ignored
+`docs/private/DRIFT_NOTES.md`; once confirmed they are published in `docs/drift/` (see
+CLAUDE.md). This file records only how the tooling behaved.
 
 ## SERV Reasoning
 
@@ -179,7 +179,7 @@ run (`results/extract/20261106T115849Z-run1.jsonl`, `...T124645Z-run1-resumed.js
   48,000-token retry was never needed: the 16,000 default budget was enough.
 - **The guard blocked none of the 132 pages** with this prompt. (In the earlier smoke run it
   blocked 2 of 132 when asked only for a title, so the rate depends on the prompt.)
-- **The two known drift pairs, as extracted** (details in the private notes):
+- **The two known drift pairs, as extracted** (now published in `docs/drift/`):
   - *A sponsor changelog removal vs a quickstart that still lists the removed items:* the
     changelog line was captured (stance `historical`). The **stale side was not**: the ids
     sit inside an embedded migration prompt block, which the model skipped. So this pair is
@@ -271,7 +271,20 @@ models page, which gained a model row). The read-only probes in `scripts/live_re
   judges were given no reference to check the prices against. The API has no `context` or `criteria`
   field any more, so a reference has to go inside `input`.
 - Not measured: 402 (out of credits), 429, 502, a `FAILED` evaluation (documented as not charged),
-  more than one evaluation in flight (documented as allowed), and the x402 credit route.
+  more than one evaluation in flight (documented as allowed; our runner sends one at a time), and
+  the x402 credit route.
+
+**Observed in the audits (2026-11-12: 21 evaluations; 2026-11-15: 7 more; `results/audit/`).**
+
+- Every submit returned 201 with `QUEUED`; every evaluation reached `COMPLETED`, none `FAILED`.
+  On 2026-11-15 the seven took about 1.5 to 3 minutes each from submit to verdict, one at a time.
+  Three or four evaluators judged each one. Every one was charged 440 credits.
+- **A read failed after a successful submit** (2026-11-12): a network error while polling. The
+  ledger had the evaluation's id, so resuming read that same evaluation instead of resubmitting;
+  nothing was sent twice. That is the case a blind retry of the POST would have double-charged.
+- **Identical text is not resent**: the ledger keys on the submission's content hash, so on
+  2026-11-15 one answer that was byte-identical to a 2026-11-12 one reused its verdict.
+- No 4xx or 5xx was seen on the new API.
 
 `currant`'s client targets this API. The sections below describe the OLD API as observed on
 2026-11-05 and are kept as history: those endpoints no longer exist.

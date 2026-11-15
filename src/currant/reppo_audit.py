@@ -94,8 +94,9 @@ def answer_text(answer: Answer) -> str:
         if answer.contested and all(v.basis == "page" for v in answer.contested):
             # Read from the pages' own text; no verified relation backs the disagreement.
             return (
-                "The documentation appears contested: the pages give different values and "
-                f"nothing shows which is current. The pages state: {stated}."
+                "The documentation may be contested: the model reports these values from "
+                f"different pages: {stated}. Currant has not verified a conflict or which is "
+                "current."
             )
         text = (
             "The documentation is contested: the sources disagree and nothing shows which "

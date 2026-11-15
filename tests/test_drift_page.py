@@ -95,6 +95,44 @@ def test_the_check_mode_covers_every_page() -> None:
     assert builder.main(["--check"]) == 0
 
 
+def test_the_check_mode_fails_on_a_stale_page(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    builder = load_builder()
+    stale = tmp_path / "OPENSERV_DOCS.md"
+    stale.write_text("an old version of the page\n", encoding="utf-8")
+    monkeypatch.setattr(builder, "SOURCES", (builder.OPENSERV._replace(page=stale),))
+    monkeypatch.setattr(builder, "ROOT", ROOT)
+    assert builder.main(["--check"]) == 1
+    assert stale.read_text(encoding="utf-8") == "an old version of the page\n"  # check never writes
+
+
+def _first_side(d: dict[str, Any]) -> dict[str, Any]:
+    side: dict[str, Any] = d["findings"][0]["sides"][0]
+    return side
+
+
+@pytest.mark.parametrize(
+    ("tamper", "message"),
+    [
+        (lambda d: _first_side(d).update(snapshots=[]), "no snapshot named"),
+        (lambda d: _first_side(d).update(quote=""), "too short"),
+        (lambda d: _first_side(d).update(quote="  1 MB "), "too short"),
+        (lambda d: _first_side(d).update(snapshots=["../x"]), "must be a date"),
+        (lambda d: d["findings"][0]["sides"].pop(), "at least two sides"),
+        (lambda d: d.update(reported=" "), "maintainers were told"),
+        (lambda d: d["findings"][0].update(kind="maybe"), "unknown finding kind"),
+    ],
+)
+def test_tampered_data_that_would_skip_the_check_is_refused(tamper: Any, message: str) -> None:
+    # Each case once rendered a page claiming "every quote was checked" without checking it.
+    builder = load_builder()
+    tampered = copy.deepcopy(data())
+    tamper(tampered)
+    with pytest.raises(ValueError, match=message):
+        builder.build(tampered, ROOT / "snapshots")
+
+
 def test_every_finding_says_whether_it_is_a_conflict_and_why() -> None:
     kinds = {f["kind"] for f in data()["findings"]}
     assert kinds <= {"conflict", "resolved-by-removal", "not-a-conflict"}

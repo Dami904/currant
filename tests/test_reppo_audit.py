@@ -191,5 +191,5 @@ def test_values_read_from_the_pages_are_not_presented_as_a_verified_conflict() -
         ContestedValue(2.0, "MB", "https://docs.reppo.ai/api/eval/evaluations.md", "page"),
     )
     text = answer_text(Answer("contested", None, None, None, page))
-    assert "appears contested" in text and "The pages state: 1.25 MB" in text and "2 MB" in text
-    assert "The sources state" not in text
+    assert "may be contested" in text and "different pages: 1.25 MB" in text and "2 MB" in text
+    assert "not verified a conflict" in text and "The sources state" not in text

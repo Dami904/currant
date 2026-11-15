@@ -3,10 +3,11 @@
 Scope: what exists today: the crawler, the claim store, extraction and relation detection
 through SERV, Ground and receipts, retrieval, the model cache, the evaluation harness, the Reppo
 client and audit runner (`reppo.py`, `reppo_run.py`, `reppo_audit.py`), the grounding proxy and
-receipt viewer (`proxy.py`, `proxy_http.py`, `web/`), and the drift report (`drift.py`). The Reppo
-commands have only been run against scripted responses, never live; the proxy has run against the
-live SERV API twice.
-Last reconciled with the code on 2026-11-11.
+receipt viewer (`proxy.py`, `proxy_http.py`, `web/`), the drift report (`drift.py`) and the public
+drift pages (`scripts/build_drift_page.py`), and receipt signing (`signing.py`). The Reppo audit
+ran live: 21 evaluations on 2026-11-12 and 7 more on 2026-11-15. SERV makes every model call; the
+proxy has run against the live SERV API twice.
+Last reconciled with the code on 2026-11-15.
 
 ## Trust
 
@@ -17,22 +18,23 @@ Last reconciled with the code on 2026-11-11.
 | Model output (SERV) | **Untrusted proposals.** Every quote is re-checked verbatim, direction comes from our code, and the database refuses relations without verified evidence. |
 | `data/llm_cache.db` | Trusted as much as the local disk: it is an unencrypted, non-expiring store of raw model answers with no integrity protection. Anyone who can edit it can feed the detector any answer. |
 | Sponsor doc hosts (`docs.openserv.ai`, `docs.reppo.ai`, `eval.reppo.xyz`) | Trusted only to the extent the allow-list names them. A page they serve can still be wrong or hostile text. |
-| SERV Reasoning, Reppo | Not called yet. When they are, their outputs are proposals; our code verifies quotes. |
+| SERV Reasoning | Called for every extraction, detection and answer. Its outputs are proposals; our code verifies quotes. A contested answer's values are kept only if a verified notice quotes them, or, as a weaker fallback (`answer-v3`, marked basis "page"), if each number is written in the page it cites and two pages differ; the fallback does not prove the numbers are the same fact. |
+| Reppo | Its verdicts are a second opinion we report, never an input to a cut. Everything sent is public, and goes only from a file a person reviewed (SHA-256 confirmed). |
 | `manifest.json` and everything in it | Untrusted on read: a path from a manifest is resolved inside the snapshot directory before it is opened, hashed or deleted. |
 
 ## Credentials
 
 The crawler uses no credentials. `SERV_API_KEY` is in use (extraction, relation detection,
-item runs); `REPPO_API_KEY` is smoke-tested only; `WALLET_PRIVATE_KEY` is unused. Keys are
+item runs); `REPPO_API_KEY` is in use (the audits, 28 live evaluations); `WALLET_PRIVATE_KEY` is unused. Keys are
 read only in `src/currant/config.py`; `currant.guardrails` fails CI
 if another file under `src/` references them or reads the environment, or if a secret-shaped
 string is committed. `.claude/settings.json` denies Claude's Read tool on `.env` files.
 
 | If this leaks | Consequence |
 | --- | --- |
-| `SERV_API_KEY` | Attacker spends SERV credits (capped by the $5 to $15 balance). |
-| `REPPO_API_KEY` | Attacker submits public evaluations on our account and burns free credits. |
-| `WALLET_PRIVATE_KEY` | Attacker drains the Base wallet. Keep it to the ~$30 budget; use no other funds. |
+| `SERV_API_KEY` | Attacker spends SERV credits, up to whatever the account holds (the earlier caps were lifted on 2026-11-11; nothing in code limits spend). |
+| `REPPO_API_KEY` | Attacker submits public evaluations on our account and burns its credits. |
+| `WALLET_PRIVATE_KEY` | Attacker drains the Base wallet. Keep only small amounts there; no top-up or payment happens without the user's approval. |
 | `CURRANT_PROXY_TOKEN` (optional) | Attacker can read every proxy receipt (which holds questions and page text) and send chat calls through the proxy, but only with a SERV key of their own: the proxy holds none. The token cannot change the store, the runs or the rate limit. |
 | `CURRANT_SIGNING_KEY` (optional; the project key is in `data/signing-key.hex`, git-ignored) | Attacker can sign receipts that verify under our public key. They still cannot make a forged receipt *replay*: `replay` re-derives the context from the store. There is no revocation, so a leaked key stays valid until verifiers stop trusting it. It grants nothing else. |
 
@@ -170,5 +172,8 @@ string is committed. `.claude/settings.json` denies Claude's Read tool on `.env`
 2. A controlled page retiring another page's sentence, and plain-word injection into the answering model (offline tests and a first live run exist; see above).
 3. The wrong-neighbour cut: one false cut seen on dev items and one on held-out items; held-out
    precision was 0.857.
-4. Several rules (spend caps, payment approval) have no code enforcing them yet.
+4. Several rules (spend, payment approval) have no code enforcing them; only the Reppo submit has
+   a code gate (the reviewed file's SHA-256).
 5. No `robots.txt` handling, and the page cap cuts alphabetically rather than by relevance.
+6. CI checks the example receipt against a public key committed in the same repository: that
+   shows the mechanism works, not who signed it. A verifier should get the key some other way.

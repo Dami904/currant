@@ -1,12 +1,12 @@
 # Limitations
 
-What is not handled yet, stated plainly. Last reconciled with the code on 2026-11-12.
+What is not handled yet, stated plainly. Last reconciled with the code on 2026-11-15.
 
 ## Not built yet
 
 The x402-priced endpoint is not built. Crawl-diff supersession and as-of queries are built
-(2026-11-15) but small; see "Crawl-diff" below. Live runs so far: 21 Reppo evaluations through the audit runner
-(`results/audit/`, see "The audit" below), one earlier through the current API and two
+(2026-11-15) but small; see "Crawl-diff" below. Live runs so far: 28 Reppo evaluations through the audit runner
+(21 on 2026-11-12 and 7 on 2026-11-15; `results/audit/`, see "The audit" below), one earlier through the current API and two
 questions through the proxy (`results/smoke/`); the `review` loop and the drift report are
 tested only against scripted responses. The
 held-out result (next section) is on synthetic items. **There is no held-out result on real
@@ -260,7 +260,8 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
   send that text again, change it or use a new ledger file.
 - **An unknown submit stops everything** until a person checks the console and runs
   `currant reppo-resolve`. That is deliberate, because a blind resubmit could spend 440 credits twice.
-- **The ledger lock is tested on Windows only** (the Linux branch uses `fcntl` and is not run here).
+- **The ledger lock runs on both branches in CI** (the test job runs on Ubuntu, which takes the
+  `fcntl` branch, and on Windows); locally it has only been run on Windows.
 - **The audit (run 2026-11-12, `results/audit/`): no harm on easy facts, no win on conflicts.**
   21 evaluations, 9,240 credits, from files a person reviewed (`prepare` never uses the synthetic
   items, whose invented "updates" must not be posted publicly). One run stopped on a network
@@ -280,9 +281,11 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
     contested answer lists every value the notice quotes, and values not written in the notice's
     verified quotes are dropped by our code. These audit scores are `answer-v1`'s and are not
     rewritten.
-  - *Re-audit of `answer-v2` (2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`, 8 evaluations,
-    3,520 credits):* the same three conflicts plus the OpenServ default `PORT` (7380 vs 7378). Each
-    submission now also showed the judges both quoted pages, so this is not the v1 setup. Baseline
+  - *Re-audit of `answer-v2` (2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`, 8 verdicts,
+    7 new evaluations, 3,080 credits):* the same three conflicts plus the OpenServ default `PORT`
+    (7380 vs 7378), with the same reference section as v1. The attachment-size baseline text was
+    byte-identical to v1's, so the ledger reused its 2026-11-12 verdict (same eval id) rather than
+    resend it; that pair compares a baseline judged on 11-12 with a pull judged on 11-15. Baseline
     76.2, Currant 83.8, +7.5 (95% interval -11 to +26, 4 questions: no conclusion), better on 2,
     worse on 2. Per question: cost 91 vs 77 (still lost: the judges prefer the value the live
     service charges, which text cannot know), sign-up bonus 78 vs 100, attachment size 66 vs 58
@@ -291,9 +294,12 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
     found that pair; the CONTESTED notice on those pages was about other facts. The model answered
     "contested" with 1.25 MB and 2 MB read from the page text, and `verify_contested` dropped both
     because only numbers inside a notice counted. It now falls back, when no value is in a notice,
-    to values written in the text of the page each one cites (at least two different values), and
-    the answer says "the pages state" rather than claiming a verified conflict. Still open: the
-    verdict "contested" itself is the model's call when no notice covers the question.
+    to values written in the text of the page each one cites (two different pages, different
+    numbers), and the answer says Currant has not verified a conflict. Still open: the verdict
+    "contested" itself is the model's call when no notice covers the question, and the fallback
+    checks only that each number is on its page: not the unit, not that the two numbers are the
+    same fact ("Step 3" and "Step 7" would pass), and not that neither page is dated history. A
+    stronger version would have the model return a quote per value and verify it like `extract`.
   - *Our other miss:* the detector did not find the attachment-size conflict, so both arms gave the
     stale "2 MB" (the judges flagged the 2 MB vs 1.25 MB conflict themselves).
   - *The documentation's side:* all three conflicts are real. The judges found each from the
@@ -435,14 +441,15 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
 
 ## Real evaluation items
 
-- **None exist yet.** The evaluation set holds 199 synthetic items and 0 real ones. Real items must be
-  added BEFORE `currant eval-freeze --yes`, which closes the item set for good.
+- **Only 3 exist, all dev.** The frozen evaluation set (2026-11-11) holds 199 synthetic items and
+  3 real ones from Reppo's docs; the freeze closed the item set for good, so no more real items
+  can join it. The Kite site gave none (see "A third documentation site").
 - **Only a person can label them.** `currant real-worksheet` proposes candidate pairs from the real
   corpus using the detector's candidate stage only (text similarity, never its verdict);
   `currant real-label` records a person's verdict one key at a time; `currant real-import` seals
   the items after re-checking every quote and date with our own code. A model never decides the
   truth of a real item.
-- **How many there will be is unknown.** The plan says 40. The corpus yielded 60 candidate pairs, many
+- **Why there are only 3 (history).** The plan says 40. The corpus yielded 60 candidate pairs, many
   of which will turn out not to be conflicts, and the first extraction found no replacement
   statements at all, so the count may be well under 40. The write-up must report the real n.
 - **Judged from the snapshot text, not from today's site.** The labels are about the pages as
@@ -488,7 +495,8 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
 
 ## Crawler
 
-- **One live crawl so far (2026-11-05, 132 pages, no errors).** Retry, 429, 5xx, timeout and
+- **Three live crawls of the sponsor docs (2026-11-05, -11, -15; 132 pages each, no errors)**, plus
+  one each of Kite and a Stripe slice. Retry, 429, 5xx, timeout and
   deadline handling are tested only against a mock transport because the live hosts never
   failed. Whether `llms.txt` lists every page is unmeasured. See `docs/API_NOTES.md`.
 - **`robots.txt` is not consulted.** The seeds are `llms.txt` files published for machines,
@@ -549,8 +557,9 @@ redistribution of their text is unchecked; only counts are recorded here.
 
 - **The real store is local and not reproducible from a clone.** `data/currant.db` holds one
   extraction run (1,011 claims) and several relate runs, but `data/` is not committed, and
-  rebuilding it needs a SERV key and gives different model output each time. Only
-  `examples/demo/` (hand-written claims on invented pages) can be replayed from a clone.
+  rebuilding it needs a SERV key and gives different model output each time. From a clone, only
+  `examples/demo/` (hand-written claims on invented pages) and `examples/real/` (one receipt over
+  real Reppo pages, with a 43-claim copy of the store) can be replayed; CI replays both.
 - **Staleness does not propagate yet.** A second page repeating a stale value is only flagged if
   its own claim is related to the stale one; the closure over `same` relations is not written.
 - **Value identity is simple.** Numeric values match by number and unit, other values by
@@ -586,10 +595,11 @@ redistribution of their text is unchecked; only counts are recorded here.
   page-level split put the two halves of the flagship pair on opposite sides (the stale quickstart
   was `dev`, the changelog that retired it was `test`), so Gate 1 could
   only have seen the minority of pairs that landed together. See `docs/EVALUATION_ITEMS.md`.
-- **199 synthetic items exist; no real items yet.** The generator (`harness/synth.py`) made 99
-  injected supersessions and 100 clean controls from the first extraction run. The 40 real
-  hand-checked items are not labelled, so every precision figure here is on synthetic dev
-  items. The evaluation commit root is still unpublished.
+- **199 synthetic items and 3 real ones.** The generator (`harness/synth.py`) made 99 injected
+  supersessions and 100 clean controls from the first extraction run. The plan's 40 real items
+  were not reached (3, all dev), so every held-out figure is on synthetic items. The commit root
+  was published in issue #1 before the freeze, and all 202 labels are published in
+  `results/labels/` (a test recomputes the root).
 - **The effective sample is the number of source pages, not items.** The 199 items come from 68
   distinct pages (41 dev, 27 test), and only 44 pages had a rewritable number, so the 99
   supersession items carry about 44 independent clusters. Items from one page are not independent;
@@ -600,10 +610,9 @@ redistribution of their text is unchecked; only counts are recorded here.
 - **Synthetic wording is templated.** The update sentence is the original sentence with a changed
   number, so it is easier than a real rewrite; the explicit, dated and implicit forms are three
   fixed templates.
-- **The label seal is a hash commit, not external evidence.** Labels are salted and
-  hash-committed when an item is created, and `commit_root` summarises them. Until that root is
-  published somewhere outside this machine (a commit message, a post) before tuning starts,
-  nothing but our own discipline stops a label being changed before the freeze.
+- **The label seal is a hash commit the author published.** Labels are salted and hash-committed
+  when an item is created, and `commit_root` summarises them. The root was posted in issue #1
+  before the freeze, which proves the labels did not change afterwards, not that they are right.
 - **The lock guards the API, not the file.** `labels()` refuses test and held-out labels before
   `freeze()`, but anyone with the SQLite file can read every row. The pipeline is kept from the
   labels by a guardrail that fails CI if pipeline modules import `currant.evalset`; a determined
@@ -630,14 +639,15 @@ redistribution of their text is unchecked; only counts are recorded here.
 
 `CLAUDE.md` states these; nothing enforces them yet:
 
-- **Spend caps (about $15 SERV, $30 Reppo) and "ask before any x402 payment or top-up".** No
-  payment code exists. When it does, it needs an explicit opt-in switch and a test.
+- **"Ask before any x402 payment or top-up".** (The earlier spend caps were lifted on 2026-11-11.)
+  No payment code exists. When it does, it needs an explicit opt-in switch and a test.
 - **"No tuning on test or held-out items after Nov 11".** Reading their labels before the freeze is
   refused by code (`EvalLocked`), and `run-items` refuses a non-dev split before the freeze.
   Not stopped: running dev items as often as you like and tuning on them (allowed), or
   writing a separate script that bypasses the CLI.
-- **"Every guard ships with a test that fails when the guard is removed".** Checked by hand
-  with scripted guard-removal runs, not automatically in CI.
+- **"Every guard ships with a test that fails when the guard is removed".** CI's `mutants` job
+  removes 30 named guards and requires a test to fail for each; a guard not on that list is
+  still checked only by hand.
 - **"Crawled text goes to a model only behind the prompt guard".** Extraction and relation calls
   pass `guard=True` and tests assert it, but no rule fails CI if a new call site forgets it.
   The guard also fails open if its own judge fails.

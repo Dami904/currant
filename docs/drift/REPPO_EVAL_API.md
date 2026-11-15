@@ -1,6 +1,6 @@
 # Reppo Evaluation API: where the documentation disagrees with itself
 
-Currant's detector flagged 7 pairs of sentences in the sponsor documentation as disagreeing (relate run 7 over the 2026-11-05 snapshot, and the same pairs came back from a wider run). 6 are on the Reppo Evaluation API pages and are listed here; 1 is on OpenServ's documentation and is listed in OPENSERV_DOCS.md. A person then read each pair against both sources. Of the 6, two are live conflicts. A third live conflict (attachment size) was found by hand because the detector missed it. The rest are not live conflicts, and are shown so the detector's real precision on documentation is visible.
+Currant's detector flagged 7 pairs of sentences in the sponsor documentation as disagreeing (relate run 7 over the 2026-11-05 snapshot, and the same pairs came back from a wider run). 6 are on the Reppo Evaluation API pages and are listed here; 1 is on OpenServ's documentation and is listed in OPENSERV_DOCS.md. A person then read each pair against both sources. Of the 6, two are live conflicts, two are resolved by removal (both are about the peer-assessment cap, so they are shown as one finding with three quotes), and two are false positives. A third live conflict (attachment size) was found by hand because the detector missed it. The rest are not live conflicts, and are shown so the detector's real precision on documentation is visible.
 
 Every quote below was checked verbatim against the committed snapshot page named
 next to it (`snapshots/<date>/`, verifiable with `currant verify`). Whether two quotes
@@ -41,10 +41,10 @@ Found by hand: the detector missed this pair (it is its recall limit on real doc
 
 - “`POST https://eval.reppo.xyz/api/v1/agents/eval-requests/submit`”  
   https://docs.reppo.ai/api/eval/evaluations.md (snapshots 2026-11-11, 2026-11-15)
-- “## 8. Removed endpoints (deprecated)”  
+- “| `POST /api/v1/agents/eval-requests/submit` (`type`, `payload`, `criteria`, `context`, `settlementMinutes`) | `POST /api/v1/agents/evals` (`taskType`, `input`) — section 3 |”  
   https://eval.reppo.xyz/agents.md (snapshots 2026-11-11, 2026-11-15)
 
-Found by a live probe, not by the detector, and not part of issue #11 (it appeared after the 2026-11-11 re-crawl; published here 2026-11-15). Measured: the old endpoints returned 404 on 2026-11-11 (`results/smoke/20261111T113818Z-reppo-probe.json`), so agents.md is right and the docs.reppo.ai API pages are stale.
+The agents.md row is from its "Removed endpoints (deprecated)" table. Found by a live probe, not by the detector, and not part of issue #11 (it appeared after the 2026-11-11 re-crawl; published here 2026-11-15). Measured: the old endpoints returned 404 on 2026-11-11 (`results/smoke/20261111T113818Z-reppo-probe.json`), so agents.md is right and the docs.reppo.ai API pages are stale.
 
 ## Resolved by removal (not a live conflict) (1)
 
@@ -57,7 +57,7 @@ Found by a live probe, not by the detector, and not part of issue #11 (it appear
 - “These endpoints have been removed and now return `404`.”  
   https://eval.reppo.xyz/agents.md (snapshots 2026-11-11)
 
-In the first snapshot the two pages disagreed (3 against 5). By the second, agents.md no longer mentions a cap and lists the peer-assessment endpoints as removed, so the docs page now describes an API that no longer exists. This is the case a crawl-diff would catch (the same URL changed between two dated snapshots); Currant does not build that yet.
+In the first snapshot the two pages disagreed (3 against 5). By the second, agents.md no longer mentions a cap and lists the peer-assessment endpoints as removed, so the docs page now describes an API that no longer exists. This is the case a crawl-diff catches (the same URL changed between two dated snapshots); Currant has one since 2026-11-15 (`results/crawldiff/`), which was not run back over this pair.
 
 ## Not a conflict (detector false positive) (2)
 

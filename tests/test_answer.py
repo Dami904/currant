@@ -170,6 +170,43 @@ def test_a_page_value_must_be_written_in_the_document_it_cites() -> None:
     assert result.answer is not None and result.answer.contested == ()  # one value is no conflict
 
 
+def test_two_numbers_from_one_page_are_not_a_disagreement() -> None:
+    context = (
+        "<<<DOCUMENT 1: https://a.example/limits.md>>>\nUp to 10 files per upload. Each file may "
+        "be 25 MB.\n<<<END DOCUMENT 1>>>\n"
+    )
+    values = [
+        {"value": 10, "unit": "MB", "source": "https://a.example/limits.md"},
+        {"value": 25, "unit": "MB", "source": "https://a.example/limits.md"},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", context, sleep=no_sleep)
+    assert result.answer is not None and result.answer.contested == ()
+
+
+def test_the_same_number_on_two_pages_is_not_a_disagreement() -> None:
+    context = PAGE_CONTEXT.replace("up to 2 MB", "up to 1.25 MB")
+    values = [
+        {"value": 1.25, "unit": "MB", "source": "https://a.example/agents.md"},
+        {"value": 1.2500000001, "unit": "MB", "source": "https://b.example/evaluations.md"},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", context, sleep=no_sleep)
+    assert result.answer is not None and result.answer.contested == ()
+
+
+def test_a_closing_marker_must_carry_the_opening_number() -> None:
+    # Document 1 is never closed as 1, so nothing inside it can vouch for a value.
+    context = (
+        "<<<DOCUMENT 1: https://a.example/agents.md>>>\nMax 1.25 MB.\n<<<END DOCUMENT 2>>>\n"
+        "<<<DOCUMENT 2: https://b.example/evaluations.md>>>\nup to 2 MB.\n<<<END DOCUMENT 2>>>\n"
+    )
+    values = [
+        {"value": 1.25, "unit": "MB", "source": "https://a.example/agents.md"},
+        {"value": 2, "unit": "MB", "source": "https://b.example/evaluations.md"},
+    ]
+    result = ask(Fake(lambda _u: reply(contested_reply(values))), "Q", context, sleep=no_sleep)
+    assert result.answer is not None and result.answer.contested == ()
+
+
 def test_page_values_are_not_used_when_the_notice_backs_a_value() -> None:
     values = [
         {"value": 440, "unit": "credits", "source": "https://a.example/agents.md"},

@@ -16,6 +16,7 @@ so a label edited after the freeze fails CI.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -46,11 +47,15 @@ def main() -> int:
     if freeze_event.get("commit_root") != root:
         print("refusing: the commit root no longer matches the one recorded at the freeze")
         return 2
+    for r in rows:  # checked before anything is written, and not an `assert` (`-O` strips those)
+        if label_commit(r["salt"], json.loads(r["label"])) != r["label_commit"]:
+            print(f"refusing: {r['item_id']}'s label does not match its sealed commit")
+            return 2
     OUT.mkdir(parents=True, exist_ok=True)
-    with (OUT / "labels.jsonl").open("w", encoding="utf-8", newline="\n") as handle:
+    partial = OUT / "labels.jsonl.partial"
+    with partial.open("w", encoding="utf-8", newline="\n") as handle:
         for r in rows:
             label = json.loads(r["label"])
-            assert label_commit(r["salt"], label) == r["label_commit"]
             handle.write(
                 json.dumps(
                     {
@@ -67,6 +72,7 @@ def main() -> int:
                 )
                 + "\n"
             )
+    os.replace(partial, OUT / "labels.jsonl")  # a crash mid-write never leaves half a file
     manifest = {
         "frozen_at": evals.conn.execute(
             "SELECT value FROM meta WHERE key = 'frozen_at'"

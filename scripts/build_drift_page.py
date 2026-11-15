@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, NamedTuple
@@ -61,11 +62,21 @@ def page_text(snapshots: Path, date: str, url: str) -> str:
     raise ValueError(f"{url} is not in snapshot {date}")
 
 
+MIN_QUOTE = 12  # a shorter quote ("", "1", "MB") is found almost anywhere and proves nothing
+_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
+
+
 def check_side(snapshots: Path, side: dict[str, Any], hosts: tuple[str, ...]) -> None:
     url = side["url"]
     if not url.startswith(hosts):
         raise ValueError(f"{url} is not a reported host")
+    if len(side["quote"].strip()) < MIN_QUOTE:
+        raise ValueError(f"quote too short to prove anything: {side['quote']!r}")
+    if not side["snapshots"]:
+        raise ValueError(f"no snapshot named for {url}: the quote would not be checked")
     for date in side["snapshots"]:
+        if not _DATE.fullmatch(date):
+            raise ValueError(f"snapshot must be a date like 2026-11-15, got {date!r}")
         if side["quote"] not in page_text(snapshots, date, url):
             raise ValueError(
                 f"quote not found verbatim in {url} (snapshot {date}): {side['quote']!r}"
@@ -73,6 +84,11 @@ def check_side(snapshots: Path, side: dict[str, Any], hosts: tuple[str, ...]) ->
 
 
 def build(data: dict[str, Any], snapshots: Path, source: Source = REPPO) -> str:
+    if not str(data.get("reported", "")).strip():
+        raise ValueError("say whether the maintainers were told (`reported` is blank)")
+    for finding in data["findings"]:
+        if finding["kind"] == "conflict" and len(finding["sides"]) < 2:
+            raise ValueError(f"conflict {finding['id']!r} needs at least two sides")
     out = [
         f"# {source.title}",
         "",
@@ -115,7 +131,7 @@ def main(argv: list[str] | None = None) -> int:
     for source in SOURCES:
         data = json.loads(source.data.read_text(encoding="utf-8"))
         text = build(data, ROOT / "snapshots", source)
-        name = source.page.relative_to(ROOT).as_posix()
+        name = f"docs/drift/{source.page.name}"
         if args.check:
             exists = source.page.exists()
             current = (

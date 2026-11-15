@@ -9,7 +9,7 @@
 When the documentation disagrees with itself, Currant checks which claim won.
 
 [![CI](https://github.com/Dami904/currant/actions/workflows/ci.yml/badge.svg)](https://github.com/Dami904/currant/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-1128%20passing-22C55E?style=flat)](#tested-not-claimed)
+[![Tests](https://img.shields.io/badge/tests-1145%20passing-22C55E?style=flat)](#tested-not-claimed)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live](https://img.shields.io/badge/live-currant--firewall.vercel.app-000000?style=flat)](https://currant-firewall.vercel.app)
 [![Python](https://img.shields.io/badge/python-3.12-1f1f23?style=flat)](pyproject.toml)
@@ -89,7 +89,7 @@ command line below.
 
 |                   |                                                                                                                                                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1054**          | tests, all offline: a `conftest.py` makes any socket call fail                                                                                    |
+| **1145**          | tests, all offline: a `conftest.py` makes any socket call fail                                                                                    |
 | **0.857 / 0.828** | held-out precision and recall on 93 synthetic test items, scored once after a public freeze (dev was 1.000 / 0.892: a miss, reported as one)      |
 | **3**             | real conflicts found in Reppo's own docs, reported upstream ([issue #11](https://github.com/Reppo-Labs/docs/issues/11), [PR #12](https://github.com/Reppo-Labs/docs/pull/12)) |
 | **-7.7**          | Currant against baseline on those 3 questions in Reppo's own judges' scores (59.0 against 66.7): **we lost**, and [why is below](#where-it-lost) |
@@ -167,7 +167,7 @@ Both do real work, and each row points at the code and at evidence you can open.
 | Tool                                  | What Currant uses it for                                                                                                                                                                                                    | Code                                                                                                         | Evidence                                                                                |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
 | **SERV Reasoning, by OpenServ**       | Every model call: proposing claims, proposing which claim replaced which, and answering, with one model, `gpt-6-luna`. Crawled text reaches it only behind `serv_prompt_guard`; the guard can fail open, so the checks that matter run in our code. | [`serv.py`](src/currant/serv.py) · [`extract.py`](src/currant/extract.py) · [`detect.py`](src/currant/detect.py) | 132 pages read, 1,011 claims stored of 1,160 proposed ([`results/`](results/))           |
-| **Reppo Evaluation API**              | Independent verdicts: Reppo's judges scored our answers against a baseline with no firewall, 21 public evaluations on 2026-11-12 (9,240 credits), and a re-audit of the fixed contested answer on 2026-11-15 (8 more, 3,520 credits). A submission goes out only from a file a person reviewed, matched by its SHA-256. | [`reppo.py`](src/currant/reppo.py) · [`reppo_audit.py`](src/currant/reppo_audit.py)                           | the verdicts, raw ([`results/audit/`](results/audit/))                                   |
+| **Reppo Evaluation API**              | Independent verdicts: Reppo's judges scored our answers against a baseline with no firewall, 21 public evaluations on 2026-11-12 (9,240 credits), and a re-audit of the fixed contested answer on 2026-11-15 (7 new evaluations, 3,080 credits). A submission goes out only from a file a person reviewed, matched by its SHA-256. | [`reppo.py`](src/currant/reppo.py) · [`reppo_audit.py`](src/currant/reppo_audit.py)                           | the verdicts, raw ([`results/audit/`](results/audit/))                                   |
 
 ---
 
@@ -352,7 +352,7 @@ END;
 
 ## Tested, not claimed
 
-**1128 tests pass, all offline.** A `conftest.py` makes any socket call fail, so no test can reach
+**1145 tests pass, all offline.** A `conftest.py` makes any socket call fail, so no test can reach
 the network; every external API is exercised through `httpx` mock transports and scripted replies.
 Every guard ships with a test that fails when the guard is removed.
 
@@ -373,7 +373,7 @@ Every guard ships with a test that fails when the guard is removed.
 | Two equal values are never a supersession       | `test_two_claims_with_the_same_number_are_never_a_supersession_or_a_conflict` ([`test_detect.py`](tests/test_detect.py)) |
 | Blocking finds exactly the pairs all-pairs finds | `test_blocking_returns_exactly_the_all_pairs_result` (property test, 1,500 cases) ([`test_blocking.py`](tests/test_blocking.py)) |
 | The proxy denies data without its token          | `test_with_a_token_configured_data_routes_deny_by_default` ([`test_proxy_gate.py`](tests/test_proxy_gate.py)) |
-| Every named guard is caught when removed        | `scripts/mutation_check.py`: 21 of 21 mutants caught, run in CI |
+| Every named guard is caught when removed        | `scripts/mutation_check.py`: 30 of 30 mutants caught, run in CI |
 | A receipt built from real docs replays           | `currant replay examples/real/receipt.json` runs in CI ([`examples/real/`](examples/real/README.md)); the site's [receipt check](https://currant-firewall.vercel.app/verify.html) recomputes its hash in the browser |
 
 ### What we measured
@@ -415,9 +415,9 @@ contested answer now lists every value the CONTESTED notice quotes, and our code
 not written in those verified quotes. The scores above are `answer-v1`'s and stay as recorded.
 
 **Re-audit of `answer-v2`** (2026-11-15, `results/audit/reppo-conflicts-v2.jsonl`). The same three
-Reppo conflicts plus one in the OpenServ docs (default `PORT`, 7380 vs 7378). This time each
-submission also showed the judges both quoted pages as the reference, so the setup differs from
-v1 and the two runs are not directly comparable.
+Reppo conflicts plus one in the OpenServ docs (default `PORT`, 7380 vs 7378), with the same
+reference section as v1. 7 new evaluations (3,080 credits): the attachment-size baseline answer was
+byte-identical to v1's, so the ledger reused its 2026-11-12 verdict instead of paying for it again.
 
 | Question                | Baseline | Currant (`pull`) | Judges' reason, in short                                        |
 | ----------------------- | -------- | ---------------- | --------------------------------------------------------------- |
@@ -435,8 +435,10 @@ cannot know.
 never found that pair. The pages' CONTESTED notice was about other facts (cost, sign-up bonus), the
 model still answered "contested" and read 1.25 MB and 2 MB from the page text, and our check, which
 only accepted numbers inside the notice, dropped both. Now, when no value is in a notice, a value is
-kept if its number is written in the text of the page it cites, at least two different values are
-needed, and the answer says "the pages state" instead of presenting it as a verified conflict.
+kept if its number is written in the text of the page it cites; two different pages must give
+different numbers; and the answer says the model reports these values and that Currant has not
+verified a conflict. That check is weaker than a notice: it does not prove the two numbers describe
+the same fact, or that one page is not simply older.
 Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 MB (evaluations.md).
 
 ---
@@ -473,7 +475,7 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
   that saw only the quoted text and checked by a person. Those 3 are dev items.
 - **Everything else is a live run.** The crawl (132 pages, 0 errors), the extraction (1,011 claims
   stored of 1,160 proposed), the relation runs, the held-out scoring and the Reppo audits (21
-  evaluations, 9,240 credits, then an 8-evaluation re-audit, 3,520 credits) ran against the real
+  evaluations, 9,240 credits, then a re-audit of 7 new evaluations, 3,080 credits) ran against the real
   services. Raw outputs are in `results/` with keys
   scrubbed; the raw logs of the relation step stay local (`results/relate/` is git-ignored).
 - **A slice of Stripe's public docs** (2026-11-12) ran with no code change: 59 pages, 463 claims
@@ -508,7 +510,7 @@ Replayed offline on the real c03 reply, it now names 1.25 MB (agents.md) and 2 M
   wasn't retrieved.
 - **On real documentation the detector is a lead generator, not a verdict.** A person confirmed each
   real conflict, threw out the false positives, and found the one it missed.
-- **Receipt signing is optional and has no key directory.** `currant sign` adds an Ed25519 signature (`pip install currant[sign]`), and `verify-signature` checks it against a public key *you* supply. There is no revocation, no expiry, and no published registry of keys. Only `examples/real/` is signed; CI verifies it.
+- **Receipt signing is optional and has no key directory.** `currant sign` adds an Ed25519 signature (`uv sync --extra sign`), and `verify-signature` checks it against a public key *you* supply. There is no revocation, no expiry, and no published registry of keys. Only `examples/real/` is signed; CI verifies it.
 - **Retrieval isn't wired into `currant ground`,** which takes the pages you name (the proxy does
   retrieve). A paid x402 endpoint isn't built.
 - **A second detector model does worse, and the guards don't fully catch it.** On dev items,
@@ -533,7 +535,7 @@ compromised key allows is in [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 - **Storage:** SQLite, with triggers that enforce the claim-store invariants; FTS5 for retrieval
 - **Model:** SERV Reasoning by OpenServ (`gpt-6-luna`) with `serv_prompt_guard`
 - **Verdicts:** Reppo Evaluation API
-- **Checks:** `ruff` · `mypy --strict` · `pytest` (1128 tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
+- **Checks:** `ruff` · `mypy --strict` · `pytest` (1145 tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
 - **Site:** Vite · TypeScript · pnpm; no runtime dependencies, no external requests; hosted on Vercel
 
 ---
@@ -549,19 +551,26 @@ currant/
 │  ├─ store.py            the claim store; store_schema.py holds its triggers
 │  ├─ extract.py          claim extraction; serv.py is the SERV client
 │  ├─ detect.py           relation detector: candidates, model verdict, our verification
+│  ├─ crawldiff.py        supersession from two dated crawls of the same URL
 │  ├─ ground.py           redact / annotate / pull / CONTESTED; receipt.py makes receipts
+│  ├─ signing.py          optional Ed25519 signatures for receipts
 │  ├─ retrieve.py         BM25 page retrieval over a snapshot
 │  ├─ proxy.py            the grounding proxy; proxy_http.py serves it; web/ is the viewer
 │  ├─ reppo*.py           Reppo client, ledger, audit runner and report
+│  ├─ drift.py            the private drift report
+│  ├─ llmcache.py         the model-reply cache; obs.py is structured logging
 │  ├─ evalset.py          sealed evaluation items; harness/ runs and scores them
 │  └─ guardrails.py       repo rules that fail CI
 ├─ tests/                 offline tests (sockets blocked)
 ├─ examples/demo/         a small deterministic store and receipt anyone can replay
+├─ examples/real/         a signed receipt over real Reppo pages, replayed in CI
 ├─ site/                  the landing site
 ├─ snapshots/             crawled third-party docs, hashed (not MIT; see its README)
-├─ results/               raw outputs of live runs, keys scrubbed; audit/ holds Reppo's verdicts
-├─ scripts/               live_* smoke tests (never run by CI), build_demo.py, build_drift_page.py
-└─ docs/                  API notes, claim store, limitations, threat model, drift/, brand/
+├─ results/               raw outputs of live runs, keys scrubbed; audit/ Reppo's verdicts, labels/ the 202 frozen labels
+├─ scripts/               live_* smoke tests (never run by CI), build_demo.py, build_drift_page.py, mutation_check.py
+├─ docs/                  API notes, claim store, limitations, threat model, drift/, brand/
+├─ .github/               CI (each check its own job) and Dependabot
+└─ TIMELINE.md            what happened on which date, each backed by a committed file
 ```
 
 ---
@@ -574,15 +583,20 @@ Needs [`uv`](https://docs.astral.sh/uv/). No API keys, and the tests never touch
 git clone https://github.com/Dami904/currant && cd currant
 uv sync
 
-# The same checks CI runs
-uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pytest
+# The main checks CI runs (CI also runs pip-audit and the site build)
+uv run ruff check . && uv run ruff format --check . && uv run mypy
+uv run pytest --cov=currant --cov-branch --cov-fail-under=92
 uv build
 uv run python -m currant.guardrails        # repo rules enforced as code
-uv run currant verify snapshots/2026-11-05
+uv run python scripts/mutation_check.py    # remove each named guard; a test must fail
+uv run python scripts/build_drift_page.py --check
+for d in snapshots/*/; do uv run currant verify "$d"; done
 
 # Replay a receipt (no key, no network)
 uv run currant replay examples/demo/receipt.json --db examples/demo/store.db
-uv run python scripts/build_demo.py --out /tmp/again   # same receipt id every time
+uv run currant replay examples/real/receipt.json --db examples/real/store.db
+uv run currant verify-signature examples/real/receipt.json --public-key "$(cat examples/real/signing-public-key.txt)"
+uv run python scripts/build_demo.py --out build/again  # same receipt id every time
 
 # The landing site
 cd site && pnpm install && pnpm dev        # http://127.0.0.1:5173
@@ -621,6 +635,8 @@ SHA-256 of the exact submissions file you reviewed.
 - [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md): who is trusted, and what each compromised key allows
 - [`docs/API_NOTES.md`](docs/API_NOTES.md): measured behaviour of SERV and Reppo
 - [`docs/CLAIM_STORE.md`](docs/CLAIM_STORE.md): the claim store's design
+- [`docs/EVALUATION_ITEMS.md`](docs/EVALUATION_ITEMS.md): how evaluation items are built, split and sealed
+- [`TIMELINE.md`](TIMELINE.md): what happened on which date, and the file that shows it
 - [`docs/drift/`](docs/drift): the public lists of documentation conflicts found in the Reppo and OpenServ docs
 - [`docs/brand/`](docs/brand): the logo files
 

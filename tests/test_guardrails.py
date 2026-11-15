@@ -109,7 +109,11 @@ def test_only_the_top_level_snapshots_dir_is_skipped(tmp_path: Path) -> None:
     secret = "0x" + "ab" * 32
     root = tree(
         tmp_path,
-        {"snapshots/2026-11-05/pages/x.md": secret, "data/export.txt": secret},
+        {
+            ".gitignore": ".env\ndata/\n",
+            "snapshots/2026-11-05/pages/x.md": secret,
+            "data/export.txt": secret,
+        },
     )
     assert check(root) == []  # crawled third-party text and the rebuildable store are not scanned
     (root / "src" / "currant" / "snapshots").mkdir(parents=True)
@@ -322,6 +326,15 @@ def test_the_private_directory_may_hold_such_notes_if_it_is_ignored(tmp_path: Pa
 def test_a_private_directory_that_is_not_ignored_is_flagged(tmp_path: Path) -> None:
     root = tree(tmp_path, {"docs/private/DRIFT.md": "notes\n"})
     assert "must ignore docs/private/" in flagged(root)
+
+
+def test_a_data_directory_that_is_not_ignored_is_flagged(tmp_path: Path) -> None:
+    # data/ holds the signing key (data/signing-key.hex); only .gitignore keeps it out of git.
+    root = tree(tmp_path, {"data/signing-key.hex": "seed\n"})
+    assert "must ignore data/" in flagged(root)
+    gitignore = root / ".gitignore"
+    gitignore.write_text(gitignore.read_text(encoding="utf-8") + "data/\n", encoding="utf-8")
+    assert "must ignore data/" not in flagged(root)
 
 
 @pytest.mark.parametrize(

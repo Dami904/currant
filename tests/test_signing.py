@@ -12,6 +12,7 @@ import pytest
 from currant.config import SIGNING_KEY_NAME, signing_key
 from currant.signing import (
     SigningError,
+    message,
     new_seed_hex,
     private_key,
     public_key_hex,
@@ -30,6 +31,27 @@ AT = "2026-11-15T12:00:00Z"
 def keys() -> tuple[Any, str]:
     key = private_key(new_seed_hex())
     return key, public_key_hex(key)
+
+
+def test_the_signed_message_is_pinned_and_domain_separated() -> None:
+    # A known answer: changing the domain tag or the layout would silently change what a signature
+    # means. The committed sidecar was made under these exact bytes, so it must still verify.
+    assert message("ab" * 32, AT) == (
+        b"currant-receipt-signature-v1\n" + b"ab" * 32 + b"\n2026-11-15T12:00:00Z"
+    )
+    sidecar = json.loads((ROOT / "examples" / "real" / "receipt.sig.json").read_text("utf-8"))
+    public = (ROOT / "examples" / "real" / "signing-public-key.txt").read_text("utf-8").strip()
+    check = verify(RECEIPT, sidecar, public)
+    assert check.ok, check.problems
+
+
+def test_an_unknown_algorithm_or_a_non_ascii_time_is_refused(keys: tuple[Any, str]) -> None:
+    key, public = keys
+    sidecar = sign(RECEIPT, key, AT)
+    assert "algorithm" in verify(RECEIPT, {**sidecar, "alg": "rsa"}, public).problems[0]
+    # A non-ASCII time would otherwise raise UnicodeEncodeError instead of failing cleanly.
+    check = verify(RECEIPT, {**sidecar, "signed_at": "2026-11-15T12:00:00é"}, public)
+    assert not check.ok and "signed_at" in check.problems[0]
 
 
 def test_a_signed_receipt_verifies_under_its_key(keys: tuple[Any, str]) -> None:

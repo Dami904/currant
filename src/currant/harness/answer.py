@@ -196,8 +196,10 @@ def verify_contested(answer: Answer, context: str) -> Answer:
     First choice: values whose number is in the context's CONTESTED notice, which our code built
     from verified quotes. If none is, the notice is about something else (or there is none), and
     the fallback keeps values whose number is written in the text of the document the value cites,
-    marked basis "page". The fallback needs at least two different numbers, since one value is not
-    a disagreement. A value the model invented, or attributed to the wrong page, is dropped."""
+    marked basis "page". The fallback needs two different pages giving different numbers, since one
+    value, or two numbers on one page, is not a disagreement. It checks only that each number is
+    written on its page, not that the two describe the same fact or that neither is dated. A value
+    the model invented, or attributed to the wrong page, is dropped."""
     if not answer.contested:
         return answer
     quoted: set[float] = set()
@@ -214,9 +216,19 @@ def verify_contested(answer: Answer, context: str) -> Answer:
         for v in answer.contested
         if v.source is not None and _written(v.value, pages.get(v.source.strip(), set()))
     )
-    if len({v.value for v in on_page}) < 2:
+    if not _two_pages_differ(on_page):
         on_page = ()
     return replace(answer, contested=on_page)
+
+
+def _two_pages_differ(values: tuple[ContestedValue, ...]) -> bool:
+    """At least two different pages, giving values that are not the same number. Two numbers from
+    one page ("10 files, 25 MB each") are not a disagreement between sources."""
+    for i, a in enumerate(values):
+        for b in values[i + 1 :]:
+            if a.source != b.source and not _written(a.value, {b.value}):
+                return True
+    return False
 
 
 def build_user_message(question: str, context: str, *, repeat: int = 0) -> str:
