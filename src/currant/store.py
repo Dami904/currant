@@ -287,10 +287,14 @@ class ClaimStore:
 
     # --- snapshots and documents -------------------------------------------------------
 
-    def ingest_snapshot(self, snapshot_dir: Path) -> IngestResult:
+    def ingest_snapshot(
+        self, snapshot_dir: Path, *, allow_unreconciled: bool = False
+    ) -> IngestResult:
         """Load a verified crawl snapshot. Safe to repeat: a snapshot is ingested once, and a
-        document whose content hash is already stored is reused, never rewritten."""
-        problems = verify_snapshot(snapshot_dir)
+        document whose content hash is already stored is reused, never rewritten. Pages that
+        were not fetched (failed, not found, blocked) are never loaded; `allow_unreconciled`
+        accepts a snapshot that still has such records, as `currant verify` does."""
+        problems = verify_snapshot(snapshot_dir, allow_unreconciled=allow_unreconciled)
         if problems:
             raise IngestError("snapshot does not verify: " + "; ".join(problems[:5]))
         manifest = load_manifest(snapshot_dir)

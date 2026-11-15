@@ -29,7 +29,9 @@ pages = [
 ]
 max_pages = 500
 
-# Optional third corpus. Its index file is unverified (see the plan), so it is off by default.
+# Optional third corpus, off by default so the sponsor snapshots stay comparable. Its index was
+# probed on 2026-11-15 (200, 73 .md pages) and crawled once with `--corpus kite` into
+# data/snapshots-kite/ (git-ignored; see docs/LIMITATIONS.md, "A third documentation site").
 [[corpus]]
 name = "kite"
 enabled = false

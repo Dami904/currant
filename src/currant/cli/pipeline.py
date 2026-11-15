@@ -57,7 +57,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
     try:
         args.db.parent.mkdir(parents=True, exist_ok=True)
         store = ClaimStore(args.db)
-        ingest = store.ingest_snapshot(args.snapshot)
+        ingest = store.ingest_snapshot(args.snapshot, allow_unreconciled=args.allow_unreconciled)
         only_docs = None
         if args.only_changed_since is not None:
             only_docs = _changed_since(store, ingest.snapshot_id, args.only_changed_since)

@@ -6,6 +6,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+import httpx
 import pytest
 
 from currant.crawl.config import Corpus
@@ -163,6 +164,23 @@ def test_a_snapshot_that_does_not_verify_is_refused(world: World, tmp_path: Path
     fresh = ClaimStore(":memory:")
     with pytest.raises(IngestError, match="does not verify"):
         fresh.ingest_snapshot(world.snapshot_dir)
+
+
+def test_an_unreconciled_page_is_refused_unless_explicitly_accepted(tmp_path: Path) -> None:
+    html_url = f"{BASE}/index"
+    corpus = Corpus("docs", True, (), (f"{BASE}/",), (OLD_URL, html_url), 50)
+    routes = {
+        OLD_URL: lambda: md(OLD_TEXT),
+        html_url: lambda: httpx.Response(
+            200, text="<p>hi</p>", headers={"content-type": "text/html"}
+        ),
+    }
+    crawl(tmp_path, routes, corpora=[corpus])
+    snapshot = tmp_path / "2026-11-05"
+    with pytest.raises(IngestError, match="unreconciled"):
+        ClaimStore(":memory:").ingest_snapshot(snapshot)
+    accepted = ClaimStore(":memory:").ingest_snapshot(snapshot, allow_unreconciled=True)
+    assert accepted.pages == 1  # only the fetched page; the failed one is not loaded
 
 
 def test_the_committed_real_snapshot_ingests_and_round_trips() -> None:

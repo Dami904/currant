@@ -81,6 +81,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="carry on an interrupted run: skip pages it finished, retry pages that failed",
     )
     extract.add_argument(
+        "--allow-unreconciled",
+        action="store_true",
+        help="accept a snapshot with failed / not-found records (only fetched pages are loaded)",
+    )
+    extract.add_argument(
         "--only-changed-since",
         metavar="DATE",
         help="only pages whose content differs from the snapshot of DATE (already ingested)",
