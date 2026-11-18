@@ -52,12 +52,14 @@ The agents.md row is from its "Removed endpoints (deprecated)" table. Found by a
 
 - “Each evaluation accepts up to 3.”  
   https://docs.reppo.ai/api/eval/peer-assessments.md (snapshots 2026-11-05, 2026-11-11)
+- “Peer assessments per evaluation | 3”  
+  https://docs.reppo.ai/api/eval/overview.md (snapshots 2026-11-05, 2026-11-11)
 - “`assessmentCount` tells you how close it is to the cap of 5 — see section 7.”  
   https://eval.reppo.xyz/agents.md (snapshots 2026-11-05)
 - “These endpoints have been removed and now return `404`.”  
   https://eval.reppo.xyz/agents.md (snapshots 2026-11-11)
 
-In the first snapshot the two pages disagreed (3 against 5). By the second, agents.md no longer mentions a cap and lists the peer-assessment endpoints as removed, so the docs page now describes an API that no longer exists. This is the case a crawl-diff catches (the same URL changed between two dated snapshots); Currant has one since 2026-11-15 (`results/crawldiff/`), which was not run back over this pair.
+In the first snapshot the two pages disagreed (3 against 5). By the second, agents.md no longer mentions a cap and lists the peer-assessment endpoints as removed, so the docs pages now describe an API that no longer exists. The overview page's "3" was found later by Currant's detector (issue #11 did not name it); the fix proposed in pull request #12 deletes that row too. This is the case a crawl-diff catches (the same URL changed between two dated snapshots); Currant has one since 2026-11-15 (`results/crawldiff/`), which was not run back over this pair.
 
 ## Not a conflict (detector false positive) (2)
 
@@ -78,3 +80,15 @@ The detector paired the price of an evaluation with an attachment (1,000) with t
   https://docs.reppo.ai/api/eval/overview.md (snapshots 2026-11-05, 2026-11-11)
 
 24 hours is 1440 minutes, so the two pages agree. A false positive. (Both describe a settlement window that agents.md no longer has; that is part of issue #11.)
+
+## Changed between crawls (not an error) (1)
+
+### Values of an evaluation decision: accept, revise or reject, then accept or reject
+
+- “One of `accept`, `revise`, `reject`”  
+  https://eval.reppo.xyz/agents.md (snapshots 2026-11-05)
+- “accept or
+  reject at the policy threshold”  
+  https://eval.reppo.xyz/agents.md (snapshots 2026-11-11, 2026-11-15)
+
+The same page, crawled six days apart: on 2026-11-05 a decision was one of three values; by 2026-11-11 it was one of two ("revise" is gone). Not a documentation error and nothing to report: the page is right for its date. It is what Currant's crawl-diff exists to catch, because an agent holding the earlier copy would still expect "revise". Found by `currant crawl-diff` (prompt crawl-diff-v1, no model).

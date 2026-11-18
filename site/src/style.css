@@ -475,3 +475,41 @@ td.loss { color: var(--bad); } td.win { color: var(--ok); }
 /* Receipt check page: the context and receipt are editable textareas styled like the context box. */
 textarea.ctx { display: block; width: 100%; box-sizing: border-box; height: auto; min-height: 220px; resize: vertical; border: 0; margin-bottom: 14px; }
 #verify .window-main label.cap { display: block; margin: 0 0 8px; }
+
+/* ---- lineage page ---- */
+.lin-corpus { margin-bottom: 56px; }
+.lin-corpus > h3 { margin-bottom: 18px; font-size: 1.3rem; }
+.lin-card { margin-bottom: 18px; padding: 26px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg); }
+.sec-alt .lin-card { background: #fff; }
+.lin-chain { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.lin-node { position: relative; padding: 18px 20px; border-radius: var(--r-md); border: 1px solid var(--line); background: var(--bg-2); }
+.lin-node.lin-new { border-color: rgba(14, 90, 82, .35); background: var(--ok-bg); }
+.lin-node.lin-old .lin-value { text-decoration: line-through; text-decoration-color: rgba(155, 47, 34, .55); }
+.lin-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.lin-value { font: 500 1.05rem/1.3 var(--mono); color: var(--ink-display); overflow-wrap: anywhere; }
+.lin-key { margin: 6px 0 10px; font-size: .86rem; color: var(--ink-3); }
+.lin-quote { margin: 0; padding: 10px 14px; border-left: 3px solid var(--line-2); background: #fff; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: .95rem; color: var(--ink-2); overflow-wrap: anywhere; }
+.lin-meta { margin: 8px 0 0; font: 400 .74rem/1.4 var(--mono); color: var(--ink-3); overflow-wrap: anywhere; }
+.lin-url { color: var(--spruce-700); text-decoration: underline; text-decoration-color: rgba(14, 90, 82, .3); text-underline-offset: 2px; }
+.lin-step { position: relative; margin-left: 28px; padding: 14px 0 14px 22px; border-left: 2px dashed var(--line-2); }
+.lin-step::before { content: "\2193  replaced by"; display: block; margin-bottom: 4px; font: 500 .7rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--spruce-700); }
+.lin-basis { margin: 0 0 4px; font-size: .9rem; color: var(--ink-2); }
+.lin-order { margin: 0; font-size: .84rem; color: var(--ink-3); overflow-wrap: anywhere; }
+.lin-branch { margin: 0 0 16px; padding: 10px 14px; border-radius: var(--r-sm); background: var(--warn-bg); color: var(--warn-ink); font-size: .9rem; }
+.lin-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.lin-side { min-width: 0; }
+.lin-runs { margin: 0; padding-left: 1.1rem; color: var(--ink-2); font-size: .95rem; }
+.lin-runs li { margin-bottom: 8px; overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .lin-card { padding: 18px; }
+  .lin-pair { grid-template-columns: 1fr; }
+  .lin-step { margin-left: 14px; }
+}
+.lin-node.lin-tip { border-color: rgba(138, 84, 32, .35); background: var(--warn-bg); }
+.lin-path { margin: 18px 0 10px; font: 500 .72rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.lin-card > .lin-path:first-child, .lin-branch + .lin-path { margin-top: 0; }
+.pill-bad { background: var(--bad-bg); color: var(--bad); }
+.lin-review { display: grid; justify-items: start; gap: 6px; margin-top: 10px; padding: 10px 14px; border-radius: var(--r-sm); background: #fff; border: 1px solid var(--line); font-size: .88rem; color: var(--ink-2); }
+.lin-review p { margin: 0; }
+.lin-review .lin-url { font: 400 .78rem/1.3 var(--mono); }
+.lin-span { grid-column: 1 / -1; margin-top: 0; }

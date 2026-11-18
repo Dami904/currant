@@ -50,7 +50,21 @@ KINDS = {
     "conflict": "Conflict",
     "resolved-by-removal": "Resolved by removal (not a live conflict)",
     "not-a-conflict": "Not a conflict (detector false positive)",
+    "changed-between-crawls": "Changed between crawls (not an error)",
 }
+
+
+def check_change(finding: dict[str, Any]) -> None:
+    """A change between crawls is one page saying one thing in an earlier crawl and another in a
+    later one; anything else (two pages, or the same crawl) is a conflict, not a change."""
+    sides = finding["sides"]
+    name = finding["id"]
+    if len(sides) < 2:
+        raise ValueError(f"{name!r}: a change needs the page in two crawls (old and new wording)")
+    if len({side["url"] for side in sides}) != 1:
+        raise ValueError(f"{name!r}: a change between crawls must be one page")
+    if not max(sides[0]["snapshots"]) < min(sides[-1]["snapshots"]):
+        raise ValueError(f"{name!r}: the new wording must come from a later crawl than the old")
 
 
 def page_text(snapshots: Path, date: str, url: str) -> str:
@@ -89,6 +103,8 @@ def build(data: dict[str, Any], snapshots: Path, source: Source = REPPO) -> str:
     for finding in data["findings"]:
         if finding["kind"] == "conflict" and len(finding["sides"]) < 2:
             raise ValueError(f"conflict {finding['id']!r} needs at least two sides")
+        if finding["kind"] == "changed-between-crawls":
+            check_change(finding)
     out = [
         f"# {source.title}",
         "",

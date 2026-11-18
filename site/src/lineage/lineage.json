@@ -1,0 +1,763 @@
+{
+  "version": "lineage-v1",
+  "built_by": "scripts/build_lineage.py",
+  "not_shown": "Kite: 33 contradictions, almost all changelog history the detector could not order; see docs/LIMITATIONS.md",
+  "corpora": [
+    {
+      "corpus": "OpenServ and Reppo",
+      "snapshot_date": "2026-11-05",
+      "corpus_hash": "df09c0e2aa9b0520ef76631dc3c47b4a23fcb551299fb9c46e3f61ab8908704c",
+      "relate_run": {
+        "model": "gpt-6-luna",
+        "prompt_version": "relate-v1"
+      },
+      "chains": [],
+      "supersedes": [],
+      "contested": [
+        {
+          "relation_id": "135beb35690217d386b698e7915a6bc447f8047293f6d28f2d351fcfad0fb99e",
+          "a": {
+            "id": "4932a7c6d88d3096e9d631014a994e7ee50b6c4abe57271679d2cf84ba42f418",
+            "subject": "Evaluation with an image or PDF attached",
+            "attribute": "cost",
+            "value": "1,000 credits",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 1085,
+            "end": 1144,
+            "quote": "one with an\n  image or PDF attached costs **1,000 credits**"
+          },
+          "b": {
+            "id": "fecb3dded74a608e1c183fb93903839a517116fb9436de3419984d111bcf7d91",
+            "subject": "Evaluation",
+            "attribute": "cost",
+            "value": "100 credits (1¢)",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/api/eval/overview.md",
+            "start": 2405,
+            "end": 2443,
+            "quote": "Cost per evaluation | 100 credits (1¢)"
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 1085,
+              "end": 1144,
+              "quote": "one with an\n  image or PDF attached costs **1,000 credits**"
+            },
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/api/eval/overview.md",
+              "start": 2405,
+              "end": 2443,
+              "quote": "Cost per evaluation | 100 credits (1¢)"
+            }
+          ],
+          "review": {
+            "verdict": "not-a-conflict",
+            "note": "The detector paired the price of an evaluation with an attachment (1,000) with the price of a text-only evaluation (100). They are different quantities, so this pair is not a conflict. The real conflict about the 100 is listed above.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        },
+        {
+          "relation_id": "19fa67cbd299cc3035f84275adf5b2edcf339c7b00bbd613792b6ed76c0e122a",
+          "a": {
+            "id": "03ce0029006e4d69d8023f9afa1fe27dd530914c3eeb6b920ef3c5309c0c370b",
+            "subject": "Peer assessments per evaluation",
+            "attribute": "maximum count",
+            "value": "5",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 9065,
+            "end": 9141,
+            "quote": "`assessmentCount` tells you how close it is to the cap of 5 — see section 7."
+          },
+          "b": {
+            "id": "6203cee898f7a923b2a19e9d72be515ac6157d7eb1b71a297233361b7a5d6ef0",
+            "subject": "Evaluation",
+            "attribute": "peer assessments per evaluation",
+            "value": "3",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/api/eval/overview.md",
+            "start": 3078,
+            "end": 3113,
+            "quote": "Peer assessments per evaluation | 3"
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 9065,
+              "end": 9141,
+              "quote": "`assessmentCount` tells you how close it is to the cap of 5 — see section 7."
+            },
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/api/eval/overview.md",
+              "start": 3078,
+              "end": 3113,
+              "quote": "Peer assessments per evaluation | 3"
+            }
+          ],
+          "review": {
+            "verdict": "resolved-by-removal",
+            "note": "In the first snapshot the two pages disagreed (3 against 5). By the second, agents.md no longer mentions a cap and lists the peer-assessment endpoints as removed, so the docs pages now describe an API that no longer exists. The overview page's \"3\" was found later by Currant's detector (issue #11 did not name it); the fix proposed in pull request #12 deletes that row too. This is the case a crawl-diff catches (the same URL changed between two dated snapshots); Currant has one since 2026-11-15 (`results/crawldiff/`), which was not run back over this pair.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        },
+        {
+          "relation_id": "3d05bd7731bab54f9a19473ad47c87a6bc2a9c2717c1e6c65fd865ea54a5efd5",
+          "a": {
+            "id": "03ce0029006e4d69d8023f9afa1fe27dd530914c3eeb6b920ef3c5309c0c370b",
+            "subject": "Peer assessments per evaluation",
+            "attribute": "maximum count",
+            "value": "5",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 9065,
+            "end": 9141,
+            "quote": "`assessmentCount` tells you how close it is to the cap of 5 — see section 7."
+          },
+          "b": {
+            "id": "ba62d17544a365ac3dccabb30c520774e470ffb5333fee1958c77ad75ebb171d",
+            "subject": "evaluation",
+            "attribute": "maximum peer assessments",
+            "value": "3",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/api/eval/peer-assessments.md",
+            "start": 716,
+            "end": 748,
+            "quote": "Each evaluation accepts up to 3."
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 9065,
+              "end": 9141,
+              "quote": "`assessmentCount` tells you how close it is to the cap of 5 — see section 7."
+            },
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/api/eval/peer-assessments.md",
+              "start": 716,
+              "end": 748,
+              "quote": "Each evaluation accepts up to 3."
+            }
+          ],
+          "review": {
+            "verdict": "resolved-by-removal",
+            "note": "In the first snapshot the two pages disagreed (3 against 5). By the second, agents.md no longer mentions a cap and lists the peer-assessment endpoints as removed, so the docs pages now describe an API that no longer exists. The overview page's \"3\" was found later by Currant's detector (issue #11 did not name it); the fix proposed in pull request #12 deletes that row too. This is the case a crawl-diff catches (the same URL changed between two dated snapshots); Currant has one since 2026-11-15 (`results/crawldiff/`), which was not run back over this pair.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        },
+        {
+          "relation_id": "4e2d24aea0cbe5509dab1c37e4a583afb1588a05c44ba40c835c8b5844608285",
+          "a": {
+            "id": "09c34684de59027992a33e7a1c385160b92e0494b640541d65da7f8aeac2f936",
+            "subject": "Evaluation settlement window",
+            "attribute": "available duration range",
+            "value": "10 minutes up to 24 hours",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/concepts/evaluation-api.md",
+            "start": 3798,
+            "end": 3882,
+            "quote": "You can also give an evaluation a settlement window, from 10 minutes up to 24 hours."
+          },
+          "b": {
+            "id": "2f98d64e22382568ef4e04d44437156b92c8c19e05bfbd8185666f85c6b8db89",
+            "subject": "Evaluation",
+            "attribute": "supported settlement window options",
+            "value": "10, 15, 30, 60, 120, 360, 720, or 1440 minutes",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/api/eval/overview.md",
+            "start": 2994,
+            "end": 3073,
+            "quote": "Settlement window | 10, 15, 30, 60, 120, 360, 720, or 1440 minutes (default 15)"
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/concepts/evaluation-api.md",
+              "start": 3798,
+              "end": 3882,
+              "quote": "You can also give an evaluation a settlement window, from 10 minutes up to 24 hours."
+            },
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/api/eval/overview.md",
+              "start": 2994,
+              "end": 3073,
+              "quote": "Settlement window | 10, 15, 30, 60, 120, 360, 720, or 1440 minutes (default 15)"
+            }
+          ],
+          "review": {
+            "verdict": "not-a-conflict",
+            "note": "24 hours is 1440 minutes, so the two pages agree. A false positive. (Both describe a settlement window that agents.md no longer has; that is part of issue #11.)",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        },
+        {
+          "relation_id": "a256ea7edfc7c80710985de23444e83958ba71da9693d7bd638a8be55cde37f5",
+          "a": {
+            "id": "7500c4c80606300f2f8fa59d8b43d17f184f43f428221660bd0208cf8c5a8970",
+            "subject": "Reppo account",
+            "attribute": "sign-up bonus",
+            "value": "1,000 credits (10 evaluations)",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/api/eval/overview.md",
+            "start": 2354,
+            "end": 2400,
+            "quote": "Sign-up bonus | 1,000 credits (10 evaluations)"
+          },
+          "b": {
+            "id": "a2583deebf8aa7ce35f4a7e65be7c9e27eac578d0b2074851bc84ce03b15b476",
+            "subject": "New account",
+            "attribute": "sign-up bonus",
+            "value": "22,000 credits",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 966,
+            "end": 1036,
+            "quote": "New accounts start with **22,000 credits** (a one-time sign-up bonus)."
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/api/eval/overview.md",
+              "start": 2354,
+              "end": 2400,
+              "quote": "Sign-up bonus | 1,000 credits (10 evaluations)"
+            },
+            {
+              "role": "other",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 966,
+              "end": 1036,
+              "quote": "New accounts start with **22,000 credits** (a one-time sign-up bonus)."
+            }
+          ],
+          "review": {
+            "verdict": "conflict",
+            "note": "Whether a new account gets the larger or smaller bonus is unsettled in this repository (the console balance is the source of truth); the two pages cannot both be current.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        },
+        {
+          "relation_id": "a76e1df62d8ba9901137012bde849bee4e1e5370910bd7f9e6a0397cbe946575",
+          "a": {
+            "id": "2122add8675328aa9da177469603c73a5da15fa060f8e01361a05813d8a72ea5",
+            "subject": "PORT environment variable",
+            "attribute": "default value",
+            "value": "7380",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.openserv.ai/vibecode/build-custom-agent.md",
+            "start": 1283,
+            "end": 1321,
+            "quote": "`PORT` is optional (defaults to 7380)."
+          },
+          "b": {
+            "id": "44f65d421110bb65f5b721332d7e6830880076835264da5ea240fadef5993d81",
+            "subject": "PORT",
+            "attribute": "default",
+            "value": "7378",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.openserv.ai/vibecode/sdk/typescript.md",
+            "start": 6940,
+            "end": 6976,
+            "quote": "| `PORT` | Server port | No | 7378 |"
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://docs.openserv.ai/vibecode/build-custom-agent.md",
+              "start": 1283,
+              "end": 1321,
+              "quote": "`PORT` is optional (defaults to 7380)."
+            },
+            {
+              "role": "other",
+              "url": "https://docs.openserv.ai/vibecode/sdk/typescript.md",
+              "start": 6940,
+              "end": 6976,
+              "quote": "| `PORT` | Server port | No | 7378 |"
+            }
+          ],
+          "review": {
+            "verdict": "conflict",
+            "note": "Not measured: we did not run the SDK to see which port it binds, so this page does not say which side is right. Currant answers this question CONTESTED and quotes both values.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/OPENSERV_DOCS.md"
+          }
+        },
+        {
+          "relation_id": "cc331dae2f14eebe4500f09e4bc075ca1ebda26db300d0614ef2e7e6d018cf33",
+          "a": {
+            "id": "8f3967d761bd15ac61006b73ca9b7323a4b59185c0f91b20516faa1336794a95",
+            "subject": "Evaluation",
+            "attribute": "cost",
+            "value": "100 credits",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://docs.reppo.ai/api/eval/evaluations.md",
+            "start": 3024,
+            "end": 3056,
+            "quote": "An evaluation costs 100 credits."
+          },
+          "b": {
+            "id": "a6346835f54a0ded9b346c6e6dc2043f37c51e67e54fb48049c1683cfb72cfae",
+            "subject": "Text-only evaluation",
+            "attribute": "cost",
+            "value": "440 credits",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 1039,
+            "end": 1084,
+            "quote": "A text-only evaluation costs **440 credits**;"
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://docs.reppo.ai/api/eval/evaluations.md",
+              "start": 3024,
+              "end": 3056,
+              "quote": "An evaluation costs 100 credits."
+            },
+            {
+              "role": "other",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 1039,
+              "end": 1084,
+              "quote": "A text-only evaluation costs **440 credits**;"
+            }
+          ],
+          "review": {
+            "verdict": "conflict",
+            "note": "Measured: one evaluation through the documented endpoint (2026-11-05) and one through the current endpoint (2026-11-11) were each charged `creditsCharged: 440`, which matches agents.md.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        }
+      ]
+    },
+    {
+      "corpus": "OpenServ and Reppo, between crawls",
+      "snapshot_date": "2026-11-11",
+      "corpus_hash": "1ae351e60c0fa653770d2dd6ffc150555f66156f3cc5b31a18f17fd34e9c6698",
+      "relate_run": {
+        "model": "none",
+        "prompt_version": "crawl-diff-v1"
+      },
+      "chains": [
+        {
+          "claims": [
+            "ec057cb1b99256932bb2a27e97491d6707c4eb6f4d2922e6c7151236da7d290f",
+            "d7a4ef1cc01d8e2529bc00976a19f1935321f6b50a1720e7ac3b5599b9822f14"
+          ],
+          "branched": false
+        }
+      ],
+      "supersedes": [
+        {
+          "relation_id": "1b56b08b69661b7afdac9af24ccf8f5708a340b2ecec5f62ac23c81cc5fdceeb",
+          "basis": "crawl_diff",
+          "newer": {
+            "id": "d7a4ef1cc01d8e2529bc00976a19f1935321f6b50a1720e7ac3b5599b9822f14",
+            "subject": "Evaluation result decision",
+            "attribute": "supported values",
+            "value": "accept or reject",
+            "stance": "current",
+            "crawled": "2026-11-11",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 5075,
+            "end": 5138,
+            "quote": "`result.decision` — accept or\n  reject at the policy threshold;"
+          },
+          "older": {
+            "id": "ec057cb1b99256932bb2a27e97491d6707c4eb6f4d2922e6c7151236da7d290f",
+            "subject": "Peer assessment `decision`",
+            "attribute": "supported values",
+            "value": "`accept`, `revise`, `reject`",
+            "stance": "current",
+            "crawled": "2026-11-05",
+            "url": "https://eval.reppo.xyz/agents.md",
+            "start": 10473,
+            "end": 10508,
+            "quote": "One of `accept`, `revise`, `reject`"
+          },
+          "evidence": [
+            {
+              "role": "older",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 10473,
+              "end": 10508,
+              "quote": "One of `accept`, `revise`, `reject`"
+            },
+            {
+              "role": "newer",
+              "url": "https://eval.reppo.xyz/agents.md",
+              "start": 5075,
+              "end": 5138,
+              "quote": "`result.decision` — accept or\n  reject at the policy threshold;"
+            }
+          ],
+          "review": {
+            "verdict": "changed-between-crawls",
+            "note": "The same page, crawled six days apart: on 2026-11-05 a decision was one of three values; by 2026-11-11 it was one of two (\"revise\" is gone). Not a documentation error and nothing to report: the page is right for its date. It is what Currant's crawl-diff exists to catch, because an agent holding the earlier copy would still expect \"revise\". Found by `currant crawl-diff` (prompt crawl-diff-v1, no model).",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/drift/REPPO_EVAL_API.md"
+          }
+        }
+      ],
+      "contested": []
+    },
+    {
+      "corpus": "Stripe",
+      "snapshot_date": "2026-11-12",
+      "corpus_hash": "4718388bfb8dd14e2362e3361890046e877f10008d2e98972170693b722357b5",
+      "relate_run": {
+        "model": "gpt-6-luna",
+        "prompt_version": "relate-v1"
+      },
+      "chains": [
+        {
+          "claims": [
+            "587bd1de55eaba3c4be84607e0a9cf79cb3738243d997b8de1a71c885bd28fc6",
+            "21b6e89bb96368262e811ac73590d6121775491882760dcc5b28027b7cc71ddc"
+          ],
+          "branched": true
+        },
+        {
+          "claims": [
+            "587bd1de55eaba3c4be84607e0a9cf79cb3738243d997b8de1a71c885bd28fc6",
+            "50f7ebd4d4df17f901ddcd148573bedf726dd4685fedb000973871be626e832f",
+            "b393056b3084e7f7c82f16dad0915fde304008f3973c714d7f2fdafc0cd54420"
+          ],
+          "branched": true
+        },
+        {
+          "claims": [
+            "587bd1de55eaba3c4be84607e0a9cf79cb3738243d997b8de1a71c885bd28fc6",
+            "b393056b3084e7f7c82f16dad0915fde304008f3973c714d7f2fdafc0cd54420"
+          ],
+          "branched": true
+        }
+      ],
+      "supersedes": [
+        {
+          "relation_id": "4eb576147e64735806bd0e971ffc0873bda1bb26a7be190f88af4dad709a1c88",
+          "basis": "dated",
+          "newer": {
+            "id": "21b6e89bb96368262e811ac73590d6121775491882760dcc5b28027b7cc71ddc",
+            "subject": "Stripe API",
+            "attribute": "current version",
+            "value": "2026-10-28.endive",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/api/versioning.md",
+            "start": 568,
+            "end": 609,
+            "quote": "The current version is 2026-10-28.endive."
+          },
+          "older": {
+            "id": "587bd1de55eaba3c4be84607e0a9cf79cb3738243d997b8de1a71c885bd28fc6",
+            "subject": "Stripe API",
+            "attribute": "API version",
+            "value": "2026-01-28.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+            "start": 3521,
+            "end": 3702,
+            "quote": "- If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-01-28.preview`"
+          },
+          "evidence": [
+            {
+              "role": "older",
+              "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+              "start": 3521,
+              "end": 3702,
+              "quote": "- If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-01-28.preview`"
+            },
+            {
+              "role": "newer",
+              "url": "https://docs.stripe.com/api/versioning.md",
+              "start": 568,
+              "end": 609,
+              "quote": "The current version is 2026-10-28.endive."
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/api/versioning.md",
+              "start": 568,
+              "end": 609,
+              "quote": "The current version is 2026-10-28.endive."
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+              "start": 3667,
+              "end": 3701,
+              "quote": "Stripe-Version: 2026-01-28.preview"
+            }
+          ],
+          "review": {
+            "verdict": "genuine",
+            "note": "A real stale value for an agent: an old preview version string against the page that states the current version. The release note is correctly dated, so it is not a documentation error.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md#a-second-vendors-documentation-stripe-public-trial-2026-11-12"
+          }
+        },
+        {
+          "relation_id": "66ff9aa46f443a7daf366b6784bfd969d224b7c6bb5ffe157b37b9a0b8555b3b",
+          "basis": "dated",
+          "newer": {
+            "id": "b393056b3084e7f7c82f16dad0915fde304008f3973c714d7f2fdafc0cd54420",
+            "subject": "Stripe API",
+            "attribute": "API version",
+            "value": "2026-03-25.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/dahlia/2026-03-25/trial-offers-on-subscription-items.md",
+            "start": 30756,
+            "end": 30935,
+            "quote": "If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-03-25.preview`"
+          },
+          "older": {
+            "id": "587bd1de55eaba3c4be84607e0a9cf79cb3738243d997b8de1a71c885bd28fc6",
+            "subject": "Stripe API",
+            "attribute": "API version",
+            "value": "2026-01-28.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+            "start": 3521,
+            "end": 3702,
+            "quote": "- If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-01-28.preview`"
+          },
+          "evidence": [
+            {
+              "role": "older",
+              "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+              "start": 3521,
+              "end": 3702,
+              "quote": "- If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-01-28.preview`"
+            },
+            {
+              "role": "newer",
+              "url": "https://docs.stripe.com/changelog/dahlia/2026-03-25/trial-offers-on-subscription-items.md",
+              "start": 30756,
+              "end": 30935,
+              "quote": "If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-03-25.preview`"
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+              "start": 3667,
+              "end": 3701,
+              "quote": "Stripe-Version: 2026-01-28.preview"
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/dahlia/2026-03-25/trial-offers-on-subscription-items.md",
+              "start": 30900,
+              "end": 30934,
+              "quote": "Stripe-Version: 2026-03-25.preview"
+            }
+          ],
+          "review": {
+            "verdict": "false-positive",
+            "note": "Dated release notes repeat one sentence (set the version header to that release). The detector ordered the version strings by date, but each note is right for its own release.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md#a-second-vendors-documentation-stripe-public-trial-2026-11-12"
+          }
+        },
+        {
+          "relation_id": "8e3b879389852b1fe86fe50cf036fe40530f2a8c04ebd70d2eb98832d1b2890d",
+          "basis": "dated",
+          "newer": {
+            "id": "b393056b3084e7f7c82f16dad0915fde304008f3973c714d7f2fdafc0cd54420",
+            "subject": "Stripe API",
+            "attribute": "API version",
+            "value": "2026-03-25.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/dahlia/2026-03-25/trial-offers-on-subscription-items.md",
+            "start": 30756,
+            "end": 30935,
+            "quote": "If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-03-25.preview`"
+          },
+          "older": {
+            "id": "50f7ebd4d4df17f901ddcd148573bedf726dd4685fedb000973871be626e832f",
+            "subject": "Stripe API requests",
+            "attribute": "API version header",
+            "value": "2026-02-25.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/clover/2026-02-25/smart-disputes-v2-accounts.md",
+            "start": 6754,
+            "end": 6908,
+            "quote": "update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-02-25.preview`"
+          },
+          "evidence": [
+            {
+              "role": "older",
+              "url": "https://docs.stripe.com/changelog/clover/2026-02-25/smart-disputes-v2-accounts.md",
+              "start": 6754,
+              "end": 6908,
+              "quote": "update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-02-25.preview`"
+            },
+            {
+              "role": "newer",
+              "url": "https://docs.stripe.com/changelog/dahlia/2026-03-25/trial-offers-on-subscription-items.md",
+              "start": 30756,
+              "end": 30935,
+              "quote": "If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-03-25.preview`"
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/clover/2026-02-25/smart-disputes-v2-accounts.md",
+              "start": 6873,
+              "end": 6907,
+              "quote": "Stripe-Version: 2026-02-25.preview"
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/dahlia/2026-03-25/trial-offers-on-subscription-items.md",
+              "start": 30900,
+              "end": 30934,
+              "quote": "Stripe-Version: 2026-03-25.preview"
+            }
+          ],
+          "review": {
+            "verdict": "false-positive",
+            "note": "Dated release notes repeat one sentence (set the version header to that release). The detector ordered the version strings by date, but each note is right for its own release.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md#a-second-vendors-documentation-stripe-public-trial-2026-11-12"
+          }
+        },
+        {
+          "relation_id": "99310a2a2a495b30ff49baaa1097c98e10ff3356046c03ff23dea3ccbc83b72f",
+          "basis": "dated",
+          "newer": {
+            "id": "50f7ebd4d4df17f901ddcd148573bedf726dd4685fedb000973871be626e832f",
+            "subject": "Stripe API requests",
+            "attribute": "API version header",
+            "value": "2026-02-25.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/clover/2026-02-25/smart-disputes-v2-accounts.md",
+            "start": 6754,
+            "end": 6908,
+            "quote": "update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-02-25.preview`"
+          },
+          "older": {
+            "id": "587bd1de55eaba3c4be84607e0a9cf79cb3738243d997b8de1a71c885bd28fc6",
+            "subject": "Stripe API",
+            "attribute": "API version",
+            "value": "2026-01-28.preview",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+            "start": 3521,
+            "end": 3702,
+            "quote": "- If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-01-28.preview`"
+          },
+          "evidence": [
+            {
+              "role": "older",
+              "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+              "start": 3521,
+              "end": 3702,
+              "quote": "- If you don’t use an SDK, update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-01-28.preview`"
+            },
+            {
+              "role": "newer",
+              "url": "https://docs.stripe.com/changelog/clover/2026-02-25/smart-disputes-v2-accounts.md",
+              "start": 6754,
+              "end": 6908,
+              "quote": "update your [API requests](https://docs.stripe.com/api-versions.md#how-versions-are-specified-in-requests) to include `Stripe-Version: 2026-02-25.preview`"
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/clover/2026-02-25/smart-disputes-v2-accounts.md",
+              "start": 6873,
+              "end": 6907,
+              "quote": "Stripe-Version: 2026-02-25.preview"
+            },
+            {
+              "role": "ordering",
+              "url": "https://docs.stripe.com/changelog/clover/2026-01-28/detach-payment-from-invoice.md",
+              "start": 3667,
+              "end": 3701,
+              "quote": "Stripe-Version: 2026-01-28.preview"
+            }
+          ],
+          "review": {
+            "verdict": "false-positive",
+            "note": "Dated release notes repeat one sentence (set the version header to that release). The detector ordered the version strings by date, but each note is right for its own release.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md#a-second-vendors-documentation-stripe-public-trial-2026-11-12"
+          }
+        }
+      ],
+      "contested": [
+        {
+          "relation_id": "79447e2fa0e660f85396e85120357cada106577fcf3cf6263f8fa5b28f51d63a",
+          "a": {
+            "id": "036bb36d2f2c0953e0703d9c47377abef947a105b60b909bbd3f462e67b5342e",
+            "subject": "Asynchronous payment methods",
+            "attribute": "final_outcome_delay",
+            "value": "from a few minutes in a sandbox to several business days in live mode",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/testing.md",
+            "start": 123777,
+            "end": 123931,
+            "quote": "The final outcome, such as `succeeded` or `requires_payment_method`, arrives later, from a few minutes in a sandbox to several business days in live mode."
+          },
+          "b": {
+            "id": "9f46b25d4f748d86b90d61c7bb09cb285b7df9e3c1a51d5fc040fcfae97d8861",
+            "subject": "Asynchronous payment methods",
+            "attribute": "Maximum processing time",
+            "value": "up to a few days",
+            "stance": "current",
+            "crawled": "2026-11-12",
+            "url": "https://docs.stripe.com/payments/payment-intents/verifying-status.md",
+            "start": 3467,
+            "end": 3526,
+            "quote": "These payment methods can take up to a few days to process."
+          },
+          "evidence": [
+            {
+              "role": "other",
+              "url": "https://docs.stripe.com/testing.md",
+              "start": 123777,
+              "end": 123931,
+              "quote": "The final outcome, such as `succeeded` or `requires_payment_method`, arrives later, from a few minutes in a sandbox to several business days in live mode."
+            },
+            {
+              "role": "other",
+              "url": "https://docs.stripe.com/payments/payment-intents/verifying-status.md",
+              "start": 3467,
+              "end": 3526,
+              "quote": "These payment methods can take up to a few days to process."
+            }
+          ],
+          "review": {
+            "verdict": "not-a-conflict",
+            "note": "Wording, not a conflict: two ways of describing the same wait for delayed payment methods.",
+            "source": "https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md#a-second-vendors-documentation-stripe-public-trial-2026-11-12"
+          }
+        }
+      ]
+    }
+  ]
+}

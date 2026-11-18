@@ -555,7 +555,9 @@ An unlabelled trial of the pipeline, unchanged, on a hand-picked slice of Stripe
 (named from 2026-11-15; it found no documentation error, so there was nothing to tell them first). It tests that the pipeline runs elsewhere, not how accurate it is: there are
 no labels, so there is no precision or recall. The pages and model replies stay in git-ignored
 folders (`data/external*`, `results/external/`, and a trial config that is not committed), because
-redistribution of their text is unchecked; only counts are recorded here.
+redistribution of whole pages is unchecked. The quotes behind the 5 leads below (one sentence or
+less each, with a link to the page) are published on the site's lineage page, with the verdicts
+below beside them: the user's decision of 2026-11-18.
 
 - **Slice 1, 36 pages (billing, API behaviour, Checkout, disputes, payouts):** 370 claims verified
   of 487 proposed; the relation step asked about 12 pairs and found 0 relations (all judged
@@ -578,6 +580,21 @@ redistribution of their text is unchecked; only counts are recorded here.
   finds real drift there. Nothing was sent to the vendor, because there was nothing to report.
 - **Slice limits:** 59 of a very large site; the full 236 KB changelog was left out; one model and
   English only.
+
+## Lineage page
+
+- **Rebuilt only where the claim stores are.** `scripts/build_lineage.py` reads the git-ignored
+  `data/*.db`, so only that machine can regenerate `site/src/lineage/lineage.json` or run its
+  `--check`; CI cannot. CI builds the site from the committed JSON, and a test re-checks its
+  OpenServ and Reppo quotes against the committed snapshots (Stripe pages are not committed, so
+  its quotes are checked only at build time).
+- **Reviewed by hand, and the list is hand-kept.** Every relation shown needs a verdict in the
+  script, or the build stops. OpenServ and Reppo relations are shown only if they are published
+  findings in `docs/drift/`. Two that were not (the 3 against 5 peer-assessment cap on the overview
+  page, and the decision values that changed between crawls) were added to the drift page on
+  2026-11-18 before being shown here.
+- **False positives are shown, labelled.** 3 of the 4 Stripe replacements and 2 of the 7
+  OpenServ and Reppo conflicts are detector errors; the page says so beside each.
 
 ## Claim store
 

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Currant lineage</title>
+<meta name="description" content="Every relation Currant verified on the OpenServ, Reppo and Stripe docs: what replaced what, and which sources disagree, with each quote re-checked word for word.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23072a29'/%3E%3Crect x='6' y='6' width='9' height='9' rx='2.5' fill='%23f0b46e'/%3E%3Crect x='17' y='6' width='9' height='9' rx='2.5' fill='%232a8a79'/%3E%3Crect x='6' y='17' width='9' height='9' rx='2.5' fill='%23ec8a72'/%3E%3Crect x='17' y='17' width='9' height='9' rx='2.5' fill='%23dfe2dc'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="page-lineage">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head" id="head">
+  <div class="brand-card">
+    <a class="brand" href="./" aria-label="Currant, home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>
+      <span class="wordmark">Currant</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open the menu"><span></span><span></span></button>
+    <nav class="menu" id="menu" aria-label="Sections" hidden>
+      <a href="#replaced">Replacements</a>
+      <a href="#contested">Contested</a>
+      <a href="#not-shown">Not shown</a>
+      <a href="#runs">The runs</a>
+      <a href="how.html">How it works</a>
+      <a href="./">Back to the overview</a>
+    </nav>
+  </div>
+  <nav class="top-nav" aria-label="Primary">
+    <a href="./">Overview</a>
+    <a href="how.html">How it works</a>
+    <a href="verify.html">Verify</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="page-top" data-reveal>
+  <div class="wrap">
+    <p class="eyebrow">Lineage</p>
+    <h1>What replaced what, with the quotes to prove it.</h1>
+    <p class="sub">Every relation Currant verified on the live OpenServ, Reppo and Stripe docs. A model proposed each one; our code kept it only after finding every quote word for word in the page, and every quote was checked again when this page was built. Then a person read each one: the verdict is shown beside it, false positives included.</p>
+    <p class="sub" id="lin-counts"></p>
+    <ul class="jump" aria-label="On this page">
+      <li><a href="#replaced">Replacements</a></li>
+      <li><a href="#contested">Contested</a></li>
+      <li><a href="#not-shown">Not shown</a></li>
+      <li><a href="#runs">The runs</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="replaced" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Replacements</p>
+        <h2>Old value, new value, and why.</h2>
+      </div>
+      <p class="sub">Oldest first. Between two values is the reason the detector ordered them, quoted from the pages, and what a person concluded on reading it. A value replaced by two different values is a branch: Currant reports it and does not pick a winner.</p>
+    </div>
+    <div id="chains-list"></div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="contested" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Contested</p>
+        <h2>Two sources, two values, read by hand.</h2>
+      </div>
+      <p class="sub">Both sides say they are current and nothing in either page shows which is newer, so Currant cuts neither: it shows the model both quotes and tells it not to guess. Each OpenServ and Reppo pair is a finding from the published drift pages, which also say whether the maintainers were told; findings not published there are not shown here.</p>
+    </div>
+    <div id="contested-list"></div>
+  </div>
+</section>
+
+<section class="sec" id="not-shown" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Not shown</p>
+        <h2>Where detection was wrong.</h2>
+      </div>
+      <p class="sub">On the Kite docs, Currant verified 33 contradictions. Read by eye, 32 are dated changelog entries it could not order, and one compares testnet with mainnet. They are false CONTESTED notices, so they are not presented here as conflicts. Nothing was cut. <a class="inline" href="https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md#a-third-documentation-site-2026-11-15" rel="noopener">The details are in the limitations.</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-alt" id="runs" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">The runs</p>
+        <h2>Exactly which data this is.</h2>
+      </div>
+      <p class="sub">Built by <code>scripts/build_lineage.py</code> from the claim stores; <code>--check</code> fails if this page is stale.</p>
+    </div>
+    <ul class="lin-runs" id="runs-list"></ul>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <span class="foot-mark"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3.5" fill="#f0b46e"/><rect x="17" y="3" width="12" height="12" rx="3.5" fill="#2a8a79"/><rect x="3" y="17" width="12" height="12" rx="3.5" fill="#ec8a72"/><rect x="17" y="17" width="12" height="12" rx="3.5" fill="#0e5a52"/></svg>Currant</span>
+      <p>A stale-truth firewall for agents that read documentation. Built from scratch for the OpenServ and Reppo hackathon, with Claude Code.</p>
+      <a class="foot-cta" href="https://github.com/Dami904/currant" rel="noopener">View on GitHub <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <nav class="footer-col" aria-label="Overview">
+      <p>Overview</p>
+      <a href="./#how">The three steps</a>
+      <a href="./#demo">Live demo</a>
+      <a href="./#guarantees">Guarantees</a>
+      <a href="./#evidence">Evidence</a>
+      <a href="./#results">Results</a>
+      <a href="./#integrate">Integrate</a>
+    </nav>
+    <nav class="footer-col" aria-label="How it works">
+      <p>How it works</p>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#use">Use it</a>
+      <a href="#receipt">Receipt anatomy</a>
+      <a href="#not-built">Not built yet</a>
+      <a href="#faq">FAQ</a>
+      <a href="verify.html">Check a receipt</a>
+      <a href="lineage.html">Lineage</a>
+    </nav>
+    <nav class="footer-col" aria-label="Project">
+      <p>Project</p>
+      <a href="https://github.com/Dami904/currant" rel="noopener">Repository</a>
+      <a href="https://github.com/Dami904/currant/blob/main/docs/LIMITATIONS.md" rel="noopener">Limitations</a>
+      <a href="https://github.com/Dami904/currant/blob/main/docs/THREAT_MODEL.md" rel="noopener">Threat model</a>
+      <a href="https://github.com/Dami904/currant/blob/main/docs/API_NOTES.md" rel="noopener">API notes</a>
+      <a href="https://github.com/Dami904/currant/issues/1" rel="noopener">Freeze note</a>
+      <a href="https://github.com/Dami904/currant/blob/main/LICENSE" rel="noopener">MIT licence</a>
+    </nav>
+    <nav class="footer-col" aria-label="Reported upstream">
+      <p>Upstream</p>
+      <a href="https://github.com/Reppo-Labs/docs/issues/11" rel="noopener">Reppo issue #11</a>
+      <a href="https://github.com/Reppo-Labs/docs/pull/12" rel="noopener">Reppo pull request #12</a>
+      <a href="https://eval.reppo.xyz/agents.md" rel="noopener">Reppo agents.md</a>
+    </nav>
+  </div>
+  <div class="wrap footer-base">
+    <span>&copy; 2026 Currant &middot; MIT licence</span>
+    <span>Documentation quoted on these pages belongs to its owners.</span>
+  </div>
+</footer>
+
+<script type="module" src="/src/lineage.ts"></script>
+</body>
+</html>

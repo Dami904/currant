@@ -135,6 +135,48 @@ def test_tampered_data_that_would_skip_the_check_is_refused(tamper: Any, message
 
 def test_every_finding_says_whether_it_is_a_conflict_and_why() -> None:
     kinds = {f["kind"] for f in data()["findings"]}
-    assert kinds <= {"conflict", "resolved-by-removal", "not-a-conflict"}
+    assert kinds <= {"conflict", "resolved-by-removal", "not-a-conflict", "changed-between-crawls"}
     assert all(f["note"].strip() for f in data()["findings"])
     assert "conflict" in kinds  # the page is not only the detector's mistakes
+
+
+def _changed() -> dict[str, Any]:
+    finding: dict[str, Any] = next(
+        f for f in data()["findings"] if f["kind"] == "changed-between-crawls"
+    )
+    return finding
+
+
+def test_a_change_between_crawls_is_published_from_two_crawls_of_one_page() -> None:
+    finding = _changed()
+    assert len({s["url"] for s in finding["sides"]}) == 1
+    first, last = finding["sides"][0], finding["sides"][-1]
+    assert max(first["snapshots"]) < min(last["snapshots"])  # the old wording, then the new
+    assert "changed-between-crawls" in load_builder().KINDS
+
+
+@pytest.mark.parametrize(
+    ("tamper", "message"),
+    [
+        (
+            lambda f: f["sides"][1].update(url=f["sides"][0]["url"].replace("agents", "x")),
+            "one page",
+        ),
+        (lambda f: f["sides"][1].update(snapshots=f["sides"][0]["snapshots"]), "later crawl"),
+        (lambda f: f["sides"].pop(), "two crawls"),
+    ],
+)
+def test_a_change_between_crawls_must_really_be_one_page_changing_over_time(
+    tamper: Any, message: str
+) -> None:
+    builder = load_builder()
+    tampered = copy.deepcopy(data())
+    tamper(next(f for f in tampered["findings"] if f["kind"] == "changed-between-crawls"))
+    with pytest.raises(ValueError, match=message):
+        builder.build(tampered, ROOT / "snapshots")
+
+
+def test_the_overview_page_is_a_named_side_of_the_peer_cap_finding() -> None:
+    peer = next(f for f in data()["findings"] if f["id"] == "peer-cap")
+    urls = {s["url"] for s in peer["sides"]}
+    assert "https://docs.reppo.ai/api/eval/overview.md" in urls
