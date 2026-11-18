@@ -130,6 +130,12 @@ def test_the_page_scripts_make_no_network_calls_and_write_no_html() -> None:
     assert {p.name for p in sources} >= {"main.ts", "hero.ts", "demo.ts", "verify.ts"}
     for path in sources:
         code = path.read_text(encoding="utf-8")
+        if path.name == "verify.ts":
+            # The one allowed call (2026-11-18): the full replay button posts the receipt to this
+            # site's own read-only replay function, and nowhere else.
+            assert code.count("fetch(") == 1, "verify.ts may make exactly one request"
+            assert 'fetch("/api/replay",' in code, "verify.ts may call only /api/replay"
+            code = code.replace('fetch("/api/replay",', "")
         for banned in ("fetch(", "XMLHttpRequest", "sendBeacon", "WebSocket", "innerHTML", "eval("):
             assert banned not in code, f"{path.name} uses {banned}"
 

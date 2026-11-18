@@ -20,6 +20,8 @@ Last reconciled with the code on 2026-11-15.
 | Sponsor doc hosts (`docs.openserv.ai`, `docs.reppo.ai`, `eval.reppo.xyz`) | Trusted only to the extent the allow-list names them. A page they serve can still be wrong or hostile text. |
 | SERV Reasoning | Called for every extraction, detection and answer. Its outputs are proposals; our code verifies quotes. A contested answer's values are kept only if a verified notice quotes them, or, as a weaker fallback (`answer-v3`, marked basis "page"), if each number is written in the page it cites and two pages differ; the fallback does not prove the numbers are the same fact. |
 | Reppo | Its verdicts are a second opinion we report, never an input to a cut. Everything sent is public, and goes only from a file a person reviewed (SHA-256 confirmed). |
+| A receipt posted to the hosted replay (`/api/replay`, 2026-11-18) | **Untrusted input.** Capped at 256 KB, parsed as JSON only, never a path: it can only name a corpus hash, and only the two stores pinned in `currant.replay_api.HOSTED` exist. Replay recomputes everything from the store. |
+| The hosted replay's code and stores | Trusted as far as Vercel and GitHub are: the function installs Currant at the commit pinned in `site/requirements.txt`, and each store is opened read-only only after its bytes match the SHA-256 pinned in the code. |
 | `manifest.json` and everything in it | Untrusted on read: a path from a manifest is resolved inside the snapshot directory before it is opened, hashed or deleted. |
 
 ## Credentials
@@ -90,8 +92,20 @@ string is committed. `.claude/settings.json` denies Claude's Read tool on `.env`
   (`--rate-limit`, default 30 a minute), and a request with a wrong token does not use up the
   budget. Each guard has a test and a mutant in `scripts/mutation_check.py`.
 
+- **Hosted replay is read-only and default-deny (2026-11-18).** `site/api/replay.py` holds no key
+  and no secret. A store is chosen by the receipt's corpus hash from a fixed table, hashed against
+  its pin before use, and opened with SQLite `mode=ro&immutable=1`, so no request (or bug) can
+  write it. An unknown corpus, a store whose hash moved, or any unexpected error is UNKNOWN, never
+  REPLAYED. A body over 256 KB is refused before it is read. Receipts are not logged (they hold the
+  caller's question). Each guard has a test in `tests/test_replay_api.py`.
+
 ## Not defended, be explicit
 
+- **The hosted replay is only as honest as its host.** Vercel and GitHub are trusted to run the
+  pinned commit with the committed stores; a compromised deployment could answer REPLAYED for
+  anything. The answer is a convenience, not a proof: anyone can run `currant replay` themselves on
+  the same committed store and get the same verdict. No rate limit beyond Vercel's own, so the
+  endpoint can be made to spend function time.
 - **Crawl-diff trusts our own snapshots for order (2026-11-15).** A `crawl_diff` supersession
   needs no ordering quote: the order is that our crawler saw the old value on an earlier snapshot
   date and the new value on a later one. The database still requires both claim quotes verbatim

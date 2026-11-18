@@ -127,6 +127,17 @@ jobs:
       # in the cli/ package / live_* scripts, no skipped tests or suppressed type/lint failures.
       - run: uv run python -m currant.guardrails
 
+  replay-pin:
+    # The hosted replay installs Currant at the commit pinned in site/requirements.txt; fail when
+    # src/currant has moved past it, so the deployed code is the code tested here.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - run: python3 scripts/check_replay_pin.py
+
   site:
     # The landing site deploys to Vercel; a broken page or type error must fail here first.
     runs-on: ubuntu-latest

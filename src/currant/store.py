@@ -230,6 +230,29 @@ class ClaimStore:
             self.conn.execute("PRAGMA journal_mode = WAL")
         self._open_or_create()
 
+    @classmethod
+    def open_readonly(cls, path: Path | str) -> ClaimStore:
+        """Open an existing store so that nothing can write to it, for the hosted replay.
+
+        SQLite's `mode=ro&immutable=1`: no writes, no journal, no WAL switch, and no store is
+        ever created (a missing file raises, an empty one is a schema mismatch). Every write,
+        including a bug's, fails with `sqlite3.OperationalError`."""
+        store = cls.__new__(cls)  # every attribute __init__ sets is set here (a test checks)
+        store._now = utc_now
+        uri = Path(path).resolve().as_uri() + "?mode=ro&immutable=1"
+        store.conn = sqlite3.connect(uri, uri=True)
+        try:
+            store.conn.row_factory = sqlite3.Row
+            version = store.conn.execute("PRAGMA user_version").fetchone()[0]
+            if version != SCHEMA_VERSION:
+                raise SchemaMismatch(
+                    f"store has schema version {version}, this code expects {SCHEMA_VERSION}"
+                )
+        except BaseException:
+            store.conn.close()  # a corrupt or foreign file must not leave the connection open
+            raise
+        return store
+
     # --- lifecycle ---------------------------------------------------------------------
 
     def _open_or_create(self) -> None:

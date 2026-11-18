@@ -59,7 +59,14 @@
               <button type="button" class="btn ghost" id="reset">Reload the real receipt</button>
             </div>
             <p class="result" id="verdict" aria-live="polite"></p>
-            <p class="cap">This checks the context against the receipt only. Re-deriving the context from the pages and the claim store, and checking the receipt id against its body, is what <code>currant replay</code> adds.</p>
+            <p class="cap">This checks the context against the receipt only, in your browser. The full check below does what <code>currant replay</code> does.</p>
+            <p class="receipt-label">Full replay on the server</p>
+            <div class="row">
+              <button type="button" class="btn" id="replay">Replay this receipt on the server</button>
+            </div>
+            <p class="result" id="replay-verdict" aria-live="polite"></p>
+            <ul class="replay-problems" id="replay-problems"></ul>
+            <p class="cap">Sends the receipt (not the context) to <code>/api/replay</code>, which runs <code>currant replay</code> against a read-only copy of the committed store for that corpus: it checks the receipt id against its body, the runs and pages it names, and re-grounds the pages to recompute the actions and the context hash. Nothing is stored. Only the two committed example corpora are hosted; any other receipt comes back UNKNOWN, not passed.</p>
           </div>
         </aside>
       </div>

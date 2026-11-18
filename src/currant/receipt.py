@@ -30,7 +30,7 @@ from currant.ground import Grounded, Retrieved, ground
 from currant.store import ClaimStore, StoreError
 
 RECEIPT_VERSION = 1
-_REQUIRED = (
+REQUIRED_FIELDS = (
     "receipt_version",
     "receipt_id",
     "question",
@@ -108,7 +108,7 @@ def replay(store: ClaimStore, receipt: object) -> ReplayResult:
     result = ReplayResult()
     if not isinstance(receipt, dict):
         return _fail(result, "the receipt is not a JSON object")
-    missing = [key for key in _REQUIRED if key not in receipt]
+    missing = [key for key in REQUIRED_FIELDS if key not in receipt]
     if missing:
         return _fail(result, f"missing fields: {', '.join(missing)}")
     if receipt["receipt_version"] != RECEIPT_VERSION:

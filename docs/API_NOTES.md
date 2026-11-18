@@ -355,6 +355,23 @@ not been observed. Behaviour it relies on, from the SERV measurements above: a s
 `finish_reason: content_filter` (passed back unchanged); `serv_prompt_guard` is requested by adding
 the tool. The proxy does not retry, so a timeout is a 504 `upstream_unknown`. Streaming is refused.
 
+## The hosted receipt replay (our own endpoint, 2026-11-18)
+
+`POST /api/replay` on the site (a Vercel Python function, `site/api/replay.py` over
+`currant.replay_api.handle`). Body: a receipt as JSON. Reply: JSON with `verdict`
+(`REPLAYED`, `FAILED` or `UNKNOWN`), `problems`, `context_sha256`, `store` and the code version.
+Every reply carries a `request_id` that the server's log line also carries.
+Statuses: 200 for any decided or undecided replay, 400 for a body that is not a JSON object
+(including JSON nested too deep to parse), 411 without a Content-Length, 413 over 256 KB, 405 for
+anything but POST, 500 (verdict UNKNOWN) for an unexpected error. Every reply is JSON. It is
+synchronous and read-only, so it is safe to retry. A client timeout (the page waits 20 s; the
+function is capped at 15 s) is UNKNOWN, never a failure.
+
+**Measured locally only** (2026-11-18): the real adapter behind a local HTTP server, driven from
+the verify page, returned REPLAYED for `examples/real/receipt.json`, FAILED with 4 reasons for a
+copy with its mode changed, and UNKNOWN for an unhosted corpus. Not yet measured on Vercel: cold
+start, memory, and whether `includeFiles` ships `api/_stores/` (to check on the first deploy).
+
 ## Reppo Evaluation API
 
 Base URL `https://eval.reppo.xyz/api/v1`, `Authorization: Bearer <key>`. The key is read from

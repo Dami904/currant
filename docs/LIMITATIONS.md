@@ -335,6 +335,20 @@ in issue #1) to `aefbb02f85d2a1c57284da499eaba50049483487bc6840eea3b42ef78f7a67d
   routes are `ship`, `review` and `block` (the old `revise` is gone); the loop asks for a new
   proposal only on `review`. Re-grounding is left to the `propose` callback; no command runs it live.
 
+## The hosted replay
+
+- **Two corpora only.** `/api/replay` can replay receipts built on the committed example stores
+  (`examples/real`, `examples/demo`). Any other receipt is UNKNOWN; replay it with `currant
+  replay` where its store is.
+- **The pin must be moved by hand.** The function installs Currant at the commit pinned in
+  `site/requirements.txt`; a change to the replay code is live only after that pin is updated,
+  pushed and deployed (`docs/DEPLOYING.md`). `scripts/check_replay_pin.py` (a CI job) fails when
+  `src/currant` has moved past the pin.
+- **The page's handling of a timeout is checked by reading its source,** not by running it: there
+  is no browser test runner. A test asserts the network-error branch says UNKNOWN and never
+  FAILED, and that REPLAYED is trusted only from a 200.
+- **Not yet run on Vercel** at the time of writing; see `docs/API_NOTES.md`.
+
 ## The proxy and the receipt viewer
 
 - **Run live only twice.** Two real questions through it succeeded against the live SERV API (see

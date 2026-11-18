@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/replay.py": {
+      "maxDuration": 15,
+      "memory": 512,
+      "includeFiles": "api/_stores/**"
+    }
+  }
+}
