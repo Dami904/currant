@@ -1,3 +1,3 @@
 # The hosted replay (api/replay.py) installs Currant at one public commit, so the code it runs
 # is named and readable. Update the pin when the replay code changes (a test checks its shape).
-currant @ git+https://github.com/Dami904/currant@6908426a3f08f99e90afb96960a16e63266419c1
+currant @ git+https://github.com/Dami904/currant@f08b24699fbd52da973f1400392e8e8ff355a919
