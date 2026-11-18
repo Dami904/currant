@@ -218,6 +218,128 @@ retries are acceptable for them, but must be logged with the request id.
   (the response carries no guard outcome, as above), behaviour on long pages, and rate limits
   per model.
 
+### Reasoning-graph features: Multipath and Kronos (2026-11-18)
+
+SERV Reasoning is built on BRAID: it turns the system prompt into a bounded reasoning graph (a
+Mermaid flowchart of steps, branches and checks) that a solver model follows. Two model-id suffixes
+change how that graph is built: `-serv-multipath` (a separate transformation for prompts with
+branches and competing rules) and `-serv-kronos` (audit and repair of the generated graph before
+inference); `-serv-kronos-multipath` combines them. SERV caches the generated graph per
+organization, keyed on the system prompt, transformation and prompt version, for 30 days.
+Currant's system prompts are fixed strings with the page data in the user message, so each graph
+is generated once per prompt version.
+
+Probe `scripts/live_serv_features.py`, run `results/smoke/20261118T103312Z-serv-features.json`:
+the real `relate-v1` and `answer-v3` system prompts and strict schemas, `serv_prompt_guard` on,
+invented pages (an explicit replacement, an unordered conflict, a look-alike pair, an injection),
+base model `gpt-6-luna`, one call per case.
+
+| Variant | Accepted | Relations as expected | First call (relate) | Repeat | Relate prompt tokens |
+| --- | --- | --- | --- | --- | --- |
+| plain | yes | 3 of 3 | 5.1 s | 3.7 s | 764 |
+| `-serv-multipath` | yes | 3 of 3 | 7.4 s | 4.1 s | 421 |
+| `-serv-kronos` | yes | 3 of 3 | 54.4 s | 4.8 s | 865 |
+| `-serv-kronos-multipath` | yes | 3 of 3 | 38.0 s | 3.8 s | 823 |
+
+- **All suffixes work on `gpt-6-luna`** with a strict `json_schema` and the guard in one request.
+  The response's `model` field names only the base model, and no header or body field says which
+  feature ran or whether the graph came from the cache. Only latency and token counts show it.
+- **Kronos costs 35 to 50 s on the first call for a prompt** (audit and repair), then about 4 s
+  once the audited graph is cached. For a batch run that is a one-off cost per prompt version.
+- **Multipath's graph is much smaller:** 421 prompt tokens against 764 for the plain graph on the
+  same request, so input cost per call drops by about 45%.
+- **Multipath once filled an inconsistent field:** `relation: contradicts` with
+  `basis: explicit_text`. `detect.decide` ignores `basis` for a contradiction, so it is harmless,
+  but it shows the schema alone does not keep fields consistent; our code does.
+- **The guard block changed shape.** The injection page was blocked by every variant, but the
+  reply is now `finish_reason: "stop"`, `content: null`, `refusal: "I can't share that."`, all
+  token counts 0 (on 2026-11-05 it was `finish_reason: "content_filter"`). `ServClient` treated
+  that as the transient "200 with no content" fault, so a blocked page was retried and then
+  failed instead of being counted as blocked. It now normalises a refusal with zero tokens to a
+  guard block, and treats a refusal that used tokens as a final model refusal (not retried).
+  This is the likely explanation of the 2026-11-06 "empty 200 responses" below, whose `refusal`
+  field was never captured; that is a hypothesis, not a measurement.
+
+### Console graphs (2026-11-18)
+
+The SERV console has a "New graph" builder that turns a system prompt into an editable set of
+steps (nodes can pin their own model; script nodes run without one). It has no documentation page
+yet. A graph was built from the exact `relate-v1` system prompt with `gpt-6-luna`. Measured by
+hand-run requests (request ids in the session log, not saved as a smoke file):
+
+- **A graph is called by its id as the model** (`"model": "gr_…"`). An unfinalised graph answers
+  404 `Graph not found.`; `metadata.graph_id` or an `X-OpenServ-Graph` header are ignored (the
+  request runs on the base model); `graph:<id>` is 400 `No pricing configured`.
+- **The graph's input is the first system message** (or an `instructions` field), not the user
+  message: a user message alone is 400 `Graph input is required`, and our system prompt plus the
+  page data as a user message is 502 `Graph run failed`. The graph keeps its own copy of the
+  prompt, so `ServClient` sends only the data.
+- **It returned `relate-v1`'s JSON shape without a `response_format`**, but with one it still
+  returned `basis: null`, which the strict schema forbids: the schema is not enforced inside a
+  graph. `detect.decide` downgrades any supersession without a valid basis.
+- **`serv_prompt_guard` does not run inside a graph.** The injection page was answered, not
+  blocked (the model was not fooled). Because crawled text may reach a model only behind the
+  guard, `ServClient` first screens graph input with a separate guarded call on `gpt-6-luna`; a
+  blocked text never reaches the graph (tested, and a mutant checks it). Live, the injection page
+  was blocked by the screen in 1.2 s.
+- **Cost and speed on real dev pairs** (means from the raw logs, median latency): the graph used
+  8,437 prompt and 2,622 completion tokens per pair in 19.2 s, against 3,653 / 111 in 3.2 s for
+  plain `gpt-6-luna` (`-serv-multipath` 2,354 / 190 in 4.4 s; `-serv-kronos` 2,732 / 142 in
+  3.5 s). The guard screening call comes on top. `estimated_cost` prices the graph at
+  `gpt-6-luna` rates, so treat it as a lower bound.
+- **Reproducibility:** the graph's steps live in the console and can be edited there without its
+  id changing, so a run records the id but cannot prove which version of the graph ran.
+
+### Detection with SERV's graph features, dev items (2026-11-18)
+
+109 dev items, the same extracted claims for every row (extraction from the cache), only the
+relation model changed, detector `detect-v4`, one run each. Files
+`results/items/dev-v5-relate-<model>.jsonl`.
+
+| Relation model | Precision | Recall | Conflicts flagged | False cuts on 54 clean |
+| --- | --- | --- | --- | --- |
+| `gpt-6-luna` | 1.000 | **0.892** (33/37) | 0.722 (13/18) | 0 |
+| console graph (`relate-v1`) | 1.000 | 0.865 (32/37) | **0.778** (14/18) | 0 |
+| `-serv-kronos` | 1.000 | 0.811 (30/37) | 0.667 (12/18) | 0 |
+| `-serv-kronos-multipath` | 0.968 | 0.811 (30/37) | 0.611 (11/18) | 0 |
+| `-serv-multipath` | 1.000 | 0.703 (26/37) | 0.556 (10/18) | 0 |
+
+- No graph feature beat the plain model on recall. The console graph flagged one more conflict
+  and found one fewer replacement; with 37 and 18 items that difference is within noise.
+- Precision held at 1.000 for every variant but one, because our code, not the model, decides a
+  cut. The exception: Kronos + Multipath paired "PF enabled: 90%" with "PF disabled: 96%" (both
+  quotes verbatim, different conditions) and cut the wrong one.
+- That run also "superseded" a value with the same value in other words ("on every request" vs
+  "every request"). `detect-v3` refused only equal numbers; `detect-v4` also refuses equal text
+  values, which removed that wrong cut. The baseline's and the graph's scores did not change.
+- Run-to-run variation of the relation step was not measured; each row is one run.
+- Rechecked after `same_words` stopped matching values with digits: the four suffix rows
+  reproduce exactly from the cache. The console-graph row was not re-run: the graph's cache key
+  now names the screening setup, so a rerun would make every graph call again.
+
+### Answers with SERV's graph features, dev items (2026-11-18)
+
+`run-arms --answer-model` changes only the answering model; extraction and detection stay on
+`gpt-6-luna` (all from the cache). Arms `baseline`, `pull`, `annotate`; 1 and 2 retrieved pages;
+one answer per arm; `answer-v3`; files `results/arms/dev-v4-answer-<model>.jsonl`. Correct
+answers with the `pull` arm (and the abstain rate where it matters):
+
+| Stratum (items) | k | `gpt-6-luna` | `-serv-multipath` | `-serv-kronos` |
+| --- | --- | --- | --- | --- |
+| clean (54) | 1 | 90.0% (abstain 5.6%) | 70.0% (abstain 18.5%) | 90.0% (abstain 40.7%) |
+| clean (54) | 2 | 100% (abstain 3.7%) | 100% (abstain 13.0%) | 100% (abstain 33.3%) |
+| only the stale page, ordered (26) | 1 | 84.6% | 73.1% | 84.6% |
+| only the stale page, unordered (14) | 1 | 64.3% | 50.0% | 64.3% |
+| only the update (11) | 1 | 100% | 81.8% | 100% |
+| both pages, unordered (18) | 2 | 55.6% | 72.2% | 72.2% |
+| both pages, ordered (36) | 2 | 91.7% | 91.7% | 97.2% |
+
+Without Currant (`baseline` arm) every variant scored 0% when only the stale page was retrieved.
+Multipath answered worse almost everywhere. Kronos matched or beat plain on the conflict strata,
+but abstained on a third or more of clean questions, which the clean score does not count
+against it; its gain on unordered conflicts is the same habit of abstaining. Neither replaces
+plain `gpt-6-luna` for answers. One run each; on 14 to 26 items one answer is 4 to 7 points.
+
 ## The grounding proxy (our own server, not an external API)
 
 `currant serve` forwards chat requests to SERV `/chat/completions` after grounding them.

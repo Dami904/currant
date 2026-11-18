@@ -1,0 +1,23 @@
+{
+  "answer_model": "gpt-6-luna",
+  "answer_prompt": "answer-v3",
+  "arms": [
+    "baseline",
+    "pull",
+    "annotate"
+  ],
+  "detector": "detect-v4",
+  "extract_prompt": "extract-v1",
+  "ks": [
+    1,
+    2
+  ],
+  "model": "gpt-6-luna",
+  "raw_log": "dev-v4-answer-gpt-6-luna.jsonl.raw.jsonl",
+  "relate_prompt": "relate-v1",
+  "repeats": 1,
+  "retries": 2,
+  "retrieval": "bm25-fts5-v1",
+  "seed": 0,
+  "split": "dev"
+}

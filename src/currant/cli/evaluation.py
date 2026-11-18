@@ -229,14 +229,24 @@ def cmd_run_arms(args: argparse.Namespace) -> int:
         caching = open_model(http, key, args, raw_log)
         if caching is None:
             return 2
-        with caching as model:
+        answer_caching = None
+        if args.answer_model is not None:
+            answer_args = argparse.Namespace(cache=args.cache, model=args.answer_model)
+            answer_caching = open_model(http, key, answer_args, raw_log)
+            if answer_caching is None:
+                return 2
+        with caching as model, ExitStack() as stack:
+            answerer = model if answer_caching is None else stack.enter_context(answer_caching)
 
             def progress(number: int, total: int, item_id: str) -> None:
                 cache = f"cache {model.hits} hit / {model.misses} miss"
+                if answerer is not model:
+                    cache += f"; answers {answerer.hits} hit / {answerer.misses} miss"
                 print(f"  {number}/{total} {item_id[:12]}  {cache}", flush=True)
 
             meta = {
                 "model": args.model,
+                "answer_model": args.answer_model or args.model,
                 "split": args.split,
                 "extract_prompt": EXTRACT_PROMPT,
                 "relate_prompt": RELATE_PROMPT,
@@ -252,7 +262,7 @@ def cmd_run_arms(args: argparse.Namespace) -> int:
             }
             try:
                 ran = run_arms(
-                    items, model, model, out, limit=args.limit, ks=args.ks, arms=args.arms,
+                    items, model, answerer, out, limit=args.limit, ks=args.ks, arms=args.arms,
                     repeats=args.repeats, seed=args.seed, progress=progress, meta=meta,
                     oracle=None if hints is None else hints.get,
                 )  # fmt: skip

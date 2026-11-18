@@ -51,6 +51,29 @@ model, and the guards bound what a wrong model can do (verbatim evidence, same k
 value), not whether it pairs the right attributes.** Dev items only; the test split was not run
 with the second model.
 
+## SERV's reasoning-graph features (dev only, 2026-11-18)
+
+Multipath, Kronos and a console graph built from `relate-v1` were measured on the 109 dev items
+(details in [API_NOTES](API_NOTES.md#detection-with-servs-graph-features-dev-items-2026-11-18)).
+None is the default, for these reasons:
+
+- **Detection:** plain `gpt-6-luna` had the best recall (0.892). The console graph flagged one
+  more conflict (14 of 18) and found one fewer replacement; the suffixes were worse. The
+  Kronos + Multipath combination made one wrong cut (verbatim quotes, the wrong condition paired),
+  which the verbatim checks cannot catch: the same limit as the second detector model above.
+- **Answers:** with `-serv-multipath` as the answering model, correct answers fell in every
+  stratum (clean items at one page: 90.0% to 70.0%). `-serv-kronos` scored like plain or better
+  on contested strata, but by abstaining far more: 40.7% of clean, answerable questions at one
+  page came back `unknown`, against 5.6%. `results/arms/dev-v4-answer-*.jsonl`.
+- **A console graph is not reproducible from the repo.** Its steps live in the SERV console and
+  can be edited without its id changing; a run records the id only. Graph ids are accepted for
+  relation detection only (`--relate-model`); a graph client refuses any prompt other than the
+  first it served.
+- **The guard does not run inside a graph,** so every graph input is screened by a separate
+  guarded call first. That screen uses SERV's guard and fails open like it.
+- **One run each.** Run-to-run variation of these steps was not measured; differences of one or
+  two items out of 18 or 37 are within noise.
+
 ## A third documentation site (2026-11-15)
 
 The Kite docs (`docs.gokite.ai`, the `kite` corpus in `corpora.toml`) were crawled once: 76 pages

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
@@ -111,6 +112,73 @@ def test_a_guard_block_is_cached_like_any_other_reply(tmp_path: Path) -> None:
     with CachingModel(inner, tmp_path / "c.db") as model:
         assert ask(model).guard_blocked and ask(model).guard_blocked
         assert inner.calls == 1  # not retried against the live guard
+
+
+def test_a_refusal_shaped_guard_block_is_cached_and_served_as_a_block(tmp_path: Path) -> None:
+    # ServClient normalises SERV's 2026-11-18 refusal shape to content None + content_filter.
+    class Refusing(Counting):
+        def complete(self, *args: Any, **kwargs: Any) -> ModelReply:
+            self.calls += 1
+            return ModelReply(None, "content_filter", 0, 0, 3, "r")
+
+    inner = Refusing()
+    with CachingModel(inner, tmp_path / "c.db") as model:
+        assert ask(model).guard_blocked and ask(model).guard_blocked
+        assert inner.calls == 1
+
+
+def test_a_graph_clients_screened_block_is_cached_and_replayed(tmp_path: Path) -> None:
+    import httpx
+
+    from currant.config import Secret
+    from currant.serv import ServClient
+
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(json.loads(request.content)["model"])
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {"message": {"content": None, "refusal": "no"}, "finish_reason": "stop"}
+                ],
+                "usage": {"prompt_tokens": 0, "completion_tokens": 0},
+            },
+        )
+
+    http = httpx.Client(transport=httpx.MockTransport(handler))
+    graph = ServClient(http, Secret("SERV_API_KEY", "k"), model="gr_0123456789abcdef")
+    with CachingModel(graph, tmp_path / "c.db") as model:
+        assert ask(model).guard_blocked and ask(model).guard_blocked
+    assert len(calls) == 1 and not calls[0].startswith("gr_")  # screened once, graph never
+
+
+def test_the_inner_models_cache_tag_is_part_of_the_key(tmp_path: Path) -> None:
+    # A graph client's tag adds its screening setup: a changed screen gets fresh replies.
+    class Tagged(Counting):
+        def __init__(self, tag: str) -> None:
+            super().__init__()
+            self.cache_tag = tag
+
+    path = tmp_path / "c.db"
+    with CachingModel(Tagged("gr_x|screen:aaa"), path) as model:
+        ask(model)
+    inner = Tagged("gr_x|screen:bbb")
+    with CachingModel(inner, path) as again:
+        ask(again)
+    assert inner.calls == 1
+
+
+def test_the_raw_log_keeps_a_graph_replys_screening_request_id(tmp_path: Path) -> None:
+    class Screened(Counting):
+        def complete(self, *args: Any, **kwargs: Any) -> ModelReply:
+            return ModelReply("{}", "stop", 10, 5, 7, "graph-id", screen_request_id="screen-id")
+
+    log = tmp_path / "raw.jsonl"
+    with CachingModel(Screened(), tmp_path / "c.db", raw_log=log) as model:
+        ask(model)
+    assert '"screen_request_id": "screen-id"' in log.read_text(encoding="utf-8")
 
 
 def test_the_cache_never_stores_a_secret(tmp_path: Path) -> None:

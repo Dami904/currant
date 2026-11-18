@@ -37,7 +37,8 @@ from currant.store_schema import NUMERIC_VALUE_TYPES
 PROMPT_VERSION = "relate-v1"
 # The code that turns a model answer into a relation. Bumped when a rule changes, so a relate run
 # records which rules made it (v2: line-context pairing, unit-compatible types, one value each).
-DETECTOR_VERSION = "detect-v3"  # v3: two claims with the same number are never related
+# v3: two claims with the same number are never related; v4: nor two with the same text value
+DETECTOR_VERSION = "detect-v4"
 SCHEMA_NAME = "claim_relation"
 MAX_PAGE_CHARS = 9000
 COMPETING_STANCES = ("current", "historical")
@@ -379,6 +380,17 @@ def same_kind(a: ClaimRow, b: ClaimRow) -> bool:
     return unit_a is not None and unit_a == unit_b
 
 
+def same_words(a: ClaimRow, b: ClaimRow) -> bool:
+    """Two text values that say the same thing in the same words, ignoring case, punctuation and
+    filler words ("on every request" and "Every request."). An empty value, or one with a digit,
+    never matches."""
+    if any(ch.isdigit() for ch in a.value_text + b.value_text):
+        return False  # words drop digits: "every 10 requests" would equal "every 20 requests"
+    words_a = {w.casefold().rstrip("._-") for w in _WORD.findall(a.value_text)} - _STOP
+    words_b = {w.casefold().rstrip("._-") for w in _WORD.findall(b.value_text)} - _STOP
+    return bool(words_a) and words_a == words_b
+
+
 def _different_kinds(a: ClaimRow, b: ClaimRow) -> Decision:
     # Not CONTESTED: our own code has just shown the two values cannot be the same fact, so a
     # notice saying the sources disagree about it would be false, and it makes the answering
@@ -409,7 +421,7 @@ def decide(answer: dict[str, Any], a: ClaimRow, b: ClaimRow, text_a: str, text_b
         a.value_number is not None
         and b.value_number is not None
         and math.isclose(a.value_number, b.value_number)
-    ):
+    ) or (a.value_number is None and b.value_number is None and same_words(a, b)):
         # Two wordings of one number ("1 at a time", "only one"): nothing changed, so there is
         # nothing to retire and nothing to contest, whatever the model says.
         return Decision(

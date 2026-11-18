@@ -93,6 +93,8 @@ class CachingModel:
             raw_log.parent.mkdir(parents=True, exist_ok=True)  # cannot: refuse to start
             self._repair_tail(raw_log)
         self.model: str = inner.model
+        # What the key names besides the request: the model, or a graph client's fuller tag.
+        self._tag: str = getattr(inner, "cache_tag", inner.model)
         self._db = sqlite3.connect(str(path))
         self._db.row_factory = sqlite3.Row
         self._db.executescript(_DDL)
@@ -111,7 +113,7 @@ class CachingModel:
         max_completion_tokens: int | None = None,
     ) -> ModelReply:
         key = cache_key(
-            self.model, system, user, schema, schema_name, guard, shadow_hint, max_completion_tokens
+            self._tag, system, user, schema, schema_name, guard, shadow_hint, max_completion_tokens
         )
         row = self._db.execute("SELECT * FROM replies WHERE cache_key = ?", (key,)).fetchone()
         if row is not None:
@@ -165,6 +167,8 @@ class CachingModel:
                 "request_id": reply.request_id, "finish_reason": reply.finish_reason,
                 "prompt_tokens": reply.prompt_tokens, "completion_tokens": reply.completion_tokens,
                 "latency_ms": reply.latency_ms, "content": reply.content,
+                **({"screen_request_id": reply.screen_request_id}
+                   if reply.screen_request_id else {}),
             }
         )  # fmt: skip
 

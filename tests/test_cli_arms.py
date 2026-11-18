@@ -66,6 +66,48 @@ def test_run_then_score_arms_through_the_command_line(
     assert "baseline" in printed and "redact" in printed and "unpredicted" in printed
 
 
+def test_a_separate_answer_model_answers_and_only_answers(
+    evalset: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("SERV_API_KEY", "placeholder-key-for-tests")
+    inner = chat_handler(ArmsModel(), [])
+    models: dict[str, set[str]] = {"answer": set(), "pipeline": set()}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content)
+        role = (
+            "answer" if "You answer one question" in body["messages"][0]["content"] else "pipeline"
+        )
+        models[role].add(body["model"])
+        response: httpx.Response = inner(request)
+        return response
+
+    patch_network(monkeypatch, httpx.MockTransport(handler))
+    out = tmp_path / "arms.jsonl"
+    feature = "gpt-6-luna-serv-multipath"
+    args = arms_args(
+        evalset, tmp_path, out, "--ks", "2", "--arms", "baseline", "--answer-model", feature
+    )
+    assert cli.main(args) == 0
+    assert models == {"answer": {feature}, "pipeline": {"gpt-6-luna"}}
+    meta = json.loads(out.with_name(out.name + ".meta.json").read_text(encoding="utf-8"))
+    assert meta["answer_model"] == feature and meta["model"] == "gpt-6-luna"
+
+
+@pytest.mark.parametrize("flag", ["--answer-model", "--model"])
+def test_a_console_graph_is_refused_for_anything_but_relation_detection(
+    evalset: Path, tmp_path: Path, flag: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # A graph holds the one prompt it was built from (relate-v1); answers and extraction use
+    # other prompts, and the graph would answer them in relate's shape without an error.
+    args = arms_args(evalset, tmp_path, tmp_path / "a.jsonl", flag, "gr_0123456789abcdef")
+    with pytest.raises(SystemExit) as raised:
+        cli.main(args)
+    assert raised.value.code == 2 and "relation detection only" in capsys.readouterr().err
+
+
 def test_run_arms_refuses_unfrozen_test_items(
     evalset: Path,
     tmp_path: Path,

@@ -183,6 +183,29 @@ def test_two_claims_with_the_same_number_are_never_a_supersession_or_a_conflict(
         assert "same value" in decision.reason
 
 
+def test_two_claims_with_the_same_text_value_are_never_a_supersession_or_a_conflict() -> None:
+    # Seen on dev with gpt-6-luna-serv-kronos-multipath (2026-11-18): "the requested model still
+    # runs on every request" was "superseded" by one that "runs every request". Same value.
+    ctx = Ctx(TEXT_OLD, TEXT_EXPLICIT)
+    old = replace(ctx.old, value_number=None, value_text="on every request", value_type="text")
+    new = replace(ctx.new, value_number=None, value_text="Every request.", value_type="text")
+    for answer in (explicit_answer(), {"relation": "contradicts"}):
+        decision = decide(answer, old, new, ctx.old_text, ctx.new_text)
+        assert (decision.kind, decision.downgraded) == ("unrelated", True)
+        assert "same value" in decision.reason
+    # A value with digits is never judged by its words: "every 10 requests" is not "every 20".
+    tens = replace(old, value_text="every 10 requests")
+    twenties = replace(new, value_text="every 20 requests")
+    assert decide({"relation": "contradicts"}, tens, twenties, ctx.old_text, ctx.new_text).kind == (
+        "contradicts"
+    )
+    # Different words are still compared normally.
+    changed = replace(new, value_text="on alternate requests")
+    assert decide({"relation": "contradicts"}, old, changed, ctx.old_text, ctx.new_text).kind == (
+        "contradicts"
+    )
+
+
 def test_the_model_cannot_choose_the_direction() -> None:
     ctx = Ctx(TEXT_OLD, TEXT_EXPLICIT)
     lying = explicit_answer(newer="a", explanation="page A is newer")  # extra field is ignored

@@ -9,7 +9,7 @@
 When the documentation disagrees with itself, Currant checks which claim won.
 
 [![CI](https://github.com/Dami904/currant/actions/workflows/ci.yml/badge.svg)](https://github.com/Dami904/currant/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-1152%20passing-22C55E?style=flat)](#tested-not-claimed)
+[![Tests](https://img.shields.io/badge/tests-1173%20passing-22C55E?style=flat)](#tested-not-claimed)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live](https://img.shields.io/badge/live-currant--firewall.vercel.app-000000?style=flat)](https://currant-firewall.vercel.app)
 [![Python](https://img.shields.io/badge/python-3.12-1f1f23?style=flat)](pyproject.toml)
@@ -103,7 +103,7 @@ command line below.
 | **84.2%**         | right answers when only the outdated page was retrieved (0% without Currant), on 93 held-out items scored once after a public freeze              |
 | **0.857 / 0.828** | held-out precision and recall on those items; 0 cuts on 46 clean controls                                                                         |
 | **3**             | real conflicts found in Reppo's own docs, fix contributed upstream ([issue #11](https://github.com/Reppo-Labs/docs/issues/11), [PR #12](https://github.com/Reppo-Labs/docs/pull/12)) |
-| **1152**          | tests, all offline: a `conftest.py` makes any socket call fail                                                                                    |
+| **1173**          | tests, all offline: a `conftest.py` makes any socket call fail                                                                                    |
 
 Replay a receipt yourself, with no key and no network:
 
@@ -363,7 +363,7 @@ END;
 
 ## Tested, not claimed
 
-**1152 tests pass, all offline.** A `conftest.py` makes any socket call fail, so no test can reach
+**1173 tests pass, all offline.** A `conftest.py` makes any socket call fail, so no test can reach
 the network; every external API is exercised through `httpx` mock transports and scripted replies.
 Every guard ships with a test that fails when the guard is removed.
 
@@ -384,7 +384,7 @@ Every guard ships with a test that fails when the guard is removed.
 | Two equal values are never a supersession       | `test_two_claims_with_the_same_number_are_never_a_supersession_or_a_conflict` ([`test_detect.py`](tests/test_detect.py)) |
 | Blocking finds exactly the pairs all-pairs finds | `test_blocking_returns_exactly_the_all_pairs_result` (property test, 1,500 cases) ([`test_blocking.py`](tests/test_blocking.py)) |
 | The proxy denies data without its token          | `test_with_a_token_configured_data_routes_deny_by_default` ([`test_proxy_gate.py`](tests/test_proxy_gate.py)) |
-| Every named guard is caught when removed        | `scripts/mutation_check.py`: 34 of 34 mutants caught, run in CI |
+| Every named guard is caught when removed        | `scripts/mutation_check.py`: 40 of 40 mutants caught, run in CI |
 | A receipt built from real docs replays           | `currant replay examples/real/receipt.json` runs in CI ([`examples/real/`](examples/real/README.md)); the site's [receipt check](https://currant-firewall.vercel.app/verify.html) recomputes its hash in the browser |
 
 ### What we measured
@@ -546,7 +546,7 @@ compromised key allows is in [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md).
 - **Storage:** SQLite, with triggers that enforce the claim-store invariants; FTS5 for retrieval
 - **Model:** SERV Reasoning by OpenServ (`gpt-6-luna`) with `serv_prompt_guard`
 - **Verdicts:** Reppo Evaluation API
-- **Checks:** `ruff` · `mypy --strict` · `pytest` (1152 tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
+- **Checks:** `ruff` · `mypy --strict` · `pytest` (1173 tests) · `hatchling`; GitHub Actions runs each as its own job, with actions pinned to commit SHAs
 - **Site:** Vite · TypeScript · pnpm; no runtime dependencies, no external requests; hosted on Vercel
 
 ---

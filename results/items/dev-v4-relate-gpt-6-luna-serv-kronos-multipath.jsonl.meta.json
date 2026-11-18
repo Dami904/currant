@@ -1,0 +1,13 @@
+{
+  "detector": "detect-v3",
+  "extract_prompt": "extract-v1",
+  "max_pairs": 40,
+  "min_score": 0.3,
+  "model": "gpt-6-luna",
+  "raw_log": "dev-v4-relate-gpt-6-luna-serv-kronos-multipath.jsonl.raw.jsonl",
+  "relate_model": "gpt-6-luna-serv-kronos-multipath",
+  "relate_prompt": "relate-v1",
+  "retries": 2,
+  "split": "dev",
+  "top_k": 3
+}

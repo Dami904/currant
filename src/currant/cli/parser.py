@@ -31,7 +31,17 @@ from currant.harness.arms import (
     DEFAULT_KS,
     ORACLE_ARM,
 )
-from currant.serv import DEFAULT_MODEL, SERV_BASE
+from currant.serv import DEFAULT_MODEL, SERV_BASE, is_graph
+
+
+def non_graph_model(value: str) -> str:
+    """A model id for extraction or answers. A console graph (`gr_…`) holds the one prompt it was
+    built from (relate-v1), so it may serve relation detection only."""
+    if is_graph(value):
+        raise argparse.ArgumentTypeError(
+            f"{value} is a console graph: graphs are for relation detection only (--relate-model)"
+        )
+    return value
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -63,7 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
     extract.add_argument("--snapshot", type=Path, required=True, help="e.g. snapshots/2026-11-05")
     extract.add_argument("--db", type=Path, default=Path("data/currant.db"))
     extract.add_argument("--limit", type=positive_int, help="only the first N pages")
-    extract.add_argument("--model", default=DEFAULT_MODEL)
+    extract.add_argument("--model", default=DEFAULT_MODEL, type=non_graph_model)
     extract.add_argument(
         "--shadow",
         action="store_true",
@@ -153,7 +163,7 @@ def build_parser() -> argparse.ArgumentParser:
     runi.add_argument("--out", type=Path, help="predictions file (reuse it to resume)")
     runi.add_argument("--cache", type=Path, default=Path("data/llm_cache.db"))
     runi.add_argument("--limit", type=positive_int)
-    runi.add_argument("--model", default=DEFAULT_MODEL)
+    runi.add_argument("--model", default=DEFAULT_MODEL, type=non_graph_model)
     runi.add_argument(
         "--relate-model",
         help="a different model for relation detection only (extraction keeps --model)",
@@ -179,7 +189,13 @@ def build_parser() -> argparse.ArgumentParser:
     arms.add_argument("--out", type=Path, help="predictions file (reuse it to resume)")
     arms.add_argument("--cache", type=Path, default=Path("data/llm_cache.db"))
     arms.add_argument("--limit", type=positive_int)
-    arms.add_argument("--model", default=DEFAULT_MODEL)
+    arms.add_argument("--model", default=DEFAULT_MODEL, type=non_graph_model)
+    arms.add_argument(
+        "--answer-model",
+        type=non_graph_model,
+        help="a different model for the answers only (the pipeline keeps --model), e.g. a SERV "
+        "feature model such as gpt-6-luna-serv-multipath",
+    )
     arms.add_argument("--ks", type=int_list, default=DEFAULT_KS, help="retrieval depths, e.g. 1,2")
     arms.add_argument(
         "--arms",
@@ -294,7 +310,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--arm", choices=["redact", "annotate", "pull", "redact_pull"], default="pull"
     )
     prep.add_argument("--top-k", type=positive_int, default=2)
-    prep.add_argument("--model", default=DEFAULT_MODEL)
+    prep.add_argument("--model", default=DEFAULT_MODEL, type=non_graph_model)
     prep.add_argument("--cache", type=Path, default=Path("data/llm_cache.db"))
     prep.add_argument("--dotenv", type=Path, default=DEFAULT_DOTENV)
     subm = audit_sub.add_parser("submit", help="send the reviewed file to Reppo, one at a time")

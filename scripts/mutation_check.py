@@ -32,6 +32,48 @@ class Mutant:
 
 MUTANTS = (
     Mutant(
+        "serv: a graph client never serves a prompt other than its first",
+        "src/currant/serv.py",
+        "elif system != self._graph_system:",
+        "elif False:",
+        ("tests/test_serv.py",),
+    ),
+    Mutant(
+        "cli: a console graph may serve relation detection only",
+        "src/currant/cli/parser.py",
+        "    if is_graph(value):",
+        "    if False:",
+        ("tests/test_cli_arms.py",),
+    ),
+    Mutant(
+        "detect: two claims with the same text value are never related",
+        "src/currant/detect.py",
+        "and b.value_number is None and same_words(a, b)):",
+        "and False):",
+        ("tests/test_detect.py",),
+    ),
+    Mutant(
+        "serv: a graph never sees text the guard screening blocked",
+        "src/currant/serv.py",
+        "if screen.guard_blocked:",
+        "if False:",
+        ("tests/test_serv.py",),
+    ),
+    Mutant(
+        "serv: a refusal-shaped guard block is recognised as a guard block",
+        "src/currant/serv.py",
+        "if isinstance(refusal, str) and refusal.strip() and not (content and content.strip()):",
+        "if False:",
+        ("tests/test_serv.py",),
+    ),
+    Mutant(
+        "serv: a model refusal that consumed tokens is final, not retried",
+        "src/currant/serv.py",
+        "if prompt_tokens:",
+        "if False:",
+        ("tests/test_serv.py",),
+    ),
+    Mutant(
         "trigger: a claim's quote must be the document text at its span",
         "src/currant/store_schema.py",
         "WHERE {_SLICE} IS NOT NEW.quote;",
